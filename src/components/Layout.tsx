@@ -55,94 +55,109 @@ const Navbar = () => {
                       }
                       options={
                         <>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <BasicLink
-                                className={clsx(
-                                  'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                  [
-                                    active
-                                      ? 'bg-primary-500 text-neutral-50'
-                                      : 'text-neutral-200',
-                                  ]
+                          {session.user.role == 'admin' ? (
+                            <>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <BasicLink
+                                    className={clsx(
+                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
+                                      [
+                                        active
+                                          ? 'bg-primary-500 text-neutral-50'
+                                          : 'text-neutral-200',
+                                      ]
+                                    )}
+                                    href='/admin/dashboard'
+                                  >
+                                    <BsNewspaper
+                                      className={clsx([
+                                        active
+                                          ? 'text-white'
+                                          : 'text-primary-500',
+                                      ])}
+                                    />
+                                    Dashboard
+                                  </BasicLink>
                                 )}
-                                href='/profile'
-                              >
-                                <BsPersonCircle
-                                  className={clsx([
-                                    active ? 'text-white' : 'text-primary-500',
-                                  ])}
-                                />
-                                Profil
-                              </BasicLink>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <BasicLink
-                                className={clsx(
-                                  'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                  [
-                                    active
-                                      ? 'bg-primary-500 text-neutral-50'
-                                      : 'text-neutral-200',
-                                  ]
+                              </Menu.Item>
+                            </>
+                          ) : (
+                            <>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <BasicLink
+                                    className={clsx(
+                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
+                                      [
+                                        active
+                                          ? 'bg-primary-500 text-neutral-50'
+                                          : 'text-neutral-200',
+                                      ]
+                                    )}
+                                    href='/siswa/profil'
+                                  >
+                                    <BsPersonCircle
+                                      className={clsx([
+                                        active
+                                          ? 'text-white'
+                                          : 'text-primary-500',
+                                      ])}
+                                    />
+                                    Profil
+                                  </BasicLink>
                                 )}
-                                href='/ubah-password'
-                              >
-                                <BsLockFill
-                                  className={clsx([
-                                    active ? 'text-white' : 'text-primary-500',
-                                  ])}
-                                />
-                                Ubah Password
-                              </BasicLink>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <BasicLink
-                                className={clsx(
-                                  'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                  [
-                                    active
-                                      ? 'bg-primary-500 text-neutral-50'
-                                      : 'text-neutral-200',
-                                  ]
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <BasicLink
+                                    className={clsx(
+                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
+                                      [
+                                        active
+                                          ? 'bg-primary-500 text-neutral-50'
+                                          : 'text-neutral-200',
+                                      ]
+                                    )}
+                                    href='/siswa/ubah-password'
+                                  >
+                                    <BsLockFill
+                                      className={clsx([
+                                        active
+                                          ? 'text-white'
+                                          : 'text-primary-500',
+                                      ])}
+                                    />
+                                    Ubah Password
+                                  </BasicLink>
                                 )}
-                                href='/frs'
-                              >
-                                <BsNewspaper
-                                  className={clsx([
-                                    active ? 'text-white' : 'text-primary-500',
-                                  ])}
-                                />
-                                myFRS
-                              </BasicLink>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <BasicLink
-                                className={clsx(
-                                  'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                  [
-                                    active
-                                      ? 'bg-primary-500 text-neutral-50'
-                                      : 'text-neutral-200',
-                                  ]
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <BasicLink
+                                    className={clsx(
+                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
+                                      [
+                                        active
+                                          ? 'bg-primary-500 text-neutral-50'
+                                          : 'text-neutral-200',
+                                      ]
+                                    )}
+                                    href='/siswa/isi-kuesioner'
+                                  >
+                                    <TbArrowsExchange2
+                                      className={clsx([
+                                        active
+                                          ? 'text-white'
+                                          : 'text-primary-500',
+                                      ])}
+                                    />
+                                    Isi kuesioner
+                                  </BasicLink>
                                 )}
-                                href='/my-trading-matkul'
-                              >
-                                <TbArrowsExchange2
-                                  className={clsx([
-                                    active ? 'text-white' : 'text-primary-500',
-                                  ])}
-                                />
-                                myTradeMatkul
-                              </BasicLink>
-                            )}
-                          </Menu.Item>
+                              </Menu.Item>
+                            </>
+                          )}
                           <Menu.Item>
                             {({ active }) => (
                               <button

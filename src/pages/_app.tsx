@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppType } from 'next/app';
 import { useRouter } from 'next/router';
 import { Session } from 'next-auth';
@@ -10,10 +11,12 @@ import '@/styles/globals.css';
 import '@/styles/nprogress.css';
 
 import Layout from '@/components/Layout';
+
 const App: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const queryClient = new QueryClient();
   const router = useRouter();
   useEffect(() => {
     const handleRouteStart = () => NProgress.start();
@@ -33,10 +36,12 @@ const App: AppType<{ session: Session | null }> = ({
   return (
     <>
       <SessionProvider session={session}>
-        <Toaster />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <QueryClientProvider client={queryClient}>
+          <Toaster />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </QueryClientProvider>
       </SessionProvider>
     </>
   );
