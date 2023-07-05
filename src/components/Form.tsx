@@ -218,3 +218,26 @@ export const SwitchInput = ({ value, onChange, label }: SwitchInputProps) => {
     </div>
   );
 };
+
+type CheckboxInputProps = {
+  label: string;
+  name: string;
+  helperText?: string;
+};
+
+export const CheckboxInput = ({
+  label,
+  name,
+  helperText,
+}: CheckboxInputProps) => {
+  const { register } = useFormContext();
+  return (
+    <div>
+      <div className='flex items-center gap-2'>
+        <Typography variant='label1'>{label}</Typography>
+        <input type='checkbox' {...register(name)} />
+      </div>
+      <Typography variant='body3'>{helperText}</Typography>
+    </div>
+  );
+};
