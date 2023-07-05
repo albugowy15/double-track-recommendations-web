@@ -21,7 +21,7 @@ export default function handler(
       status: 'error',
     });
   }
-  const { username, password } = req.body;
+  const { username, password, isAdmin } = req.body;
   if (!username || !password) {
     res.status(400).json({
       status: 'error',
@@ -29,7 +29,7 @@ export default function handler(
     });
   }
 
-  if (username === 'admin' && password === 'admin') {
+  if (isAdmin === 'true' && username === 'admin' && password === 'admin') {
     const payload = {
       role: 'admin',
       username: username,
@@ -46,7 +46,11 @@ export default function handler(
         accessToken: token,
       },
     });
-  } else if (username === 'siswa' && password === 'siswa') {
+  } else if (
+    username === 'siswa' &&
+    password === 'siswa' &&
+    isAdmin === 'false'
+  ) {
     const payload = {
       role: 'siswa',
       username: username,

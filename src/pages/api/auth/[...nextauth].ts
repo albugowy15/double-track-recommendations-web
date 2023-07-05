@@ -19,6 +19,10 @@ export const authOptions: NextAuthOptions = {
           label: 'Password',
           type: 'password',
         },
+        isAdmin: {
+          label: 'AdminLogin',
+          type: 'text',
+        },
       },
       async authorize(credentials) {
         const baseUrl = process.env.BASE_URL;
