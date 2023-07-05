@@ -18,6 +18,7 @@ type TextInputProps = {
   type?: 'text' | 'password';
   helperText?: string;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 export const TextInput = ({
@@ -26,6 +27,7 @@ export const TextInput = ({
   type = 'text',
   helperText,
   placeholder,
+  disabled,
 }: TextInputProps) => {
   const {
     register,
@@ -42,8 +44,10 @@ export const TextInput = ({
           <input
             className={clsx('form-input block w-full rounded-md', [
               errors[name] ? 'border-red-600' : 'border-neutral-600',
+              disabled && 'cursor-not-allowed bg-slate-200',
             ])}
             type={showPassword ? 'text' : 'password'}
+            disabled={disabled}
             placeholder={placeholder}
             {...register(name)}
           />
@@ -66,9 +70,11 @@ export const TextInput = ({
           <input
             className={clsx('form-input block w-full rounded-md', [
               errors[name] ? 'border-red-600' : 'border-neutral-600',
+              disabled && 'cursor-not-allowed bg-slate-200',
             ])}
             type={type}
             placeholder={placeholder}
+            disabled={disabled}
             {...register(name)}
           />
           {errors[name] && (
