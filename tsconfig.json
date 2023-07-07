@@ -31,7 +31,7 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/public/*": ["./public/*"],
       "@/types/*": ["./src/types/*"],
-      "@/ui/*": ["./src/ui/*"]
+      "@/data/*": ["./src/data/*"]
     }
   },
   "include": ["next-env.d.ts", ".eslintrc.js", "**/*.ts", "**/*.tsx"],
