@@ -50,12 +50,12 @@ const Typography = <T extends React.ElementType>({
       className={clsx(
         'text-black',
         [
-          variant === 'h1' && 'text-2xl font-bold lg:text-4xl',
-          variant === 'h2' && 'text-xl font-bold lg:text-3xl',
-          variant === 'h3' && 'text-lg font-bold lg:text-2xl',
-          variant === 'h4' && 'text-lg font-bold lg:text-xl',
-          variant === 'h5' && 'text-lg font-bold',
-          variant === 'h6' && 'text-base font-bold',
+          variant === 'h1' && 'text-3xl font-bold',
+          variant === 'h2' && 'text-2xl font-bold',
+          variant === 'h3' && 'text-xl font-bold',
+          variant === 'h4' && 'text-lg font-bold',
+          variant === 'h5' && 'text-base font-bold',
+          variant === 'h6' && 'text-sm font-bold',
           variant === 'body1' && 'text-base',
           variant === 'body2' && 'text-sm',
           variant === 'body3' && 'text-xs',
