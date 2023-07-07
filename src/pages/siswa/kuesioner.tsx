@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -15,6 +16,7 @@ export default function QuestionnarePage() {
     formState: { errors },
   } = useForm();
   const [openModal, setOpenModal] = useState(false);
+  const router = useRouter();
   const onSubmit = () => {
     setOpenModal(true);
   };
@@ -103,7 +105,13 @@ export default function QuestionnarePage() {
           </div>
           <div className='py-2' />
           <div className='flex justify-between'>
-            <Button variant='tonal' onClick={() => setOpenModal(false)}>
+            <Button
+              variant='tonal'
+              onClick={() => {
+                router.replace('/siswa/rekomendasi');
+                setOpenModal(false);
+              }}
+            >
               Ya, Lanjutkan
             </Button>
             <Button variant='outlined' onClick={() => setOpenModal(false)}>

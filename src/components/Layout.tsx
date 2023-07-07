@@ -2,18 +2,22 @@ import { Menu } from '@headlessui/react';
 import clsx from 'clsx';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { AiOutlineFire, AiOutlineHome } from 'react-icons/ai';
+import {
+  AiOutlineAppstore,
+  AiOutlineBulb,
+  AiOutlineHome,
+  AiOutlineInfoCircle,
+  AiOutlineSolution,
+} from 'react-icons/ai';
 import { BiLogIn } from 'react-icons/bi';
 import {
   BsBook,
   BsFillPersonFill,
-  BsLockFill,
   BsNewspaper,
   BsPersonCircle,
 } from 'react-icons/bs';
 import { CgMenuGridR } from 'react-icons/cg';
 import { FiLogOut } from 'react-icons/fi';
-import { TbArrowsExchange2 } from 'react-icons/tb';
 
 import BasicLink from '@/components/BasicLink';
 import { Button } from '@/components/Button';
@@ -46,122 +50,18 @@ const Navbar = () => {
             ) : (
               <>
                 {session?.user ? (
-                  <>
-                    <Dropdown
-                      menuButton={
-                        <div className='flex h-fit items-center justify-center rounded-full border border-neutral-400 p-2.5 hover:bg-neutral-900'>
-                          <BsFillPersonFill className='text-base text-primary-400' />
-                        </div>
-                      }
-                      options={
-                        <>
-                          {session.user.role == 'admin' ? (
-                            <>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <BasicLink
-                                    className={clsx(
-                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                      [
-                                        active
-                                          ? 'bg-primary-500 text-neutral-50'
-                                          : 'text-neutral-200',
-                                      ]
-                                    )}
-                                    href='/admin/dashboard'
-                                  >
-                                    <BsNewspaper
-                                      className={clsx([
-                                        active
-                                          ? 'text-white'
-                                          : 'text-primary-500',
-                                      ])}
-                                    />
-                                    Dashboard
-                                  </BasicLink>
-                                )}
-                              </Menu.Item>
-                            </>
-                          ) : (
-                            <>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <BasicLink
-                                    className={clsx(
-                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                      [
-                                        active
-                                          ? 'bg-primary-500 text-neutral-50'
-                                          : 'text-neutral-200',
-                                      ]
-                                    )}
-                                    href='/siswa/profil'
-                                  >
-                                    <BsPersonCircle
-                                      className={clsx([
-                                        active
-                                          ? 'text-white'
-                                          : 'text-primary-500',
-                                      ])}
-                                    />
-                                    Profil
-                                  </BasicLink>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <BasicLink
-                                    className={clsx(
-                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                      [
-                                        active
-                                          ? 'bg-primary-500 text-neutral-50'
-                                          : 'text-neutral-200',
-                                      ]
-                                    )}
-                                    href='/siswa/ubah-password'
-                                  >
-                                    <BsLockFill
-                                      className={clsx([
-                                        active
-                                          ? 'text-white'
-                                          : 'text-primary-500',
-                                      ])}
-                                    />
-                                    Ubah Password
-                                  </BasicLink>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <BasicLink
-                                    className={clsx(
-                                      'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
-                                      [
-                                        active
-                                          ? 'bg-primary-500 text-neutral-50'
-                                          : 'text-neutral-200',
-                                      ]
-                                    )}
-                                    href='/siswa/isi-kuesioner'
-                                  >
-                                    <TbArrowsExchange2
-                                      className={clsx([
-                                        active
-                                          ? 'text-white'
-                                          : 'text-primary-500',
-                                      ])}
-                                    />
-                                    Isi kuesioner
-                                  </BasicLink>
-                                )}
-                              </Menu.Item>
-                            </>
-                          )}
+                  <Dropdown
+                    menuButton={
+                      <div className='flex h-fit items-center justify-center rounded-full border border-neutral-400 p-2.5 hover:bg-neutral-900'>
+                        <BsFillPersonFill className='text-base text-primary-400' />
+                      </div>
+                    }
+                    options={
+                      <>
+                        {session.user.role == 'admin' ? (
                           <Menu.Item>
                             {({ active }) => (
-                              <button
-                                onClick={() => signOut()}
+                              <BasicLink
                                 className={clsx(
                                   'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
                                   [
@@ -170,20 +70,66 @@ const Navbar = () => {
                                       : 'text-neutral-200',
                                   ]
                                 )}
+                                href='/admin/profil'
                               >
-                                <FiLogOut
+                                <BsNewspaper
                                   className={clsx([
                                     active ? 'text-white' : 'text-primary-500',
                                   ])}
                                 />
-                                Logout
-                              </button>
+                                Profil
+                              </BasicLink>
                             )}
                           </Menu.Item>
-                        </>
-                      }
-                    />
-                  </>
+                        ) : (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <BasicLink
+                                className={clsx(
+                                  'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
+                                  [
+                                    active
+                                      ? 'bg-primary-500 text-neutral-50'
+                                      : 'text-neutral-200',
+                                  ]
+                                )}
+                                href='/siswa/profil'
+                              >
+                                <BsPersonCircle
+                                  className={clsx([
+                                    active ? 'text-white' : 'text-primary-500',
+                                  ])}
+                                />
+                                Profil
+                              </BasicLink>
+                            )}
+                          </Menu.Item>
+                        )}
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={() => signOut()}
+                              className={clsx(
+                                'flex w-full items-center gap-3 rounded px-2 py-1.5 ',
+                                [
+                                  active
+                                    ? 'bg-primary-500 text-neutral-50'
+                                    : 'text-neutral-200',
+                                ]
+                              )}
+                            >
+                              <FiLogOut
+                                className={clsx([
+                                  active ? 'text-white' : 'text-primary-500',
+                                ])}
+                              />
+                              Logout
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </>
+                    }
+                  />
                 ) : (
                   <Button
                     variant='filled'
@@ -225,9 +171,39 @@ const Navbar = () => {
               className='flex items-center gap-3 py-3 hover:text-primary-400'
               href='/trending'
             >
-              <AiOutlineFire className='text-lg' />
-              Tentang Double Track
+              <AiOutlineInfoCircle className='text-lg' />
+              Tentang
             </BasicLink>
+            {session?.user.role === 'siswa' ? (
+              <>
+                <BasicLink
+                  onClick={() => setOpenMenu(false)}
+                  className='flex items-center gap-3 py-3 hover:text-primary-400'
+                  href='/siswa/kuesioner'
+                >
+                  <AiOutlineSolution className='text-lg' />
+                  Kuesioner
+                </BasicLink>
+                <BasicLink
+                  onClick={() => setOpenMenu(false)}
+                  className='flex items-center gap-3 py-3 hover:text-primary-400'
+                  href='/siswa/rekomendasi'
+                >
+                  <AiOutlineBulb className='text-lg' />
+                  Rekomendasi
+                </BasicLink>
+              </>
+            ) : null}
+            {session?.user.role === 'admin' ? (
+              <BasicLink
+                onClick={() => setOpenMenu(false)}
+                className='flex items-center gap-3 py-3 hover:text-primary-400'
+                href='/admin/dashboard'
+              >
+                <AiOutlineAppstore className='text-lg' />
+                Dashboard
+              </BasicLink>
+            ) : null}
           </div>
           <div className='flex justify-end'>
             <Button variant='filled' onClick={() => setOpenMenu(false)}>
