@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import {
   BsFillClipboardDataFill,
+  BsFillHouseDoorFill,
   BsFillPersonVcardFill,
   BsNewspaper,
 } from 'react-icons/bs';
@@ -11,6 +12,11 @@ import BasicLink from '@/components/BasicLink';
 import { Footer, Navbar } from '@/components/Layout/BaseLayout';
 
 const dashboradMenu = [
+  {
+    path: '/admin/dashboard',
+    name: 'Beranda',
+    icon: BsFillHouseDoorFill,
+  },
   {
     path: '/admin/dashboard/siswa',
     name: 'Siswa',
