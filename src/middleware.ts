@@ -7,17 +7,13 @@ export default withAuth(
       req.nextUrl.pathname.startsWith('/admin') &&
       req.nextauth.token?.role !== 'admin'
     )
-      return NextResponse.rewrite(
-        new URL('/auth/login?message=Unauthorized', req.url)
-      );
+      return NextResponse.rewrite(new URL('/403?message=Forbidden', req.url));
 
     if (
       req.nextUrl.pathname.startsWith('/siswa') &&
       req.nextauth.token?.role !== 'siswa'
     )
-      return NextResponse.rewrite(
-        new URL('/auth/login?message=Unauthorized', req.url)
-      );
+      return NextResponse.rewrite(new URL('/403?message=Forbidden', req.url));
   },
   {
     callbacks: {
