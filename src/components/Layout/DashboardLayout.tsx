@@ -17,11 +17,6 @@ import Typography from '@/components/Typography';
 
 const dashboradMenu = [
   {
-    path: '/admin/dashboard',
-    name: 'Beranda',
-    icon: BsFillHouseDoorFill,
-  },
-  {
     path: '/admin/dashboard/siswa',
     name: 'Siswa',
     icon: BsFillPersonVcardFill,
@@ -62,19 +57,38 @@ export default function DashboardLayout({
           </button>
 
           <aside className='hidden h-screen w-[30%] flex-col gap-2 bg-white p-6 lg:flex'>
+            <BasicLink
+              href='/admin/dashboard'
+              className={clsx('rounded-lg px-4 py-2 ', [
+                router.pathname === '/admin/dashboard'
+                  ? 'bg-primary-500 text-slate-100'
+                  : 'hover:bg-slate-200',
+              ])}
+            >
+              <span>
+                <BsFillHouseDoorFill
+                  className={clsx('mr-3 inline', [
+                    router.pathname === '/admin/dashboard' && 'text-white',
+                  ])}
+                  size={20}
+                />
+              </span>{' '}
+              Beranda
+            </BasicLink>
             {dashboradMenu.map((menu, index) => (
               <BasicLink
                 key={index}
                 href={menu.path}
-                className={clsx('rounded-lg px-4 py-2 hover:bg-slate-200', [
-                  router.pathname === menu.path &&
-                    'bg-primary-500 text-slate-100 hover:bg-primary-500 hover:text-slate-100',
+                className={clsx('rounded-lg px-4 py-2 ', [
+                  router.pathname.startsWith(menu.path)
+                    ? 'bg-primary-500 text-slate-100'
+                    : 'hover:bg-slate-200',
                 ])}
               >
                 <span>
                   <menu.icon
                     className={clsx('mr-3 inline', [
-                      router.pathname !== menu.path && 'text-primary-500',
+                      router.pathname.startsWith(menu.path) && 'text-white',
                     ])}
                     size={20}
                   />
@@ -96,13 +110,25 @@ export default function DashboardLayout({
             Berikut daftar menu dashboard admin yang dapat diakses
           </Typography>
           <div className='flex w-full flex-col divide-y divide-neutral-700 py-2 text-neutral-100'>
+            <BasicLink
+              onClick={() => setIsMenuOpen(false)}
+              href='/admin/dashboard'
+              className={clsx('flex items-center gap-3 py-3', [
+                router.pathname === '/admin/dashboard'
+                  ? 'text-primary-400'
+                  : 'hover:text-slate-700',
+              ])}
+            >
+              <BsFillHouseDoorFill className='text-lg' />
+              Beranda
+            </BasicLink>
             {dashboradMenu.map((menu, index) => (
               <BasicLink
                 key={index}
                 onClick={() => setIsMenuOpen(false)}
                 href={menu.path}
                 className={clsx('flex items-center gap-3 py-3', [
-                  router.pathname === menu.path
+                  router.pathname.startsWith(menu.path)
                     ? 'text-primary-400'
                     : 'hover:text-slate-700',
                 ])}
