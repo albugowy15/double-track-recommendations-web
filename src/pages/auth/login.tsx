@@ -37,7 +37,11 @@ export default function LoginPage() {
         toast.remove();
         toast.success('Login berhasil');
         setTimeout(() => {
-          window.location.replace('/');
+          if (data.isAdmin === true) {
+            window.location.replace('/admin/dashboard');
+          } else {
+            window.location.replace('/');
+          }
         }, 1000);
       } else {
         toast.remove();
