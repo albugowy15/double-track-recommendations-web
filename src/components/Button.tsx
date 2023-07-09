@@ -46,7 +46,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'transition-colors duration-75',
           className,
           [
-            size === 'sm' && 'px-2 py-1 text-xs',
+            size === 'sm' && 'px-2 py-1 text-sm',
             size === 'md' && 'px-3 py-2 text-sm',
             size === 'lg' && 'px-4 py-3 text-base',
           ],
@@ -72,7 +72,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <Icon
               className={clsx(
                 [
-                  size === 'sm' && 'text-xs',
+                  size === 'sm' && 'text-sm',
                   size === 'md' && 'text-sm',
                   size === 'lg' && 'text-base',
                 ],
@@ -116,7 +116,7 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'transition-colors duration-75',
           [
-            size === 'sm' && 'px-2 py-1 text-xs',
+            size === 'sm' && 'px-2 py-1 text-sm',
             size === 'md' && 'px-3 py-2 text-sm',
             size === 'lg' && 'px-4 py-3 text-base',
           ],
@@ -142,7 +142,7 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
             <Icon
               className={clsx(
                 [
-                  size === 'sm' && 'text-xs',
+                  size === 'sm' && 'text-sm',
                   size === 'md' && 'text-sm',
                   size === 'lg' && 'text-base',
                 ],

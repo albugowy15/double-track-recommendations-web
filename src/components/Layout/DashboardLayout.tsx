@@ -11,7 +11,7 @@ import { FiMenu } from 'react-icons/fi';
 
 import BasicLink from '@/components/BasicLink';
 import { Button } from '@/components/Button';
-import { Footer, Navbar } from '@/components/Layout/BaseLayout';
+import { Navbar } from '@/components/Layout/BaseLayout';
 import Modal from '@/components/Modal';
 import Typography from '@/components/Typography';
 
@@ -50,9 +50,9 @@ export default function DashboardLayout({
     <>
       <div className='flex min-h-screen flex-col'>
         <Navbar />
-        <div className='mx-auto flex w-full flex-col md:flex-row md:gap-4'>
+        <div className='mx-auto flex w-full flex-col lg:flex-row lg:gap-4'>
           <button
-            className='m-2 flex justify-center rounded border bg-white p-2 hover:cursor-pointer md:hidden'
+            className='m-2 flex justify-center rounded border bg-white p-2 hover:cursor-pointer lg:hidden'
             onClick={() => setIsMenuOpen(true)}
           >
             <Typography variant='label1' className='flex items-center gap-2'>
@@ -60,22 +60,8 @@ export default function DashboardLayout({
               Menu
             </Typography>
           </button>
-          {/* <section className='flex justify-center overflow-scroll py-3 md:hidden'>
-          {dashboradMenu.map((menu, index) => (
-            <BasicLink
-              key={index}
-              href={menu.path}
-              className={clsx('rounded-lg px-2 py-1.5 text-sm', [
-                router.pathname === menu.path
-                  ? 'bg-primary-500 text-slate-100 hover:bg-primary-500 hover:text-slate-100'
-                  : 'hover:bg-slate-200',
-              ])}
-            >
-              {menu.name}
-            </BasicLink>
-          ))}
-        </section> */}
-          <aside className='hidden h-screen flex-col gap-2 bg-white p-6 md:flex'>
+
+          <aside className='hidden h-screen w-[30%] flex-col gap-2 bg-white p-6 lg:flex'>
             {dashboradMenu.map((menu, index) => (
               <BasicLink
                 key={index}
@@ -97,11 +83,9 @@ export default function DashboardLayout({
               </BasicLink>
             ))}
           </aside>
-          <main className='p-5'>{children}</main>
+          <main className='w-full p-5'>{children}</main>
         </div>
-        <Footer />
       </div>
-
       <Modal
         title='Menu Dashboard'
         isOpen={isMenuOpen}
