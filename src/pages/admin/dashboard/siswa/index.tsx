@@ -22,7 +22,7 @@ export default function StudentDasboardPage() {
   return (
     <DashboardLayout>
       <Typography variant='h3'>Daftar Siswa</Typography>
-      <div className='w-full overflow-x-auto text-sm shadow-md sm:rounded-lg'>
+      <div className='w-full overflow-x-auto pt-2 text-sm shadow-md sm:rounded-lg'>
         <table className='w-full text-left'>
           <thead className='bg-gray-200 uppercase'>
             <tr>
@@ -55,7 +55,7 @@ export default function StudentDasboardPage() {
                 <td className='px-2.5 py-2'>{student.fullname}</td>
                 <td className='px-2.5 py-2'>{student.nisn}</td>
                 <td className='px-2.5 py-2'>{student.school}</td>
-                <td className='space-x-2 px-2.5 py-2'>
+                <td className='flex flex-col items-center gap-2 px-2.5 py-2 md:flex-row'>
                   <Button
                     variant='danger'
                     icon={AiOutlineDelete}
