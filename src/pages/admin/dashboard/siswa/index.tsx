@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { BsPersonAdd } from 'react-icons/bs';
 
 import { Button, LinkButton } from '@/components/Button';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
@@ -21,7 +22,12 @@ export default function StudentDasboardPage() {
   };
   return (
     <DashboardLayout>
-      <Typography variant='h3'>Daftar Siswa</Typography>
+      <div className='flex w-full items-center justify-between'>
+        <Typography variant='h3'>Daftar Siswa</Typography>
+        <LinkButton href='siswa/add' variant='outlined' icon={BsPersonAdd}>
+          Tambah Siswa
+        </LinkButton>
+      </div>
       <div className='w-full overflow-x-auto pt-2 text-sm shadow-md sm:rounded-lg'>
         <table className='w-full text-left'>
           <thead className='bg-gray-200 uppercase'>
