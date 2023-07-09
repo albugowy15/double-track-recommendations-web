@@ -48,6 +48,6 @@
   }
 
   body {
-    @apply font-primary;
+    @apply bg-slate-100 font-primary;
   }
 }
