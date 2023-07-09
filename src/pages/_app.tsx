@@ -10,8 +10,6 @@ import { Toaster } from 'react-hot-toast';
 import '@/styles/globals.css';
 import '@/styles/nprogress.css';
 
-import Layout from '@/components/Layout';
-
 const App: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -38,9 +36,7 @@ const App: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <Toaster />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
         </QueryClientProvider>
       </SessionProvider>
     </>

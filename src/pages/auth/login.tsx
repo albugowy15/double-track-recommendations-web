@@ -6,6 +6,7 @@ import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { CheckboxInput, TextInput } from '@/components/Form';
+import BaseLayout from '@/components/Layout/BaseLayout';
 import Typography from '@/components/Typography';
 
 const loginFormSchema = z.object({
@@ -46,43 +47,46 @@ export default function LoginPage() {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='mx-auto flex w-fit max-w-sm flex-col gap-3 rounded-lg border border-slate-800 p-4'
-      >
-        <Typography variant='h3' className='text-center'>
-          Silahkan Login
-        </Typography>
-        <Typography variant='body1' className='text-center'>
-          Silahkan login menggunakan username dan password yang telah diberikan.
-        </Typography>
-        <TextInput
-          label='Username'
-          name='username'
-          helperText='Masukkan username Anda'
-          type='text'
-        />
-        <TextInput
-          name='password'
-          label='Password'
-          helperText='Masukkan password Anda'
-          type='password'
-        />
-        <CheckboxInput
-          name='isAdmin'
-          label='Login sebagain admin ?'
-          helperText='Silahkan ceklis opsi ini untuk login sebagai admin'
-        />
-
-        <Button
-          className='flex w-full justify-center'
-          type='submit'
-          variant='filled'
+    <BaseLayout>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='mx-auto flex w-fit max-w-sm flex-col gap-3 rounded-lg border border-slate-800 p-4'
         >
-          Login
-        </Button>
-      </form>
-    </FormProvider>
+          <Typography variant='h3' className='text-center'>
+            Silahkan Login
+          </Typography>
+          <Typography variant='body1' className='text-center'>
+            Silahkan login menggunakan username dan password yang telah
+            diberikan.
+          </Typography>
+          <TextInput
+            label='Username'
+            name='username'
+            helperText='Masukkan username Anda'
+            type='text'
+          />
+          <TextInput
+            name='password'
+            label='Password'
+            helperText='Masukkan password Anda'
+            type='password'
+          />
+          <CheckboxInput
+            name='isAdmin'
+            label='Login sebagain admin ?'
+            helperText='Silahkan ceklis opsi ini untuk login sebagai admin'
+          />
+
+          <Button
+            className='flex w-full justify-center'
+            type='submit'
+            variant='filled'
+          >
+            Login
+          </Button>
+        </form>
+      </FormProvider>
+    </BaseLayout>
   );
 }

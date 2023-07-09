@@ -26,13 +26,13 @@ import Loader from '@/components/Loader';
 import Modal from '@/components/Modal';
 import Typography from '@/components/Typography';
 
-const Navbar = () => {
+export const Navbar = () => {
   const { data: session, status } = useSession();
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <>
-      <header className='w-full bg-white'>
+      <header className='w-full border bg-white shadow-sm'>
         <div className='container mx-auto flex items-center justify-between px-3 py-2'>
           <BasicLink href='/' className='text-base font-bold md:text-xl'>
             DT Rekomendasi
@@ -216,9 +216,9 @@ const Navbar = () => {
   );
 };
 
-const Footer = () => {
+export const Footer = () => {
   return (
-    <footer className='mt-auto w-full bg-white'>
+    <footer className='mt-auto w-full border bg-white'>
       <Typography
         variant='label2'
         className='py-2 text-center text-neutral-400'
@@ -229,7 +229,7 @@ const Footer = () => {
   );
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const BaseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='flex min-h-screen flex-col'>
       <Navbar />
@@ -239,4 +239,4 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Layout;
+export default BaseLayout;
