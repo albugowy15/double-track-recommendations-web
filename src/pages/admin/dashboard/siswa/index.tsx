@@ -16,7 +16,7 @@ export default function StudentDasboardPage() {
 
   const handleDelete = () => {
     setListStudent(
-      listStudent.filter((student) => student !== selectedStudent)
+      listStudent.filter((student) => student !== selectedStudent),
     );
     setDeleteModal(false);
   };

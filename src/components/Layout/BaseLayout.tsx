@@ -68,7 +68,7 @@ export const Navbar = () => {
                                     active
                                       ? 'bg-primary-500 text-neutral-50'
                                       : 'text-neutral-200',
-                                  ]
+                                  ],
                                 )}
                                 href='/admin/profil'
                               >
@@ -91,7 +91,7 @@ export const Navbar = () => {
                                     active
                                       ? 'bg-primary-500 text-neutral-50'
                                       : 'text-neutral-200',
-                                  ]
+                                  ],
                                 )}
                                 href='/siswa/profil'
                               >
@@ -115,7 +115,7 @@ export const Navbar = () => {
                                   active
                                     ? 'bg-primary-500 text-neutral-50'
                                     : 'text-neutral-200',
-                                ]
+                                ],
                               )}
                             >
                               <FiLogOut

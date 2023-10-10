@@ -56,7 +56,7 @@ export default function EditStudentPage({ student }: { student: Student }) {
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
   const student = students.find(
-    (student) => student.id === context.params?.studentId
+    (student) => student.id === context.params?.studentId,
   );
 
   if (student === undefined) {

@@ -12,7 +12,7 @@ export type LoginResponseData = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<APIResponse<LoginResponseData>>
+  res: NextApiResponse<APIResponse<LoginResponseData>>,
 ) {
   const KEY = process.env.NEXTAUTH_SECRET as string;
   if (req.method !== 'POST') {
