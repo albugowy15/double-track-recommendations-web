@@ -15,7 +15,7 @@ import BasicLink from '@/components/BasicLink';
 import { Button } from '@/components/Button';
 import { Navbar } from '@/components/Layout/BaseLayout';
 import Modal from '@/components/Modal';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 const dashboradMenu = [
   {

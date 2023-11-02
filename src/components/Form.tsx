@@ -10,7 +10,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { BsCheck2, BsChevronExpand } from 'react-icons/bs';
 import { HiExclamationCircle } from 'react-icons/hi';
 
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 type TextInputProps = {
   label: string;
@@ -38,7 +38,7 @@ export const TextInput = ({
   return (
     <div className='flex w-full flex-col'>
       <Typography variant='label1'>{label}</Typography>
-      <Typography variant='body3'>{helperText}</Typography>
+      <Typography variant='body1'>{helperText}</Typography>
       {type === 'password' ? (
         <div className='relative w-full pt-1'>
           <input
@@ -86,7 +86,7 @@ export const TextInput = ({
       )}
 
       {errors[name] && (
-        <Typography variant='label2' className='mt-1 text-error-600'>
+        <Typography variant='label1' className='mt-1 text-error-600'>
           {errors[name]?.message as string}
         </Typography>
       )}
@@ -117,7 +117,7 @@ export const SelectInput = ({
   return (
     <div className='w-full'>
       <Typography variant='label1'>{label}</Typography>
-      <Typography variant='body3'>{helperText}</Typography>
+      <Typography variant='body1'>{helperText}</Typography>
       <Listbox
         disabled={disabled}
         value={value}
@@ -193,7 +193,7 @@ export const SelectInput = ({
         </div>
       </Listbox>
       {error && (
-        <Typography variant='label2' className='pt-1 text-error-600'>
+        <Typography variant='label1' className='pt-1 text-error-600'>
           {error.message}
         </Typography>
       )}
@@ -243,7 +243,7 @@ export const CheckboxInput = ({
         <Typography variant='label1'>{label}</Typography>
         <input type='checkbox' {...register(name)} />
       </div>
-      <Typography variant='body3'>{helperText}</Typography>
+      <Typography variant='body1'>{helperText}</Typography>
     </div>
   );
 };

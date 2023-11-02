@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Form';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 const addStudentFormSchema = z.object({
   fullname: z.string().nonempty({ message: 'Nama lengkap tidak boleh kosong' }),
