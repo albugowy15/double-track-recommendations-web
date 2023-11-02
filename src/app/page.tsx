@@ -1,10 +1,7 @@
-'use client';
+import Link from 'next/link';
 
-import { AiOutlineSchedule } from 'react-icons/ai';
-import { IoNewspaperOutline } from 'react-icons/io5';
-
-import { LinkButton } from '@/components/Button';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
+import { Button } from '@/components/ui/button';
 
 export default function HomePage() {
   return (
@@ -19,16 +16,12 @@ export default function HomePage() {
       </Typography>
       <div className='py-1' />
       <div className='flex flex-wrap items-center justify-center gap-2 sm:gap-6'>
-        <LinkButton href='/tentang' variant='outlined' icon={AiOutlineSchedule}>
-          Tentang Aplikasi
-        </LinkButton>
-        <LinkButton
-          href='/panduan'
-          variant='outlined'
-          icon={IoNewspaperOutline}
-        >
-          Baca Panduan
-        </LinkButton>
+        <Button variant='outline' asChild>
+          <Link href='/tentang'>Tentang Aplikasi</Link>
+        </Button>
+        <Button variant='outline' asChild>
+          <Link href='/panduan'>Baca Panduan</Link>
+        </Button>
       </div>
     </main>
   );
