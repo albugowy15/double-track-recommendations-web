@@ -1,4 +1,4 @@
-import { LoginResponseData } from '@/app/api/login/route';
+import { type LoginResponseData } from '@/app/api/login/route';
 
 declare module 'next-auth' {
   interface Session {

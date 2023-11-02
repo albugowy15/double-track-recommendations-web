@@ -1,15 +1,16 @@
+import { env } from '@/env.mjs';
 import jwt from 'jsonwebtoken';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 export type LoginResponseData = {
   username: string;
   accessToken: string;
-  role: string;
+  role: 'admin' | 'siswa';
   id: string;
 };
 
 const handler = async (req: NextRequest) => {
-  const KEY = process.env.NEXTAUTH_SECRET as string;
+  const KEY = env.NEXTAUTH_SECRET!;
   const data = await req.json();
   const { username, password, isAdmin } = data;
   if (!username || !password) {

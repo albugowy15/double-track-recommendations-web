@@ -1,7 +1,14 @@
+import { type Metadata } from 'next';
 import Link from 'next/link';
 
 import Typography from '@/components/typography';
 import { Button } from '@/components/ui/button';
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description:
+    'Aplikasi pemberian rekomendasi bidang keterampilan untuk peserta program Double Track dengan berdasarkan kriteria jumlah lapangan pekerjaan, gaji, minat, peluang wirausaha, dan dukungan fasilitas',
+};
 
 export default function HomePage() {
   return (

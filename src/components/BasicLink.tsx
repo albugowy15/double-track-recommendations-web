@@ -1,4 +1,5 @@
-import Link, { LinkProps } from 'next/link';
+/* eslint-disable react/display-name */
+import Link, { type LinkProps } from 'next/link';
 import React from 'react';
 
 export type BasicLinkProps = {
@@ -23,9 +24,7 @@ const BasicLink = React.forwardRef<HTMLAnchorElement, BasicLinkProps>(
     ref,
   ) => {
     const isNewTab =
-      newTab !== undefined
-        ? newTab
-        : href && !href.startsWith('/') && href.startsWith('#');
+      newTab ?? (href && !href.startsWith('/') && href.startsWith('#'));
 
     if (!isNewTab) {
       return (
