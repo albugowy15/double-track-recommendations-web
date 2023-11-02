@@ -6,7 +6,7 @@ import { BsPersonAdd } from 'react-icons/bs';
 
 import { Button, LinkButton } from '@/components/Button';
 import Modal from '@/components/Modal';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 import { Student, students } from '@/data/siswa';
 

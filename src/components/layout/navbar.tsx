@@ -10,7 +10,7 @@ import { CgMenuGridR } from 'react-icons/cg';
 import BasicLink from '@/components/BasicLink';
 import { Button } from '@/components/Button';
 import Modal from '@/components/Modal';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);

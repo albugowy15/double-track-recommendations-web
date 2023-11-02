@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { IconType } from 'react-icons';
 
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 type ModalProps = {
   children: React.ReactNode;

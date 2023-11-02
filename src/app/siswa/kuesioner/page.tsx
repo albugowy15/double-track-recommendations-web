@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/Button';
 import Modal from '@/components/Modal';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 
 import { questionnare } from '@/data/kuesioner';
 
@@ -52,7 +52,7 @@ export default function QuestionnarePage() {
                   : 'flex-row items-end',
               ])}
             >
-              <Typography variant='body2'>{question.minText}</Typography>
+              <Typography variant='body1'>{question.minText}</Typography>
               {question.options?.map((option, index) => (
                 <div key={index} className='flex flex-col items-center gap-1'>
                   <label className='text-sm'>{option}</label>
@@ -64,10 +64,10 @@ export default function QuestionnarePage() {
                 </div>
               ))}
 
-              <Typography variant='body2'>{question.maxText}</Typography>
+              <Typography variant='body1'>{question.maxText}</Typography>
             </div>
             {errors[question.id] ? (
-              <Typography variant='label2' className='text-red-600'>
+              <Typography variant='label1' className='text-red-600'>
                 Pertanyaan ini wajib diisi
               </Typography>
             ) : null}
@@ -96,10 +96,10 @@ export default function QuestionnarePage() {
           </Typography>
 
           <div className='my-3 rounded-lg border border-gray-600 bg-yellow-300 p-2'>
-            <Typography variant='body2' className='font-bold'>
+            <Typography variant='body1' className='font-bold'>
               Keterangan :{' '}
             </Typography>
-            <Typography variant='body2'>
+            <Typography variant='body1'>
               Indeks Konsistensi sangat berpengaruh pada rekomendasi
               keterampilan. Semakin besar nilai indeks konsitensi akan berdampak
               semakin tidak akuratnya rekomendasi yang dihasilkan.
