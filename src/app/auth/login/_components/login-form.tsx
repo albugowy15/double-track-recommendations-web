@@ -1,9 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { type Dispatch, type SetStateAction, useState } from 'react';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 const loginFormSchema = z.object({
   username: z
@@ -38,36 +40,105 @@ const loginFormSchema = z.object({
 
 type LoginForm = z.infer<typeof loginFormSchema>;
 
-export const LoginForm = () => {
-  const [tab, setTab] = useState<'siswa' | 'admin'>('siswa');
+type LoginInputProps = {
+  activeTab: string;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+};
+const LoginInput = ({
+  isLoading,
+  setIsLoading,
+  activeTab,
+}: LoginInputProps) => {
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginFormSchema),
   });
   const { toast } = useToast();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
+    setIsLoading(true);
     signIn('credentials', {
       username: data.username,
       password: data.password,
-      isAdmin: tab == 'admin',
+      isAdmin: activeTab == 'admin',
       redirect: false,
     })
       .then((res) => {
-        if (res) {
+        if (res?.ok) {
           toast({
             title: 'Success',
             description: 'Login berhasil',
           });
+          setIsLoading(false);
+          router.replace('/');
+        } else {
+          toast({
+            title: 'Error',
+            description: 'Pastikan username dan password sesuai',
+          });
+          setIsLoading(false);
         }
       })
-      .catch(() => {
+      .catch((err) => {
         toast({
           variant: 'default',
           title: 'Error',
-          description: 'Username atau password salah',
+          description: err.message,
         });
       });
   };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+        <FormField
+          control={form.control}
+          name='username'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormDescription>Masukkan username Anda</FormDescription>
+              <FormControl>
+                <Input {...field} placeholder='Username' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='password'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormDescription>Masukkan password Anda</FormDescription>
+              <FormControl>
+                <Input type='password' {...field} placeholder='Password' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type='submit' className='w-full' disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              Mohon Tunggu...
+            </>
+          ) : (
+            <>Login</>
+          )}
+        </Button>
+      </form>
+    </Form>
+  );
+};
+
+export const LoginForm = () => {
+  const [tab, setTab] = useState<'siswa' | 'admin'>('siswa');
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   return (
     <>
@@ -90,53 +161,11 @@ export const LoginForm = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-4'
-                >
-                  <FormField
-                    control={form.control}
-                    name='username'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Username</FormLabel>
-                        <FormDescription>
-                          Masukkan username Anda
-                        </FormDescription>
-                        <FormControl>
-                          <Input {...field} placeholder='Username' />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='password'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormDescription>
-                          Masukkan password Anda
-                        </FormDescription>
-                        <FormControl>
-                          <Input
-                            type='password'
-                            {...field}
-                            placeholder='Password'
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button type='submit' className='w-full'>
-                    Login
-                  </Button>
-                </form>
-              </Form>
+              <LoginInput
+                activeTab={tab}
+                isLoading={buttonLoading}
+                setIsLoading={setButtonLoading}
+              />
             </CardContent>
           </Card>
         </TabsContent>
@@ -150,53 +179,11 @@ export const LoginForm = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-4'
-                >
-                  <FormField
-                    control={form.control}
-                    name='username'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Username</FormLabel>
-                        <FormDescription>
-                          Masukkan username Anda
-                        </FormDescription>
-                        <FormControl>
-                          <Input {...field} placeholder='Username' />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='password'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormDescription>
-                          Masukkan password Anda
-                        </FormDescription>
-                        <FormControl>
-                          <Input
-                            type='password'
-                            {...field}
-                            placeholder='Password'
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button type='submit' className='w-full'>
-                    Login
-                  </Button>
-                </form>
-              </Form>
+              <LoginInput
+                activeTab={tab}
+                isLoading={buttonLoading}
+                setIsLoading={setButtonLoading}
+              />
             </CardContent>
           </Card>
         </TabsContent>

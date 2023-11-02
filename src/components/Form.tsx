@@ -2,8 +2,8 @@ import { Listbox, Switch, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import { Fragment, useState } from 'react';
 import {
-  ControllerRenderProps,
-  FieldError,
+  type ControllerRenderProps,
+  type FieldError,
   useFormContext,
 } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';

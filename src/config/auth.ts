@@ -1,9 +1,10 @@
-import { NextAuthOptions } from 'next-auth';
+import { getServerSession, type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { LoginResponseData } from '@/app/api/login/route';
+import { type LoginResponseData } from '@/app/api/login/route';
 
-import { APIResponse } from '@/types/api';
+import { type APIResponse } from '@/types/api';
+import { env } from '@/env.mjs';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -24,7 +25,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const baseUrl = process.env.BASE_URL;
+        const baseUrl = env.BASE_URL;
         const res = await fetch(`${baseUrl}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -40,16 +41,16 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    jwt({ token, user }) {
       return { ...token, ...user };
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       session.user = token as any;
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
   },
@@ -57,6 +58,8 @@ export const authOptions: NextAuthOptions = {
     signIn: '/auth/login',
   },
   jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: env.NEXTAUTH_SECRET,
   },
 };
+
+export const getServerAuthSession = () => getServerSession(authOptions);

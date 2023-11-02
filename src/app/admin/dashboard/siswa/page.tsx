@@ -8,7 +8,7 @@ import { Button, LinkButton } from '@/components/Button';
 import Modal from '@/components/Modal';
 import Typography from '@/components/typography';
 
-import { Student, students } from '@/data/siswa';
+import { type Student, students } from '@/data/siswa';
 
 export default function StudentDasboardPage() {
   const [deleteModal, setDeleteModal] = useState(false);

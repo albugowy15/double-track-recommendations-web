@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
 import clsx from 'clsx';
 import React from 'react';
-import { IconType } from 'react-icons';
+import { type IconType } from 'react-icons';
 
-import BasicLink, { BasicLinkProps } from './BasicLink';
+import BasicLink, { type BasicLinkProps } from './BasicLink';
 
 type ButtonVariant =
   | 'filled'
@@ -34,7 +35,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const disabled = buttonDisabled || false;
+    const disabled = buttonDisabled ?? false;
     return (
       <button
         ref={ref}
@@ -177,7 +178,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     },
     ref,
   ) => {
-    const disabled = buttonDisabled || false;
+    const disabled = buttonDisabled ?? false;
     return (
       <button
         ref={ref}
