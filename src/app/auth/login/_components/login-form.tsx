@@ -27,7 +27,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next/navigation';
 
 const loginFormSchema = z.object({
   username: z
@@ -54,7 +53,6 @@ const LoginInput = ({
     resolver: zodResolver(loginFormSchema),
   });
   const { toast } = useToast();
-  const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     setIsLoading(true);
@@ -71,7 +69,7 @@ const LoginInput = ({
             description: 'Login berhasil',
           });
           setIsLoading(false);
-          router.replace('/');
+          window.location.replace('/');
         } else {
           toast({
             title: 'Error',
