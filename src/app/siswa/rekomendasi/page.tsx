@@ -1,11 +1,10 @@
-import BaseLayout from '@/components/Layout/BaseLayout';
 import Typography from '@/components/Typography';
 
 import { recommendations } from '@/data/rekomendasi';
 
 export default function RecommendationPage() {
   return (
-    <BaseLayout>
+    <>
       <Typography variant='h2'>
         Hasil Rekomendasi Bidang Keterampilan
       </Typography>
@@ -61,6 +60,6 @@ export default function RecommendationPage() {
           </div>
         ))}
       </div>
-    </BaseLayout>
+    </>
   );
 }

@@ -1,10 +1,11 @@
+'use client';
+
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/Button';
-import BaseLayout from '@/components/Layout/BaseLayout';
 import Modal from '@/components/Modal';
 import Typography from '@/components/Typography';
 
@@ -22,7 +23,7 @@ export default function QuestionnarePage() {
     setOpenModal(true);
   };
   return (
-    <BaseLayout>
+    <>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='mx-auto flex flex-col gap-3 lg:max-w-4xl'
@@ -121,6 +122,6 @@ export default function QuestionnarePage() {
           </div>
         </>
       </Modal>
-    </BaseLayout>
+    </>
   );
 }

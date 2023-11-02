@@ -1,5 +1,7 @@
+'use client';
+
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import {
   BsFillClipboardDataFill,
@@ -38,7 +40,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  const path = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
@@ -60,7 +62,7 @@ export default function DashboardLayout({
             <BasicLink
               href='/admin/dashboard'
               className={clsx('rounded-lg px-4 py-2 ', [
-                router.pathname === '/admin/dashboard'
+                path === '/admin/dashboard'
                   ? 'bg-primary-500 text-slate-100'
                   : 'hover:bg-slate-200',
               ])}
@@ -68,7 +70,7 @@ export default function DashboardLayout({
               <span>
                 <BsFillHouseDoorFill
                   className={clsx('mr-3 inline', [
-                    router.pathname === '/admin/dashboard' && 'text-white',
+                    path === '/admin/dashboard' && 'text-white',
                   ])}
                   size={20}
                 />
@@ -80,7 +82,7 @@ export default function DashboardLayout({
                 key={index}
                 href={menu.path}
                 className={clsx('rounded-lg px-4 py-2 ', [
-                  router.pathname.startsWith(menu.path)
+                  path.startsWith(menu.path)
                     ? 'bg-primary-500 text-slate-100'
                     : 'hover:bg-slate-200',
                 ])}
@@ -88,7 +90,7 @@ export default function DashboardLayout({
                 <span>
                   <menu.icon
                     className={clsx('mr-3 inline', [
-                      router.pathname.startsWith(menu.path) && 'text-white',
+                      path.startsWith(menu.path) && 'text-white',
                     ])}
                     size={20}
                   />
@@ -114,7 +116,7 @@ export default function DashboardLayout({
               onClick={() => setIsMenuOpen(false)}
               href='/admin/dashboard'
               className={clsx('flex items-center gap-3 py-3', [
-                router.pathname === '/admin/dashboard'
+                path === '/admin/dashboard'
                   ? 'text-primary-400'
                   : 'hover:text-slate-700',
               ])}
@@ -128,7 +130,7 @@ export default function DashboardLayout({
                 onClick={() => setIsMenuOpen(false)}
                 href={menu.path}
                 className={clsx('flex items-center gap-3 py-3', [
-                  router.pathname.startsWith(menu.path)
+                  path.startsWith(menu.path)
                     ? 'text-primary-400'
                     : 'hover:text-slate-700',
                 ])}

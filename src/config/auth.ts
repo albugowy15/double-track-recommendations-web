@@ -1,8 +1,7 @@
 import { NextAuthOptions } from 'next-auth';
-import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { LoginResponseData } from '@/pages/api/login';
+import { LoginResponseData } from '@/app/api/login/route';
 
 import { APIResponse } from '@/types/api';
 
@@ -61,5 +60,3 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
   },
 };
-
-export default NextAuth(authOptions);

@@ -1,9 +1,10 @@
+'use client';
+
 import { useState } from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { BsPersonAdd } from 'react-icons/bs';
 
 import { Button, LinkButton } from '@/components/Button';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
 import Modal from '@/components/Modal';
 import Typography from '@/components/Typography';
 
@@ -21,7 +22,7 @@ export default function StudentDasboardPage() {
     setDeleteModal(false);
   };
   return (
-    <DashboardLayout>
+    <>
       <div className='flex w-full items-center justify-between'>
         <Typography variant='h3'>Daftar Siswa</Typography>
         <LinkButton href='siswa/add' variant='outlined' icon={BsPersonAdd}>
@@ -118,6 +119,6 @@ export default function StudentDasboardPage() {
           </div>
         </div>
       </Modal>
-    </DashboardLayout>
+    </>
   );
 }
