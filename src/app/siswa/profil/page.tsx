@@ -1,10 +1,11 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Form';
-import BaseLayout from '@/components/Layout/BaseLayout';
 import Typography from '@/components/Typography';
 
 const studentProfileSchema = z.object({
@@ -16,27 +17,16 @@ const studentProfileSchema = z.object({
 
 type StudentProfileForm = z.infer<typeof studentProfileSchema>;
 
-type StudentProfilePageProps = {
-  fullname: string;
-  nisn: string;
-  password: string;
-  school: string;
-};
+// type StudentProfilePageProps = {
+//   fullname: string;
+//   nisn: string;
+//   password: string;
+//   school: string;
+// };
 
-export default function StudentProfilePage({
-  fullname,
-  nisn,
-  password,
-  school,
-}: StudentProfilePageProps) {
+export default function StudentProfilePage() {
   const methods = useForm<StudentProfileForm>({
     resolver: zodResolver(studentProfileSchema),
-    defaultValues: {
-      fullname,
-      nisn,
-      password,
-      school,
-    },
   });
 
   const { handleSubmit } = methods;
@@ -45,7 +35,7 @@ export default function StudentProfilePage({
     // TODO: Handle submit
   };
   return (
-    <BaseLayout>
+    <>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -64,17 +54,6 @@ export default function StudentProfilePage({
           </Button>
         </form>
       </FormProvider>
-    </BaseLayout>
+    </>
   );
-}
-
-export function getServerSideProps() {
-  return {
-    props: {
-      fullname: 'Mohamad Kholid Bughowi',
-      nisn: '4254277742',
-      password: 'fhefe663gg4',
-      school: 'SMK Negeri 1 Cimahi',
-    },
-  };
 }

@@ -1,10 +1,11 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Form';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
 import Typography from '@/components/Typography';
 
 const addStudentFormSchema = z.object({
@@ -25,21 +26,19 @@ export default function AddStudentPage() {
     // TODO: Handle submit
   };
   return (
-    <DashboardLayout>
-      <FormProvider {...methods}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className='mx-auto flex w-full flex-col gap-2'
-        >
-          <Typography variant='h3'>Tambahkan Siswa</Typography>
-          <TextInput name='fullname' type='text' label='Nama Lengkap' />
-          <TextInput name='nisn' type='text' label='NISN' />
-          <div className='py-2' />
-          <Button variant='filled' className='w-fit' type='submit'>
-            Tambahkan Siswa
-          </Button>
-        </form>
-      </FormProvider>
-    </DashboardLayout>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='mx-auto flex w-full flex-col gap-2'
+      >
+        <Typography variant='h3'>Tambahkan Siswa</Typography>
+        <TextInput name='fullname' type='text' label='Nama Lengkap' />
+        <TextInput name='nisn' type='text' label='NISN' />
+        <div className='py-2' />
+        <Button variant='filled' className='w-fit' type='submit'>
+          Tambahkan Siswa
+        </Button>
+      </form>
+    </FormProvider>
   );
 }
