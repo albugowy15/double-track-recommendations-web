@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+import { fontFamily } from 'tailwindcss/defaultTheme';
 export const darkMode = ['class'];
 export const content = [
   './pages/**/*.{ts,tsx}',
@@ -15,6 +15,9 @@ export const theme = {
     },
   },
   extend: {
+    fontFamily: {
+      sans: ['var(--font-sans)', ...fontFamily.sans],
+    },
     colors: {
       border: 'hsl(var(--border))',
       input: 'hsl(var(--input))',
