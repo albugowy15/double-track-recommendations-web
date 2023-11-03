@@ -1,17 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
-import { BsPersonAdd } from 'react-icons/bs';
 
-import { Button, LinkButton } from '@/components/Button';
-import Modal from '@/components/Modal';
 import Typography from '@/components/typography';
 
 import { type Student, students } from '@/data/siswa';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function StudentDasboardPage() {
-  const [deleteModal, setDeleteModal] = useState(false);
   const [listStudent, setListStudent] = useState(students);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
@@ -19,15 +16,14 @@ export default function StudentDasboardPage() {
     setListStudent(
       listStudent.filter((student) => student !== selectedStudent),
     );
-    setDeleteModal(false);
   };
   return (
     <>
       <div className='flex w-full items-center justify-between'>
         <Typography variant='h3'>Daftar Siswa</Typography>
-        <LinkButton href='siswa/add' variant='outlined' icon={BsPersonAdd}>
-          Tambah Siswa
-        </LinkButton>
+        <Button variant='outline' asChild>
+          <Link href='siswa/add'>Tambah Siswa</Link>
+        </Button>
       </div>
       <div className='w-full overflow-x-auto pt-2 text-sm shadow-md sm:rounded-lg'>
         <table className='w-full text-left'>
@@ -64,61 +60,24 @@ export default function StudentDasboardPage() {
                 <td className='px-2.5 py-2'>{student.school}</td>
                 <td className='flex flex-col items-center gap-2 px-2.5 py-2 md:flex-row'>
                   <Button
-                    variant='danger'
-                    icon={AiOutlineDelete}
+                    variant='destructive'
                     size='sm'
                     onClick={() => {
                       setSelectedStudent(student);
-                      setDeleteModal(true);
                     }}
                   >
                     Hapus
                   </Button>
-                  <LinkButton
-                    href={`/admin/dashboard/siswa/${student.id}`}
-                    variant='filled'
-                    icon={AiOutlineEdit}
-                    size='sm'
-                  >
+                  <Button size='sm' asChild>
+                    <Link href={`/admin/dashboard/siswa/${student.id}`}></Link>
                     Edit
-                  </LinkButton>
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <Modal
-        title='Konfirmasi menghapus data siswa'
-        isOpen={deleteModal}
-        setIsOpen={setDeleteModal}
-      >
-        <div className='flex flex-col gap-3 pt-3'>
-          <Typography variant='body1'>
-            Apakah Anda yakin ingin menghapus siswa berikut ?
-          </Typography>
-          <div>
-            <Typography variant='body1'>
-              <strong>Nama Lengkap</strong> : {selectedStudent?.fullname}
-            </Typography>
-            <Typography variant='body1'>
-              <strong>NISN</strong> : {selectedStudent?.nisn}
-            </Typography>
-            <Typography variant='body1'>
-              <strong>Sekolah</strong> : {selectedStudent?.school}
-            </Typography>
-          </div>
-
-          <div className='flex justify-between'>
-            <Button variant='text' onClick={handleDelete}>
-              Ya, Hapus
-            </Button>
-            <Button variant='text' onClick={() => setDeleteModal(false)}>
-              Batal
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </>
   );
 }

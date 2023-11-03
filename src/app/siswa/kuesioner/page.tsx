@@ -1,15 +1,12 @@
 'use client';
 
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button } from '@/components/Button';
-import Modal from '@/components/Modal';
 import Typography from '@/components/typography';
 
 import { questionnare } from '@/data/kuesioner';
+import { Button } from '@/components/ui/button';
 
 export default function QuestionnarePage() {
   const {
@@ -17,10 +14,9 @@ export default function QuestionnarePage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [openModal, setOpenModal] = useState(false);
-  const router = useRouter();
+
   const onSubmit = () => {
-    setOpenModal(true);
+    //
   };
   return (
     <>
@@ -73,55 +69,10 @@ export default function QuestionnarePage() {
             ) : null}
           </div>
         ))}
-        <Button type='submit' variant='filled' className='w-fit'>
+        <Button type='submit' className='w-fit'>
           Submit
         </Button>
       </form>
-
-      <Modal
-        isOpen={openModal}
-        setIsOpen={setOpenModal}
-        title='Jawaban tidak konsisten'
-      >
-        <>
-          <Typography variant='body1'>
-            Indeks Konsisten (Consistency Index) dari hasil kuesioner Anda lebih
-            dari 0,1
-          </Typography>
-          <Typography variant='body1' className='py-4 font-bold text-red-600'>
-            Indeks Konsistensi Anda = 0,42333
-          </Typography>
-          <Typography variant='body1'>
-            Apakah Anda yakin ingin melanjutkan?
-          </Typography>
-
-          <div className='my-3 rounded-lg border border-gray-600 bg-yellow-300 p-2'>
-            <Typography variant='body1' className='font-bold'>
-              Keterangan :{' '}
-            </Typography>
-            <Typography variant='body1'>
-              Indeks Konsistensi sangat berpengaruh pada rekomendasi
-              keterampilan. Semakin besar nilai indeks konsitensi akan berdampak
-              semakin tidak akuratnya rekomendasi yang dihasilkan.
-            </Typography>
-          </div>
-          <div className='py-2' />
-          <div className='flex justify-between'>
-            <Button
-              variant='tonal'
-              onClick={() => {
-                router.replace('/siswa/rekomendasi');
-                setOpenModal(false);
-              }}
-            >
-              Ya, Lanjutkan
-            </Button>
-            <Button variant='outlined' onClick={() => setOpenModal(false)}>
-              Tidak, Ulangi Kuesioner
-            </Button>
-          </div>
-        </>
-      </Modal>
     </>
   );
 }
