@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Form';
 import Typography from '@/components/typography';
+import { Button } from '@/components/ui/button';
 
 const addStudentFormSchema = z.object({
   fullname: z.string().nonempty({ message: 'Nama lengkap tidak boleh kosong' }),
@@ -35,7 +35,7 @@ export default function AddStudentPage() {
         <TextInput name='fullname' type='text' label='Nama Lengkap' />
         <TextInput name='nisn' type='text' label='NISN' />
         <div className='py-2' />
-        <Button variant='filled' className='w-fit' type='submit'>
+        <Button className='w-fit' type='submit'>
           Tambahkan Siswa
         </Button>
       </form>

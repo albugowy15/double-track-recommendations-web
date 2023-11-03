@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button } from '@/components/Button';
 import { TextInput } from '@/components/Form';
 import Typography from '@/components/typography';
+import { Button } from '@/components/ui/button';
 
 const editStudentFormSchema = z.object({
   fullname: z.string().nonempty({ message: 'Nama lengkap tidak boleh kosong' }),
@@ -38,7 +38,7 @@ export default function EditStudentPage() {
         <TextInput name='nisn' type='text' label='NISN' />
         <TextInput name='school' type='text' label='Sekolah' />
         <div className='py-2' />
-        <Button variant='filled' className='w-fit' type='submit'>
+        <Button className='w-fit' type='submit'>
           Perbarui Biodata
         </Button>
       </form>
