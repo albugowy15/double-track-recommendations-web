@@ -1,27 +1,27 @@
-import { withAuth } from 'next-auth/middleware';
-import { NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import {
+  type NextFetchEvent,
+  type NextRequest,
+  NextResponse,
+} from 'next/server';
 
-export default withAuth(
-  function middleware(req) {
-    if (
-      req.nextUrl.pathname.startsWith('/admin') &&
-      req.nextauth.token?.role !== 'admin'
-    )
-      return NextResponse.rewrite(new URL('/403?message=Forbidden', req.url));
-
-    if (
-      req.nextUrl.pathname.startsWith('/siswa') &&
-      req.nextauth.token?.role !== 'siswa'
-    )
-      return NextResponse.rewrite(new URL('/403?message=Forbidden', req.url));
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => !!token,
-    },
-  },
-);
-
-export const config = {
-  matcher: ['/admin/:path*', '/siswa/:path*'],
-};
+export async function middleware(request: NextRequest, _next: NextFetchEvent) {
+  const { pathname } = request.nextUrl;
+  const protectedPaths = ['/admin', '/siswa'];
+  const matchesProtectedPath = protectedPaths.some((path) =>
+    pathname.startsWith(path),
+  );
+  if (matchesProtectedPath) {
+    const token = await getToken({ req: request });
+    if (!token) {
+      const url = new URL(`/auth/login`, request.url);
+      url.searchParams.set('callbackUrl ', encodeURI(request.url));
+      return NextResponse.redirect(url);
+    }
+    if (token.role !== 'admin') {
+      const url = new URL(`/403`, request.url);
+      return NextResponse.rewrite(url);
+    }
+  }
+  return NextResponse.next();
+}

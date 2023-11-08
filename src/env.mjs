@@ -7,6 +7,7 @@ import { z } from 'zod';
 const server = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']),
   BASE_URL: z.string().url(),
+  API_URL: z.string().url(),
   NEXTAUTH_SECRET:
     process.env.NODE_ENV === 'production'
       ? z.string().min(1)
@@ -39,6 +40,7 @@ const processEnv = {
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   BASE_URL: process.env.BASE_URL,
+  API_URL: process.env.API_URL,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

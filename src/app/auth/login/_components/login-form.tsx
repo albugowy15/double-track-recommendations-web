@@ -40,7 +40,7 @@ const loginFormSchema = z.object({
 type LoginForm = z.infer<typeof loginFormSchema>;
 
 type LoginInputProps = {
-  activeTab: string;
+  activeTab: 'siswa' | 'admin';
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 };
@@ -59,7 +59,7 @@ const LoginInput = ({
     signIn('credentials', {
       username: data.username,
       password: data.password,
-      isAdmin: activeTab == 'admin',
+      role: activeTab,
       redirect: false,
     })
       .then((res) => {
@@ -71,7 +71,9 @@ const LoginInput = ({
           setIsLoading(false);
           window.location.replace('/');
         } else {
+          console.log(res);
           toast({
+            variant: 'destructive',
             title: 'Error',
             description: 'Pastikan username dan password sesuai',
           });
@@ -80,9 +82,9 @@ const LoginInput = ({
       })
       .catch((err) => {
         toast({
-          variant: 'default',
+          variant: 'destructive',
           title: 'Error',
-          description: err.message,
+          description: err.error,
         });
       });
   };

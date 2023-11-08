@@ -1,10 +1,22 @@
-import { getServerSession, type NextAuthOptions } from 'next-auth';
+import {
+  type DefaultSession,
+  getServerSession,
+  type NextAuthOptions,
+} from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { type LoginResponseData } from '@/app/api/login/route';
 
 import { type APIResponse } from '@/types/api';
 import { env } from '@/env.mjs';
+
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: LoginResponseData & DefaultSession['user'];
+  }
+}
+
+export const protectedPaths = ['/auth/login'];
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -19,21 +31,29 @@ export const authOptions: NextAuthOptions = {
           label: 'Password',
           type: 'password',
         },
-        isAdmin: {
-          label: 'AdminLogin',
+        role: {
+          label: 'Role',
           type: 'text',
         },
       },
       async authorize(credentials) {
-        const baseUrl = env.BASE_URL;
-        const res = await fetch(`${baseUrl}/api/login`, {
+        const loginEndpoint =
+          credentials?.role == 'admin'
+            ? `${env.API_URL}/v1/admin/login`
+            : `${env.API_URL}/v1/siswa/login`;
+        const requestBody = {
+          username: credentials?.username,
+          password: credentials?.password,
+        };
+        const res = await fetch(loginEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credentials),
+          body: JSON.stringify(requestBody),
         });
-        const { data: user }: APIResponse<LoginResponseData> = await res.json();
-        if (res.ok && user) {
-          return user;
+        const data: APIResponse<LoginResponseData> = await res.json();
+        console.log(data);
+        if (res.ok && data.data) {
+          return data.data;
         } else {
           return null;
         }
@@ -45,9 +65,13 @@ export const authOptions: NextAuthOptions = {
       return { ...token, ...user };
     },
     session({ session, token }) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      session.user = token as any;
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+        },
+      };
     },
   },
   secret: env.NEXTAUTH_SECRET,
@@ -62,4 +86,9 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
+/**
+ * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
+ *
+ * @see https://next-auth.js.org/configuration/nextjs
+ */
 export const getServerAuthSession = () => getServerSession(authOptions);
