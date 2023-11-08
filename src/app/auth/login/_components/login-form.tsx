@@ -75,7 +75,7 @@ const LoginInput = ({
           toast({
             variant: 'destructive',
             title: 'Error',
-            description: 'Pastikan username dan password sesuai',
+            description: res?.error,
           });
           setIsLoading(false);
         }

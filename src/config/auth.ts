@@ -38,8 +38,8 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const loginEndpoint =
-          credentials?.role == 'admin'
-            ? `${env.API_URL}/v1/admin/login`
+          credentials?.role === 'admin'
+            ? `${env.API_URL}/v1/login`
             : `${env.API_URL}/v1/siswa/login`;
         const requestBody = {
           username: credentials?.username,
@@ -55,7 +55,7 @@ export const authOptions: NextAuthOptions = {
         if (res.ok && data.data) {
           return data.data;
         } else {
-          return null;
+          throw Error(data.message);
         }
       },
     }),
