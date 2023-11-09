@@ -12,7 +12,9 @@
     "lint:strict": "eslint --max-warnings=0 src",
     "typecheck": "tsc --noEmit --incremental false",
     "format": "prettier -w .",
-    "format:check": "prettier -c ."
+    "format:check": "prettier -c .",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
@@ -25,9 +27,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@tanstack/react-query": "^5.4.3",
-    "axios": "^1.6.0",
     "class-variance-authority": "^0.7.0",
-    "jsonwebtoken": "^9.0.1",
     "lucide-react": "^0.291.0",
     "next": "14.0.1",
     "next-auth": "^4.24.4",
@@ -40,7 +40,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.4",
+    "@next/bundle-analyzer": "^14.0.1",
+    "@playwright/test": "^1.39.0",
+    "@tailwindcss/forms": "^0.5.6",
     "@types/eslint": "^8.44.6",
     "@types/jsonwebtoken": "^9.0.4",
     "@types/node": "20.8.10",
@@ -52,7 +54,6 @@
     "clsx": "^2.0.0",
     "eslint": "8.52.0",
     "eslint-config-next": "14.0.1",
-    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "postcss": "8.4.31",
     "prettier": "^3.0.3",

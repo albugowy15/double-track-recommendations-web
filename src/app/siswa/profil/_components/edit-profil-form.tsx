@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,26 +8,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Save } from 'lucide-react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Save } from "lucide-react";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
 const studentProfileSchema = z.object({
   fullname: z
-    .string({ required_error: 'Nama lengkap wajib diisi' })
-    .min(1, { message: 'Nama lengkap masih kosong' }),
+    .string({ required_error: "Nama lengkap wajib diisi" })
+    .min(1, { message: "Nama lengkap masih kosong" }),
   password: z
-    .string({ required_error: 'Password wajib diisi' })
-    .min(1, { message: 'Password masih kosong' }),
+    .string({ required_error: "Password wajib diisi" })
+    .min(1, { message: "Password masih kosong" }),
   nisn: z
-    .string({ required_error: 'NISN wajib diisi' })
-    .min(1, { message: 'NISN masih kosong' }),
+    .string({ required_error: "NISN wajib diisi" })
+    .min(1, { message: "NISN masih kosong" }),
   school: z
-    .string({ required_error: 'Sekolah wajib diisi' })
-    .min(1, { message: 'Sekolah masih kosong' }),
+    .string({ required_error: "Sekolah wajib diisi" })
+    .min(1, { message: "Sekolah masih kosong" }),
 });
 
 type StudentProfileForm = z.infer<typeof studentProfileSchema>;
@@ -54,11 +54,11 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-4'
+        className="flex flex-col gap-4"
       >
         <FormField
           control={form.control}
-          name='fullname'
+          name="fullname"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nama Lengkap</FormLabel>
@@ -71,7 +71,7 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
         />
         <FormField
           control={form.control}
-          name='password'
+          name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
@@ -84,7 +84,7 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
         />
         <FormField
           control={form.control}
-          name='nisn'
+          name="nisn"
           render={({ field }) => (
             <FormItem>
               <FormLabel>NISN (Nomor Induk Siswa Nasional)</FormLabel>
@@ -97,7 +97,7 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
         />
         <FormField
           control={form.control}
-          name='school'
+          name="school"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Asal Sekolah</FormLabel>
@@ -109,8 +109,8 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
           )}
         />
 
-        <Button type='submit'>
-          <Save className='mr-2 h-4 w-4' />
+        <Button type="submit">
+          <Save className="mr-2 h-4 w-4" />
           Perbarui Profil
         </Button>
       </form>

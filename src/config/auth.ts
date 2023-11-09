@@ -2,43 +2,47 @@ import {
   type DefaultSession,
   getServerSession,
   type NextAuthOptions,
-} from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+} from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import { type LoginResponseData } from '@/app/api/login/route';
+import { type APIResponse } from "@/types/api";
+import { env } from "@/env.mjs";
 
-import { type APIResponse } from '@/types/api';
-import { env } from '@/env.mjs';
-
-declare module 'next-auth' {
+export interface LoginResponseData {
+  username: string;
+  token: string;
+  role: "admin" | "siswa";
+  id: string;
+}
+declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: LoginResponseData & DefaultSession['user'];
+    user: LoginResponseData & DefaultSession["user"];
   }
 }
 
-export const protectedPaths = ['/auth/login'];
+export const protectedPaths = ["/auth/login"];
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
         username: {
-          label: 'Username',
-          type: 'text',
+          label: "Username",
+          type: "text",
         },
         password: {
-          label: 'Password',
-          type: 'password',
+          label: "Password",
+          type: "password",
         },
         role: {
-          label: 'Role',
-          type: 'text',
+          label: "Role",
+          type: "text",
         },
       },
       async authorize(credentials) {
         const loginEndpoint =
-          credentials?.role === 'admin'
+          credentials?.role === "admin"
             ? `${env.API_URL}/v1/login`
             : `${env.API_URL}/v1/siswa/login`;
         const requestBody = {
@@ -46,16 +50,15 @@ export const authOptions: NextAuthOptions = {
           password: credentials?.password,
         };
         const res = await fetch(loginEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestBody),
         });
-        const data: APIResponse<LoginResponseData> = await res.json();
-        console.log(data);
-        if (res.ok && data.data) {
-          return data.data;
+        const response = (await res.json()) as APIResponse<LoginResponseData>;
+        if (res.ok && response.data) {
+          return response.data;
         } else {
-          throw Error(data.message);
+          throw Error(response.message);
         }
       },
     }),
@@ -76,10 +79,10 @@ export const authOptions: NextAuthOptions = {
   },
   secret: env.NEXTAUTH_SECRET,
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   pages: {
-    signIn: '/auth/login',
+    signIn: "/auth/login",
   },
   jwt: {
     secret: env.NEXTAUTH_SECRET,

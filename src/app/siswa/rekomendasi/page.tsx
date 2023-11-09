@@ -1,11 +1,11 @@
-import Typography from '@/components/typography';
+import Typography from "@/components/typography";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -13,21 +13,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 
-import { recommendations } from '@/data/rekomendasi';
+import { recommendations } from "@/data/rekomendasi";
 
 export default function RecommendationPage() {
   return (
     <>
-      <Typography variant='h2'>
+      <Typography variant="h2">
         Hasil Rekomendasi Bidang Keterampilan
       </Typography>
-      <Typography variant='body1'>
+      <Typography variant="body1">
         Berikut hasil rekomendasi bidang keterampilan yang sesuai dengan
         preferensimu.
       </Typography>
-      <div className='mt-4 flex flex-col items-center gap-2 lg:flex-row'>
+      <div className="mt-4 flex flex-col items-center gap-2 lg:flex-row">
         {recommendations.map((recommendation, index) => (
           <Card key={index}>
             <CardHeader>
@@ -35,7 +35,7 @@ export default function RecommendationPage() {
               <CardDescription>{recommendation.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className='relative overflow-x-auto text-sm shadow-md sm:rounded-lg'>
+              <div className="relative overflow-x-auto text-sm shadow-md sm:rounded-lg">
                 <Table>
                   <TableHeader>
                     <TableRow>
