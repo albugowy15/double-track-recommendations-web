@@ -32,14 +32,14 @@ const studentProfileSchema = z.object({
 
 type StudentProfileForm = z.infer<typeof studentProfileSchema>;
 
-type EditProfileFormProps = {
+interface EditProfileFormProps {
   defaultValues?: {
     fullname: string;
     password: string;
     nisn: string;
     school: string;
   };
-};
+}
 
 const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
   const form = useForm<StudentProfileForm>({

@@ -39,11 +39,11 @@ const loginFormSchema = z.object({
 
 type LoginForm = z.infer<typeof loginFormSchema>;
 
-type LoginInputProps = {
+interface LoginInputProps {
   activeTab: 'siswa' | 'admin';
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-};
+}
 const LoginInput = ({
   isLoading,
   setIsLoading,
@@ -68,24 +68,25 @@ const LoginInput = ({
             title: 'Success',
             description: 'Login berhasil',
           });
-          setIsLoading(false);
           window.location.replace('/');
         } else {
-          console.log(res);
           toast({
             variant: 'destructive',
             title: 'Error',
             description: res?.error,
           });
-          setIsLoading(false);
         }
       })
       .catch((err) => {
         toast({
           variant: 'destructive',
           title: 'Error',
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           description: err.error,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 

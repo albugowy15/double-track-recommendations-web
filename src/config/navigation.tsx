@@ -1,11 +1,11 @@
 import { FileQuestion, LayoutDashboard, Star, User2 } from 'lucide-react';
 
-export type Navigation = {
+export interface Navigation {
   href: string;
   title: string;
   icon?: React.ReactNode;
   description?: string;
-};
+}
 
 export const homeNavigation: Navigation[] = [
   {

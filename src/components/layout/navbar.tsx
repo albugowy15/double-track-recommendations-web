@@ -28,9 +28,9 @@ import {
   studentNavigation,
 } from '@/config/navigation';
 
-type NavbarProps = {
+interface NavbarProps {
   session: Session | null;
-};
+}
 const Navbar = ({ session }: NavbarProps) => {
   return (
     <header className='w-full border shadow-sm'>
