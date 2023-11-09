@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { useForm } from 'react-hook-form';
+import clsx from "clsx";
+import { useForm } from "react-hook-form";
 
-import Typography from '@/components/typography';
+import Typography from "@/components/typography";
 
-import { questionnare } from '@/data/kuesioner';
-import { Button } from '@/components/ui/button';
+import { questionnare } from "@/data/kuesioner";
+import { Button } from "@/components/ui/button";
 
 export default function QuestionnarePage() {
   const {
@@ -22,12 +22,12 @@ export default function QuestionnarePage() {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='mx-auto flex flex-col gap-3 lg:max-w-4xl'
+        className="mx-auto flex flex-col gap-3 lg:max-w-4xl"
       >
-        <Typography variant='h4' className='text-center'>
+        <Typography variant="h4" className="text-center">
           Kuesioner Preferensi Siswa Pada Keterampilan Double Track
         </Typography>
-        <Typography variant='body1' className='text-center'>
+        <Typography variant="body1" className="text-center">
           Diharapkan mengisi kuesioner ini dengan sungguh-sungguh dan teliti
           agar mendapatkan rekomendasi keterampilan yang dapat Anda ambil dengan
           akurat.
@@ -35,41 +35,41 @@ export default function QuestionnarePage() {
         {questionnare.map((question, index) => (
           <div
             key={question.id}
-            className='space-y-2 rounded border border-slate-500 p-3'
+            className="space-y-2 rounded border border-slate-500 p-3"
           >
-            <Typography variant='body1'>
-              {index + 1}. {question.question}{' '}
-              <span className='text-red-500'>*</span>
+            <Typography variant="body1">
+              {index + 1}. {question.question}{" "}
+              <span className="text-red-500">*</span>
             </Typography>
             <div
-              className={clsx('flex justify-start gap-3', [
+              className={clsx("flex justify-start gap-3", [
                 question.options.length > 4
-                  ? 'flex-col items-start md:flex-row md:items-end'
-                  : 'flex-row items-end',
+                  ? "flex-col items-start md:flex-row md:items-end"
+                  : "flex-row items-end",
               ])}
             >
-              <Typography variant='body1'>{question.minText}</Typography>
+              <Typography variant="body1">{question.minText}</Typography>
               {question.options?.map((option, index) => (
-                <div key={index} className='flex flex-col items-center gap-1'>
-                  <label className='text-sm'>{option}</label>
+                <div key={index} className="flex flex-col items-center gap-1">
+                  <label className="text-sm">{option}</label>
                   <input
-                    type='radio'
+                    type="radio"
                     value={option}
                     {...register(question.id, { required: true })}
                   />
                 </div>
               ))}
 
-              <Typography variant='body1'>{question.maxText}</Typography>
+              <Typography variant="body1">{question.maxText}</Typography>
             </div>
             {errors[question.id] ? (
-              <Typography variant='label1' className='text-red-600'>
+              <Typography variant="label1" className="text-red-600">
                 Pertanyaan ini wajib diisi
               </Typography>
             ) : null}
           </div>
         ))}
-        <Button type='submit' className='w-fit'>
+        <Button type="submit" className="w-fit">
           Submit
         </Button>
       </form>

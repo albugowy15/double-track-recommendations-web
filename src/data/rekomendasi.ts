@@ -11,40 +11,40 @@ interface Rekomendasi {
 
 export const recommendations: Rekomendasi[] = [
   {
-    method: 'AHP',
+    method: "AHP",
     description:
-      'Berikut hasil rekomendasi keterampilan yang sesuai untuk Anda dengan metode AHP',
+      "Berikut hasil rekomendasi keterampilan yang sesuai untuk Anda dengan metode AHP",
     data: [
       {
         ranking: 1,
-        skill: 'Tata Busana',
+        skill: "Tata Busana",
         score: 0.5,
-        details: 'Busana, fashion, dan tata rias',
+        details: "Busana, fashion, dan tata rias",
       },
       {
         ranking: 2,
-        skill: 'Multimedia',
+        skill: "Multimedia",
         score: 0.3,
-        details: 'Desaing grafis, animasi, dan video editing',
+        details: "Desaing grafis, animasi, dan video editing",
       },
     ],
   },
   {
-    method: 'TOPSIS',
+    method: "TOPSIS",
     description:
-      'Berikut hasil rekomendasi keterampilan yang sesuai untuk Anda dengan metode TOPSIS',
+      "Berikut hasil rekomendasi keterampilan yang sesuai untuk Anda dengan metode TOPSIS",
     data: [
       {
         ranking: 1,
-        skill: 'Tata Busana',
+        skill: "Tata Busana",
         score: 0.5,
-        details: 'Busana, fashion, dan tata rias',
+        details: "Busana, fashion, dan tata rias",
       },
       {
         ranking: 2,
-        skill: 'Multimedia',
+        skill: "Multimedia",
         score: 0.3,
-        details: 'Desaing grafis, animasi, dan video editing',
+        details: "Desaing grafis, animasi, dan video editing",
       },
     ],
   },

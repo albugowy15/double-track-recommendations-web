@@ -1,13 +1,13 @@
-import { getToken } from 'next-auth/jwt';
+import { getToken } from "next-auth/jwt";
 import {
   type NextFetchEvent,
   type NextRequest,
   NextResponse,
-} from 'next/server';
+} from "next/server";
 
 export async function middleware(request: NextRequest, _next: NextFetchEvent) {
   const { pathname } = request.nextUrl;
-  const protectedPaths = ['/admin', '/siswa'];
+  const protectedPaths = ["/admin", "/siswa"];
   const matchesProtectedPath = protectedPaths.some((path) =>
     pathname.startsWith(path),
   );
@@ -15,10 +15,10 @@ export async function middleware(request: NextRequest, _next: NextFetchEvent) {
     const token = await getToken({ req: request });
     if (!token) {
       const url = new URL(`/auth/login`, request.url);
-      url.searchParams.set('callbackUrl ', encodeURI(request.url));
+      url.searchParams.set("callbackUrl ", encodeURI(request.url));
       return NextResponse.redirect(url);
     }
-    if (token.role !== 'admin') {
+    if (token.role !== "admin") {
       const url = new URL(`/403`, request.url);
       return NextResponse.rewrite(url);
     }
