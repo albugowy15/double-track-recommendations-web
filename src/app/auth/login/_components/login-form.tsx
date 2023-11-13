@@ -68,7 +68,9 @@ const LoginInput = ({
             title: "Success",
             description: "Login berhasil",
           });
-          window.location.replace("/");
+          window.location.replace(
+            activeTab == "admin" ? "/admin/dashboard" : "/",
+          );
         } else {
           toast({
             variant: "destructive",

@@ -52,19 +52,28 @@ export const adminNavigation: Navigation[] = [
     icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
     description: "Dashboard admin",
   },
-  // {
-  //   href: '/admin/dashboard/hasil-rekomendasi',
-  //   title: 'Hasil Rekomendasi',
-  //   description: 'Dashboard admin hasil rekomendasi',
-  // },
-  // {
-  //   href: '/admin/dashboard/kuesioner',
-  //   title: 'Kuesioner',
-  //   description: 'Dashboard admin kuesioner',
-  // },
-  // {
-  //   href: '/admin/dashboard/siswa',
-  //   title: 'Siswa',
-  //   description: 'Dashboard admin siswa',
-  // },
+];
+
+export const adminDashboardNavigation: Navigation[] = [
+  {
+    href: "/admin/dashboard",
+    title: "Dashboard",
+    icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
+    description: "Dashboard admin",
+  },
+  {
+    href: "/admin/dashboard/hasil-rekomendasi",
+    title: "Hasil Rekomendasi",
+    description: "Dashboard admin hasil rekomendasi",
+  },
+  {
+    href: "/admin/dashboard/kuesioner",
+    title: "Kuesioner",
+    description: "Dashboard admin kuesioner",
+  },
+  {
+    href: "/admin/dashboard/siswa",
+    title: "Siswa",
+    description: "Dashboard admin siswa",
+  },
 ];
