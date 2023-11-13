@@ -47,7 +47,7 @@ export default function StudentDasboardPage() {
             </tr>
           </thead>
           <tbody>
-            {listStudent.map((student, index) => (
+            {/* {listStudent.map((student, index) => (
               <tr className="border-b bg-white" key={student.id}>
                 <th
                   scope="row"
@@ -74,7 +74,7 @@ export default function StudentDasboardPage() {
                   </Button>
                 </td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       </div>

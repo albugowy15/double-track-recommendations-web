@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
+import { BookOpenText, Info } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="relative mt-28 flex flex-col items-center justify-center space-y-2 ">
+    <main className="mt-28 flex flex-col items-center justify-center space-y-2 ">
       <Typography variant="h2" className=" text-primary-500 text-center">
         Sistem Rekomendasi Pemilihan Keterampilan Program Double Track
       </Typography>
@@ -24,10 +25,16 @@ export default function HomePage() {
       <div className="py-1" />
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6">
         <Button variant="outline" asChild>
-          <Link href="/tentang">Tentang Aplikasi</Link>
+          <Link href="/tentang">
+            <Info className="mr-2 h-4 w-4" />
+            Tentang Aplikasi
+          </Link>
         </Button>
         <Button variant="outline" asChild>
-          <Link href="/panduan">Baca Panduan</Link>
+          <Link href="/panduan">
+            <BookOpenText className="mr-2 h-4 w-4" />
+            Baca Panduan
+          </Link>
         </Button>
       </div>
     </main>
