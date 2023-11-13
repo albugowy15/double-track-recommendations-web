@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="mx-auto w-fit px-3 md:container">
+    <main className="mx-auto w-fit px-3 pt-5 md:container">
       <LoginForm />
     </main>
   );

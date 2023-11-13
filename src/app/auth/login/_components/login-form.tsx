@@ -145,7 +145,7 @@ export const LoginForm = () => {
 
   return (
     <>
-      <Tabs defaultValue={tab} className="w-[400px]">
+      <Tabs defaultValue={tab} className="mx-auto md:w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="siswa" onClick={() => setTab("siswa")}>
             Siswa
