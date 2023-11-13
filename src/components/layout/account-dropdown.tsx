@@ -13,7 +13,11 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { type Session } from "next-auth";
-import { adminNavigation, studentNavigation } from "@/config/navigation";
+import {
+  adminDashboardNavigation,
+  adminNavigation,
+  studentNavigation,
+} from "@/config/navigation";
 
 const AccountDropdown = ({ session }: { session: Session }) => {
   return (
@@ -41,6 +45,15 @@ const AccountDropdown = ({ session }: { session: Session }) => {
           <>
             {adminNavigation.map((item) => (
               <DropdownMenuItem key={item.title} asChild>
+                <Link href={item.href}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </DropdownMenuItem>
+            ))}
+
+            {adminDashboardNavigation.slice(1).map((item) => (
+              <DropdownMenuItem className="md:hidden" key={item.title} asChild>
                 <Link href={item.href}>
                   {item.icon}
                   <span>{item.title}</span>

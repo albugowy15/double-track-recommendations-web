@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="mt-28 flex flex-col items-center justify-center space-y-2 ">
+    <main className="mt-28 flex flex-col items-center justify-center space-y-2 px-3 md:container">
       <Typography variant="h2" className=" text-primary-500 text-center">
         Sistem Rekomendasi Pemilihan Keterampilan Program Double Track
       </Typography>

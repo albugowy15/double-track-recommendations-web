@@ -1,5 +1,4 @@
-import AdminNav from "@/app/admin/dashboard/_layout/admin-nav";
-import Typography from "@/components/typography";
+import { Sidebar } from "@/app/admin/dashboard/_layout/sidebar";
 
 export default function AdminDashboardLayout({
   children,
@@ -8,14 +7,13 @@ export default function AdminDashboardLayout({
 }) {
   return (
     <>
-      <Typography variant="h2">Dashboard</Typography>
-      <Typography variant="body1">
-        Berikut menu yang dapat Anda akses
-      </Typography>
-      <section className="py-4">
-        <AdminNav />
-      </section>
-      <main>{children}</main>
+      <div className="grid lg:grid-cols-5">
+        {/* Sidebar */}
+        <Sidebar className="hidden lg:block" />
+        <div className="col-span-3 lg:col-span-4 lg:border-l">
+          <div className="h-full px-4 py-6 lg:px-8">{children}</div>
+        </div>
+      </div>
     </>
   );
 }
