@@ -1,4 +1,12 @@
-import { FileQuestion, LayoutDashboard, Star, User2 } from "lucide-react";
+import {
+  BarChart2,
+  FileQuestion,
+  LayoutDashboard,
+  Newspaper,
+  Star,
+  User2,
+  Users,
+} from "lucide-react";
 
 export interface Navigation {
   href: string;
@@ -64,16 +72,19 @@ export const adminDashboardNavigation: Navigation[] = [
   {
     href: "/admin/dashboard/hasil-rekomendasi",
     title: "Hasil Rekomendasi",
+    icon: <BarChart2 className="mr-2 h-4 w-4" />,
     description: "Dashboard admin hasil rekomendasi",
   },
   {
     href: "/admin/dashboard/kuesioner",
     title: "Kuesioner",
+    icon: <Newspaper className="mr-2 h-4 w-4" />,
     description: "Dashboard admin kuesioner",
   },
   {
     href: "/admin/dashboard/siswa",
     title: "Siswa",
+    icon: <Users className="mr-2 h-4 w-4" />,
     description: "Dashboard admin siswa",
   },
 ];

@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-background font-sans antialiased">
         <Toaster />
         <Navbar />
-        <div className="px-3 pt-5 md:container">{children}</div>
+        <div className="">{children}</div>
         <Footer />
       </body>
     </html>
