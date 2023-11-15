@@ -27,11 +27,16 @@ import React from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  search?: {
+    placeholder: string;
+    column: string;
+  };
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  search,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -62,16 +67,18 @@ export function DataTable<TData, TValue>({
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <Input
-          placeholder="Cari siswa"
-          value={
-            (table.getColumn("fullname")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("fullname")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        {search ? (
+          <Input
+            placeholder={search.placeholder}
+            value={
+              (table.getColumn(search.column)?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn(search.column)?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        ) : null}
       </div>
       <div className="rounded-md border">
         <Table>

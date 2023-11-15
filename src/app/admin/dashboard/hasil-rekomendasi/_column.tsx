@@ -13,13 +13,19 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-
-import { type Student } from "@/data/siswa";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
-import Link from "next/link";
+import { ArrowUpDown, Trash2 } from "lucide-react";
 
-export const columns: ColumnDef<Student>[] = [
+export interface RecommendationResult {
+  id: string;
+  student_name: string;
+  student_nisn: string;
+  consistency_index: number;
+  ahp_recommendation: Array<string>;
+  topsis_recommendation: Array<string>;
+}
+
+export const columns: ColumnDef<RecommendationResult>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -33,7 +39,7 @@ export const columns: ColumnDef<Student>[] = [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Pilih siswa"
+        aria-label="Pilih hasil rekomendasi"
       />
     ),
     enableSorting: false,
@@ -55,7 +61,7 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: "fullname",
+    accessorKey: "student_name",
     header: ({ column }) => {
       return (
         <Button
@@ -63,22 +69,14 @@ export const columns: ColumnDef<Student>[] = [
           className="px-0"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Nama Lengkap
+          Nama Siswa
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: "username",
-    header: "Username",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "nisn",
+    accessorKey: "student_nisn",
     header: ({ column }) => {
       return (
         <Button
@@ -93,22 +91,70 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: "school_name",
-    header: "Nama Sekolah",
+    accessorKey: "consistency_index",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Konsistensi
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const badgeColor =
+        row.original.consistency_index > 0.3
+          ? "text-red-500"
+          : "text-green-500";
+      return (
+        <div className="text-center">
+          <p className={`text-sm font-semibold ${badgeColor}`}>
+            {row.original.consistency_index}
+          </p>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "ahp_recommendation",
+    header: "Rekomendasi AHP",
+    cell: ({ row }) => {
+      const ahp_result = row.original.ahp_recommendation;
+      return (
+        <ol className="list-inside list-decimal">
+          {ahp_result.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ol>
+      );
+    },
+  },
+  {
+    accessorKey: "topsis_recommendation",
+    header: "Rekomendasi TOPSIS",
+    cell: ({ row }) => {
+      const topsis_result = row.original.topsis_recommendation;
+      return (
+        <ol className="list-inside list-decimal">
+          {topsis_result.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ol>
+      );
+    },
   },
   {
     id: "actions",
     header: "Aksi",
     cell: ({ row }) => {
-      const student = row.original;
+      const recommendation = row.original;
 
       return (
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="icon">
-            <Link href={"/admin/dashboard/siswa/edit/" + student.id}>
-              <Pencil className="h-4 w-4" />
-            </Link>
-          </Button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" size="icon">
@@ -119,8 +165,11 @@ export const columns: ColumnDef<Student>[] = [
               <AlertDialogHeader>
                 <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Apakah Anda yakin ingin menghapus data siswa atas nama{" "}
-                  <span className="font-bold">{student.fullname}</span>
+                  Apakah Anda yakin ingin menghapus hasil rekomendasi
+                  keterampilan untuk siswa atas nama{" "}
+                  <span className="font-bold">
+                    {recommendation.student_name}
+                  </span>
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
