@@ -1,5 +1,5 @@
 import { columns } from "@/app/admin/dashboard/siswa/_column";
-import { DataTable } from "@/app/admin/dashboard/siswa/_data-table";
+import { DataTable } from "@/app/admin/dashboard/_components/_data-table";
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { type Student, students } from "@/data/siswa";
@@ -34,7 +34,14 @@ export default async function AdminStudentDashboardPage() {
           </Link>
         </Button>
       </section>
-      <DataTable columns={columns} data={students} />
+      <DataTable
+        columns={columns}
+        data={students}
+        search={{
+          column: "fullname",
+          placeholder: "Cari siswa",
+        }}
+      />
     </div>
   );
 }
