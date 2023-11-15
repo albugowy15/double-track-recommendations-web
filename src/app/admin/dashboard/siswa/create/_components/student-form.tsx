@@ -22,6 +22,7 @@ import { z } from "zod";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
+import { asOptionalField } from "@/lib/utils";
 
 const addStudentFormSchema = z.object({
   fullname: z
@@ -30,8 +31,15 @@ const addStudentFormSchema = z.object({
   nisn: z
     .string({ required_error: "Name lengkap wajib diisi" })
     .min(1, { message: "NISN tidak boleh kosong" }),
-  email: z.string().email({ message: "Email tidak valid" }),
-  username: z.string(),
+  email: asOptionalField(z.string().email({ message: "Email tidak valid" })),
+  username: asOptionalField(
+    z
+      .string()
+      .regex(/^\S+$/gm, {
+        message: "Username tidak boleh terdapat spasi",
+      })
+      .max(20, { message: "Username tidak boleh lebih dari 20 karakter" }),
+  ),
 });
 
 type AddStudentForm = z.infer<typeof addStudentFormSchema>;
