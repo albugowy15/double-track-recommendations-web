@@ -65,7 +65,7 @@ export const adminNavigation: Navigation[] = [
 export const adminDashboardNavigation: Navigation[] = [
   {
     href: "/admin/dashboard",
-    title: "Dashboard",
+    title: "Ringkasan",
     icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
     description: "Dashboard admin",
   },
