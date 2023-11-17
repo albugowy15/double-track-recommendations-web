@@ -104,11 +104,14 @@ export const columns: ColumnDef<Student>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="icon">
-            <Link href={"/admin/dashboard/siswa/edit/" + student.id}>
+          <Link
+            href={"/admin/dashboard/siswa/edit/" + student.id}
+            aria-label="Edit siswa"
+          >
+            <Button variant="secondary" size="icon">
               <Pencil className="h-4 w-4" />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" size="icon">
