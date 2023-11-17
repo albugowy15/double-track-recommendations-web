@@ -19,7 +19,7 @@ import { recommendations } from "@/data/rekomendasi";
 
 export default function RecommendationPage() {
   return (
-    <>
+    <main className="px-3 pt-5 md:container">
       <Typography variant="h2">
         Hasil Rekomendasi Bidang Keterampilan
       </Typography>
@@ -64,6 +64,6 @@ export default function RecommendationPage() {
           </Card>
         ))}
       </div>
-    </>
+    </main>
   );
 }

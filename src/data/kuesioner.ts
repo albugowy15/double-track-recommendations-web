@@ -45,7 +45,7 @@ export const questionnare: Question[] = [
     id: "1234fghy",
     question:
       "Dalam memilih bidang keterampilan, seberapa pentingnya jumlah lapangan pekerjaan dengan gaji?",
-    options: ["9", "7", "5", "3", "1", "1/3", "1/5", "1/7", "9"],
+    options: ["9", "7", "5", "3", "1", "1/3", "1/5", "1/7", "1/9"],
     type: "range",
     minText: "Lapangan pekerjaan lebih penting",
     maxText: "Gaji lebih penting",

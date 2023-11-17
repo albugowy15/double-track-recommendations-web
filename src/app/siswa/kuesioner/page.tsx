@@ -19,12 +19,12 @@ export default function QuestionnarePage() {
     //
   };
   return (
-    <>
+    <main className="px-3 pt-5 md:container">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto flex flex-col gap-3 lg:max-w-4xl"
       >
-        <Typography variant="h4" className="text-center">
+        <Typography variant="h3" className="text-center">
           Kuesioner Preferensi Siswa Pada Keterampilan Double Track
         </Typography>
         <Typography variant="body1" className="text-center">
@@ -33,11 +33,8 @@ export default function QuestionnarePage() {
           akurat.
         </Typography>
         {questionnare.map((question, index) => (
-          <div
-            key={question.id}
-            className="space-y-2 rounded border border-slate-500 p-3"
-          >
-            <Typography variant="body1">
+          <div key={question.id} className="space-y-2 rounded border p-3">
+            <Typography variant="body1" className="font-bold">
               {index + 1}. {question.question}{" "}
               <span className="text-red-500">*</span>
             </Typography>
@@ -73,6 +70,6 @@ export default function QuestionnarePage() {
           Submit
         </Button>
       </form>
-    </>
+    </main>
   );
 }

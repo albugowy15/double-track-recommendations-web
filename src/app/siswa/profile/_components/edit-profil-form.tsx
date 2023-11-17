@@ -19,6 +19,9 @@ const studentProfileSchema = z.object({
   fullname: z
     .string({ required_error: "Nama lengkap wajib diisi" })
     .min(1, { message: "Nama lengkap masih kosong" }),
+  username: z
+    .string({ required_error: "Username wajib diisi" })
+    .min(1, { message: "Username masih kosong" }),
   password: z
     .string({ required_error: "Password wajib diisi" })
     .min(1, { message: "Password masih kosong" }),
@@ -33,12 +36,7 @@ const studentProfileSchema = z.object({
 type StudentProfileForm = z.infer<typeof studentProfileSchema>;
 
 interface EditProfileFormProps {
-  defaultValues?: {
-    fullname: string;
-    password: string;
-    nisn: string;
-    school: string;
-  };
+  defaultValues?: StudentProfileForm;
 }
 
 const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
@@ -62,6 +60,19 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nama Lengkap</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
