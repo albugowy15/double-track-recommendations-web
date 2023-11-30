@@ -11,8 +11,8 @@ import { env } from "@/env.mjs";
 export interface LoginResponseData {
   username: string;
   token: string;
-  role: "admin" | "siswa";
-  id: string;
+  role: "admin" | "user";
+  id: number;
 }
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -56,8 +56,12 @@ export const authOptions: NextAuthOptions = {
         });
         const response = (await res.json()) as APIResponse<LoginResponseData>;
         if (res.ok && response.data) {
-          return response.data;
+          return {
+            ...response.data,
+            id: response.data.id.toString(),
+          };
         } else {
+          console.error(response.message);
           throw Error(response.message);
         }
       },
@@ -73,6 +77,9 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           id: token.id,
+          role: token.role,
+          username: token.username,
+          token: token.token,
         },
       };
     },

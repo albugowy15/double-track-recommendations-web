@@ -34,7 +34,7 @@ export const studentNavigation: Navigation[] = [
     description: "Kuesioner siswa",
   },
   {
-    href: "/siswa/profil",
+    href: "/siswa/profile",
     title: "Profil",
     icon: <User2 className="mr-2 h-4 w-4" />,
     description: "Profil siswa",

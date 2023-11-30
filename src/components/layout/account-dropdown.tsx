@@ -12,12 +12,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { type Session } from "next-auth";
 import {
   adminDashboardNavigation,
   adminNavigation,
   studentNavigation,
 } from "@/config/navigation";
+import { type Session } from "next-auth";
 
 const AccountDropdown = ({ session }: { session: Session }) => {
   return (
@@ -30,18 +30,7 @@ const AccountDropdown = ({ session }: { session: Session }) => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Akunku</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {session.user.role == "siswa" ? (
-          <>
-            {studentNavigation.map((item) => (
-              <DropdownMenuItem key={item.title} asChild>
-                <Link href={item.href}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </Link>
-              </DropdownMenuItem>
-            ))}
-          </>
-        ) : (
+        {session.user.role === "admin" ? (
           <>
             {adminNavigation.map((item) => (
               <DropdownMenuItem key={item.title} asChild>
@@ -54,6 +43,17 @@ const AccountDropdown = ({ session }: { session: Session }) => {
 
             {adminDashboardNavigation.slice(1).map((item) => (
               <DropdownMenuItem className="md:hidden" key={item.title} asChild>
+                <Link href={item.href}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </>
+        ) : (
+          <>
+            {studentNavigation.map((item) => (
+              <DropdownMenuItem key={item.title} asChild>
                 <Link href={item.href}>
                   {item.icon}
                   <span>{item.title}</span>
