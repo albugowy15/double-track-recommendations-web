@@ -43,8 +43,8 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         const loginEndpoint =
           credentials?.role === "admin"
-            ? `${env.NEXT_PUBLIC_API_URL}/v1/login`
-            : `${env.NEXT_PUBLIC_API_URL}/v1/siswa/login`;
+            ? `${env.NEXT_PUBLIC_API_URL}/v1/auth/admin`
+            : `${env.NEXT_PUBLIC_API_URL}/v1/auth/students`;
         const requestBody = {
           username: credentials?.username,
           password: credentials?.password,

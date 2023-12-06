@@ -1,5 +1,6 @@
 import CriteriaSettings from "@/app/admin/dashboard/kuesioner/_components/criteria-settings";
 import Typography from "@/components/typography";
+import { protectedFetch } from "@/lib/api";
 import { Loader2 } from "lucide-react";
 
 import { type Metadata } from "next";
@@ -9,7 +10,19 @@ export const metadata: Metadata = {
   title: "Kuesinoner",
 };
 
-export default function QuestionnareDashboardPage() {
+export interface AlternativeResponse {
+  id: number;
+  skill: string;
+}
+
+async function getAlternatives() {
+  const response = await protectedFetch<AlternativeResponse[]>(
+    "/v1/admin/alternatives",
+  );
+  return response;
+}
+export default async function QuestionnareDashboardPage() {
+  const alternatives = await getAlternatives();
   return (
     <div className="mx-auto">
       <section className="pb-6">
@@ -29,7 +42,7 @@ export default function QuestionnareDashboardPage() {
           </div>
         }
       >
-        <CriteriaSettings />
+        <CriteriaSettings alternatives={alternatives.data ?? []} />
       </Suspense>
     </div>
   );

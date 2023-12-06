@@ -1,5 +1,6 @@
 "use client";
 
+import { type AlternativeResponse } from "@/app/admin/dashboard/kuesioner/page";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,25 +30,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-const criterias = [
-  {
-    name: "multimedia",
-    label: "Multimedia",
-  },
-  {
-    name: "teknik kendaraan ringan",
-    label: "Teknik Kendaraan Ringan",
-  },
-  {
-    name: "tata boga",
-    label: "Tata Boga",
-  },
-  {
-    name: "tata busana",
-    label: "Tata Busana",
-  },
-];
-
 const criteriaSettingSchema = z.object({
   jumlah_lapangan_pekerjaan: z
     .string({ required_error: "Wajib diisi" })
@@ -62,12 +44,16 @@ const criteriaSettingSchema = z.object({
 
 type CriteriaSettingForm = z.infer<typeof criteriaSettingSchema>;
 
-export default function CriteriaSettings() {
+export default function CriteriaSettings({
+  alternatives,
+}: {
+  alternatives: AlternativeResponse[];
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const defaultValue = criterias.find(
-    (val) => val.name == searchParams?.get("keterampilan"),
+  const defaultValue = alternatives.find(
+    (val) => val.skill == searchParams?.get("keterampilan"),
   );
 
   const form = useForm<CriteriaSettingForm>({
@@ -87,16 +73,16 @@ export default function CriteriaSettings() {
   return (
     <>
       <Select
-        defaultValue={defaultValue ? defaultValue.name : undefined}
+        defaultValue={defaultValue ? defaultValue.skill : undefined}
         onValueChange={handleCriteriaChange}
       >
         <SelectTrigger className="w-[280px]">
           <SelectValue placeholder="Pilih bidang keterampilan" />
         </SelectTrigger>
         <SelectContent>
-          {criterias.map((criteria) => (
-            <SelectItem value={criteria.name} key={criteria.label}>
-              {criteria.label}
+          {alternatives.map((criteria) => (
+            <SelectItem value={criteria.skill} key={criteria.id}>
+              {criteria.skill}
             </SelectItem>
           ))}
         </SelectContent>
@@ -105,10 +91,10 @@ export default function CriteriaSettings() {
       {defaultValue ? (
         <Card>
           <CardHeader>
-            <CardTitle>{defaultValue?.label}</CardTitle>
+            <CardTitle>{defaultValue?.skill}</CardTitle>
             <CardDescription>
               Silahkan tentukan nilai kriteria jumlah lapangan pekerjaan, gaji,
-              peluang wirausaha untuk keterampilan {defaultValue?.label}
+              peluang wirausaha untuk keterampilan {defaultValue?.skill}
             </CardDescription>
           </CardHeader>
           <CardContent>
