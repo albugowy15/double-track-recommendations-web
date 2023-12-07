@@ -49,10 +49,11 @@ interface StudentFormProps {
 }
 
 export default function StudentForm({ data }: StudentFormProps) {
+  console.log("data : ", data);
   const form = useForm<AddStudentForm>({
     resolver: zodResolver(addStudentFormSchema),
     defaultValues: {
-      email: data?.email ?? "",
+      email: data?.email?.String ?? "",
       fullname: data?.fullname ?? "",
       nisn: data?.nisn ?? "",
       username: data?.username ?? "",
