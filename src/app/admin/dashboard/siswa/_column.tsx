@@ -74,7 +74,7 @@ export const columns: ColumnDef<Student>[] = [
     header: "Username",
   },
   {
-    accessorKey: "email",
+    accessorKey: "email.String",
     header: "Email",
   },
   {
@@ -92,10 +92,10 @@ export const columns: ColumnDef<Student>[] = [
       );
     },
   },
-  {
-    accessorKey: "school_name",
-    header: "Nama Sekolah",
-  },
+  // {
+  //   accessorKey: "school_name.name",
+  //   header: "Nama Sekolah",
+  // },
   {
     id: "actions",
     header: "Aksi",
