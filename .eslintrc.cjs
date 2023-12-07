@@ -6,7 +6,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "unused-imports"],
   extends: [
-    "next/core-web-vitals",
+    "plugin:@next/next/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:testing-library/react",
@@ -15,8 +15,6 @@ module.exports = {
   rules: {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "warn",
-    "@typescript-eslint/no-unsafe-member-access": "warn",
-    "@typescript-eslint/no-unsafe-assignment": "warn",
 
     "@typescript-eslint/consistent-type-imports": [
       "warn",
@@ -26,8 +24,9 @@ module.exports = {
       },
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-misused-promises": [
-      2,
+      "error",
       {
         checksVoidReturn: { attributes: false },
       },
@@ -43,9 +42,5 @@ module.exports = {
         argsIgnorePattern: "^_",
       },
     ],
-  },
-  globals: {
-    React: true,
-    JSX: true,
   },
 };
