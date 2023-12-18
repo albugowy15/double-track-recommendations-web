@@ -23,6 +23,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { asOptionalField } from "@/lib/utils";
+import { type StudentById } from "@/app/admin/dashboard/siswa/edit/[studentId]/page";
 
 const addStudentFormSchema = z.object({
   fullname: z
@@ -45,23 +46,22 @@ const addStudentFormSchema = z.object({
 type AddStudentForm = z.infer<typeof addStudentFormSchema>;
 
 interface StudentFormProps {
-  data?: AddStudentForm;
+  prevData?: StudentById;
 }
 
-export default function StudentForm({ data }: StudentFormProps) {
-  console.log("data : ", data);
+export default function StudentForm(props: StudentFormProps) {
   const form = useForm<AddStudentForm>({
     resolver: zodResolver(addStudentFormSchema),
     defaultValues: {
-      email: data?.email?.String ?? "",
-      fullname: data?.fullname ?? "",
-      nisn: data?.nisn ?? "",
-      username: data?.username ?? "",
+      email: props.prevData?.email ?? "",
+      fullname: props.prevData?.fullname ?? "",
+      nisn: props.prevData?.nisn ?? "",
+      username: props.prevData?.username ?? "",
     },
   });
 
-  const formTitle = data ? "Edit Siswa" : "Tambah Siswa";
-  const formDescription = data
+  const formTitle = props.prevData ? "Edit Siswa" : "Tambah Siswa";
+  const formDescription = props.prevData
     ? "Silahkan isi formulir berikut untuk memperbarui data siswa"
     : "Silahkan isi formulir berikut untuk menambahkan siswa";
 

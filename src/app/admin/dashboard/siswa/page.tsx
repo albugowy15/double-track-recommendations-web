@@ -6,6 +6,7 @@ import { UserPlus2 } from "lucide-react";
 import { type Metadata } from "next";
 import Link from "next/link";
 import { protectedFetch } from "@/lib/api";
+import { type StudentById } from "@/app/admin/dashboard/siswa/edit/[studentId]/page";
 
 // async function getData(): Promise<Student[]> {
 //   return Promise.all(students);
@@ -23,36 +24,22 @@ export interface SchoolId {
   Int32: number;
   Valid: boolean;
 }
-export interface Email {
-  String: string;
-  Valid: boolean;
-}
 
-export interface Students {
-  id: number;
-  username: string;
-  password: string;
-  fullname: string;
-  nisn: string;
-  school_id: SchoolName;
-  role: string;
-  email: Email;
-}
-
-export interface Datas {
-  school_name: SchoolName;
-  students: Students;
+export interface StudentLists {
+  school_name: string;
+  students: StudentById[];
 }
 
 async function getAllStudents() {
-  const response = await protectedFetch<Datas[]>("/v1/admin/dashboard/siswa");
+  const response = await protectedFetch<StudentLists>(
+    "/v1/admin/dashboard/siswa",
+  );
   return response;
 }
 
 export default async function AdminStudentDashboardPage() {
   // const students = await getData();
   const data = await getAllStudents();
-  console.log("data : ", data);
   const studentData = data?.data?.students;
 
   return (
@@ -62,9 +49,7 @@ export default async function AdminStudentDashboardPage() {
           <Typography variant="h2">Data Siswa</Typography>
           <Typography variant="body1">
             Berikut adalah data siswa dari{" "}
-            <span className="font-semibold">
-              {data?.data?.school_name?.name}
-            </span>
+            <span className="font-semibold">{data?.data?.school_name}</span>
           </Typography>
         </div>
         <Button variant="outline" asChild>
@@ -76,7 +61,7 @@ export default async function AdminStudentDashboardPage() {
       </section>
       <DataTable
         columns={columns}
-        data={studentData}
+        data={studentData ?? []}
         search={{
           column: "fullname",
           placeholder: "Cari siswa",
