@@ -1,5 +1,6 @@
 "use client";
 
+import { type StudentById } from "@/app/admin/dashboard/siswa/edit/[studentId]/page";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,12 +15,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { type Student } from "@/data/siswa";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<StudentById>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -74,7 +74,7 @@ export const columns: ColumnDef<Student>[] = [
     header: "Username",
   },
   {
-    accessorKey: "email.String",
+    accessorKey: "email",
     header: "Email",
   },
   {
@@ -92,10 +92,6 @@ export const columns: ColumnDef<Student>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "school_name.name",
-  //   header: "Nama Sekolah",
-  // },
   {
     id: "actions",
     header: "Aksi",

@@ -1,5 +1,4 @@
 import StudentForm from "@/app/admin/dashboard/siswa/create/_components/student-form";
-import { type Student } from "@/data/siswa";
 import { protectedFetch } from "@/lib/api";
 import { type Metadata } from "next";
 
@@ -15,14 +14,13 @@ export interface Email {
 export interface StudentById {
   id: number;
   fullname: string;
-  username: string;
   nisn: string;
-  school_name: string;
-  email: Email;
+  username: string;
+  email: string;
 }
 
-async function getStudentById(studentId: string): Promise<Student | undefined> {
-  const response = await protectedFetch<Student>(`/v1/siswa/${studentId}`);
+async function getStudentById(studentId: string) {
+  const response = await protectedFetch<StudentById>(`/v1/siswa/${studentId}`);
   return response.data;
 }
 
@@ -40,6 +38,5 @@ export default async function EditStudentPage({
   params: { studentId: string };
 }) {
   const data = await getStudentById(params.studentId);
-  console.log("email : ", data?.siswa?.email?.String);
-  return <StudentForm data={data?.siswa} />;
+  return <StudentForm prevData={data} />;
 }
