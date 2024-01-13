@@ -86,50 +86,50 @@ interface TopsisData {
   }[];
 }
 export const recommendations: TopsisData[] = [
-  {
-    method: "AHP",
-    description:
-      "Berikut hasil rekomendasi keterampilan yang sesuai untuk Anda dengan metode AHP",
-    data: [
-      {
-        skill: "Tata Busana",
-        score: entropy_topsis.data.TOPSIS_Score.busana,
-        details: "Busana, fashion, dan tata rias",
-      },
-      {
-        skill: "Multimedia",
-        score: entropy_topsis.data.TOPSIS_Score.multimedia,
-        details: "Desain grafis, animasi, dan video editing",
-      },
-      {
-        skill: "Teknik Elektro",
-        score: entropy_topsis.data.TOPSIS_Score.elektro,
-        details: "Teknik Elektro, elektronika, dan pengolahan sinyal",
-      },
-      {
-        skill: "Teknik Listrik",
-        score: entropy_topsis.data.TOPSIS_Score.listrik,
-        details:
-          "Teknik Listrik, instalasi listrik, dan perawatan peralatan listrik",
-      },
-      {
-        skill: "Tata Boga",
-        score: entropy_topsis.data.TOPSIS_Score.boga,
-        details: "Tata Boga, kuliner, dan seni memasak",
-      },
-      {
-        skill: "Tata Kecantikan",
-        score: entropy_topsis.data.TOPSIS_Score.kecantikan,
-        details: "Tata Kecantikan, perawatan kulit, Salon, dan kecantikan",
-      },
-      {
-        skill: "Teknik Kendaraan Ringan/Motor",
-        score: entropy_topsis.data.TOPSIS_Score.mesin,
-        details:
-          "Teknik Mesin, Teknik Kendaraan Ringan/Motor, perbaikan mesin kendaraan bermotor",
-      },
-    ],
-  },
+  // {
+  //   method: "AHP",
+  //   description:
+  //     "Berikut hasil rekomendasi keterampilan yang sesuai untuk Anda dengan metode AHP",
+  //   data: [
+  //     {
+  //       skill: "Tata Busana",
+  //       score: entropy_topsis.data.TOPSIS_Score.busana,
+  //       details: "Busana, fashion, dan tata rias",
+  //     },
+  //     {
+  //       skill: "Multimedia",
+  //       score: entropy_topsis.data.TOPSIS_Score.multimedia,
+  //       details: "Desain grafis, animasi, dan video editing",
+  //     },
+  //     {
+  //       skill: "Teknik Elektro",
+  //       score: entropy_topsis.data.TOPSIS_Score.elektro,
+  //       details: "Teknik Elektro, elektronika, dan pengolahan sinyal",
+  //     },
+  //     {
+  //       skill: "Teknik Listrik",
+  //       score: entropy_topsis.data.TOPSIS_Score.listrik,
+  //       details:
+  //         "Teknik Listrik, instalasi listrik, dan perawatan peralatan listrik",
+  //     },
+  //     {
+  //       skill: "Tata Boga",
+  //       score: entropy_topsis.data.TOPSIS_Score.boga,
+  //       details: "Tata Boga, kuliner, dan seni memasak",
+  //     },
+  //     {
+  //       skill: "Tata Kecantikan",
+  //       score: entropy_topsis.data.TOPSIS_Score.kecantikan,
+  //       details: "Tata Kecantikan, perawatan kulit, Salon, dan kecantikan",
+  //     },
+  //     {
+  //       skill: "Teknik Kendaraan Ringan/Motor",
+  //       score: entropy_topsis.data.TOPSIS_Score.mesin,
+  //       details:
+  //         "Teknik Mesin, Teknik Kendaraan Ringan/Motor, perbaikan mesin kendaraan bermotor",
+  //     },
+  //   ],
+  // },
   {
     method: "TOPSIS",
     description:
