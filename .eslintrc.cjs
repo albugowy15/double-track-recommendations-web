@@ -4,17 +4,15 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "unused-imports"],
+  plugins: ["@typescript-eslint"],
   extends: [
-    "plugin:@next/next/recommended",
+    "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
-    "plugin:testing-library/react",
-    "plugin:jest-dom/recommended",
   ],
   rules: {
     "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/consistent-type-definitions": "warn",
+    "@typescript-eslint/consistent-type-definitions": "off",
 
     "@typescript-eslint/consistent-type-imports": [
       "warn",
@@ -29,17 +27,6 @@ module.exports = {
       "error",
       {
         checksVoidReturn: { attributes: false },
-      },
-    ],
-
-    "unused-imports/no-unused-imports": "warn",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        vars: "all",
-        varsIgnorePattern: "^_",
-        args: "after-used",
-        argsIgnorePattern: "^_",
       },
     ],
   },
