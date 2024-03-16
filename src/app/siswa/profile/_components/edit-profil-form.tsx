@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Save } from "lucide-react";
+import { LoaderCircleIcon } from "lucide-react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { updateProfile } from "../actions";
+import { useToastMutate } from "@/lib/hooks";
 
 const studentProfileSchema = z.object({
   fullname: z
@@ -22,18 +24,17 @@ const studentProfileSchema = z.object({
   username: z
     .string({ required_error: "Username wajib diisi" })
     .min(1, { message: "Username masih kosong" }),
-  password: z
-    .string({ required_error: "Password wajib diisi" })
-    .min(1, { message: "Password masih kosong" }),
   nisn: z
     .string({ required_error: "NISN wajib diisi" })
     .min(1, { message: "NISN masih kosong" }),
+  email: z.string().email("Email tidak valid").optional(),
+  phone_number: z.string().optional(),
   school: z
     .string({ required_error: "Sekolah wajib diisi" })
     .min(1, { message: "Sekolah masih kosong" }),
 });
 
-type StudentProfileForm = z.infer<typeof studentProfileSchema>;
+export type StudentProfileForm = z.infer<typeof studentProfileSchema>;
 
 interface EditProfileFormProps {
   defaultValues?: StudentProfileForm;
@@ -45,8 +46,12 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
     defaultValues: defaultValues,
   });
 
-  const onSubmit: SubmitHandler<StudentProfileForm> = (_data) => {
-    // TODO: Handle submit
+  const mutateToast = useToastMutate({
+    success: "Berhasil memperbarui profil",
+  });
+
+  const onSubmit: SubmitHandler<StudentProfileForm> = async (data) => {
+    mutateToast.mutate(updateProfile(data));
   };
   return (
     <Form {...form}>
@@ -61,7 +66,7 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
             <FormItem>
               <FormLabel>Nama Lengkap</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,7 +79,7 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,12 +87,25 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
         />
         <FormField
           control={form.control}
-          name="password"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone_number"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nomor Telepon</FormLabel>
+              <FormControl>
+                <Input type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -100,7 +118,7 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
             <FormItem>
               <FormLabel>NISN (Nomor Induk Siswa Nasional)</FormLabel>
               <FormControl>
-                <Input {...field} disabled />
+                <Input type="text" {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -120,9 +138,15 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
           )}
         />
 
-        <Button type="submit">
-          <Save className="mr-2 h-4 w-4" />
-          Perbarui Profil
+        <Button type="submit" disabled={mutateToast.isLoading}>
+          {mutateToast.isLoading ? (
+            <>
+              <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
+              Tunggu...
+            </>
+          ) : (
+            "Perbarui Profil"
+          )}
         </Button>
       </form>
     </Form>
