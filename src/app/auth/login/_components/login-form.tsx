@@ -40,7 +40,7 @@ const loginFormSchema = z.object({
 type LoginForm = z.infer<typeof loginFormSchema>;
 
 interface LoginInputProps {
-  activeTab: "siswa" | "admin";
+  activeTab: "student" | "admin";
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
@@ -59,7 +59,7 @@ const LoginInput = ({
     signIn("credentials", {
       username: data.username,
       password: data.password,
-      role: activeTab,
+      type: activeTab,
       redirect: false,
     })
       .then((res) => {
@@ -140,21 +140,21 @@ const LoginInput = ({
 };
 
 export const LoginForm = () => {
-  const [tab, setTab] = useState<"siswa" | "admin">("siswa");
+  const [tab, setTab] = useState<"student" | "admin">("student");
   const [buttonLoading, setButtonLoading] = useState(false);
 
   return (
     <>
       <Tabs defaultValue={tab} className="mx-auto md:w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="siswa" onClick={() => setTab("siswa")}>
+          <TabsTrigger value="student" onClick={() => setTab("student")}>
             Siswa
           </TabsTrigger>
           <TabsTrigger value="admin" onClick={() => setTab("admin")}>
             Admin
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="siswa">
+        <TabsContent value="student">
           <Card>
             <CardHeader>
               <CardTitle>Login Akun Siswa</CardTitle>

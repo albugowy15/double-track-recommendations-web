@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest, _next: NextFetchEvent) {
       const url = new URL(`/403`, request.url);
       return NextResponse.rewrite(url);
     }
-    if (pathname.startsWith("/siswa") && token.role !== "user") {
+    if (pathname.startsWith("/siswa") && token.role !== "student") {
       const url = new URL(`/403`, request.url);
       return NextResponse.rewrite(url);
     }
