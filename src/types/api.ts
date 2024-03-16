@@ -1,5 +1,5 @@
 export interface APIResponse<TData> {
-  status: number;
   message?: string;
+  error?: string;
   data?: TData;
 }
