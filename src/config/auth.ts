@@ -9,10 +9,11 @@ import { type APIResponse } from "@/types/api";
 import { env } from "@/env.mjs";
 
 export interface LoginResponseData {
-  username: string;
   token: string;
-  role: "admin" | "user";
-  id: number;
+  username: string;
+  role: "admin" | "student";
+  id: string;
+  school_id: string;
 }
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -35,21 +36,19 @@ export const authOptions: NextAuthOptions = {
           label: "Password",
           type: "password",
         },
-        role: {
-          label: "Role",
+        type: {
+          label: "Type",
           type: "text",
         },
       },
       async authorize(credentials) {
-        const loginEndpoint =
-          credentials?.role === "admin"
-            ? `${env.NEXT_PUBLIC_API_URL}/v1/auth/admin`
-            : `${env.NEXT_PUBLIC_API_URL}/v1/auth/students`;
         const requestBody = {
           username: credentials?.username,
           password: credentials?.password,
+          type: credentials?.type,
         };
-        const res = await fetch(loginEndpoint, {
+        const loginUrl = env.NEXT_PUBLIC_API_URL + "/v1/auth/login";
+        const res = await fetch(loginUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestBody),
@@ -58,11 +57,11 @@ export const authOptions: NextAuthOptions = {
         if (res.ok && response.data) {
           return {
             ...response.data,
-            id: response.data.id.toString(),
+            id: response.data.id,
           };
         } else {
-          console.error(response.message);
-          throw Error(response.message);
+          console.error("error: ", response);
+          throw Error(response.error);
         }
       },
     }),
@@ -80,6 +79,7 @@ export const authOptions: NextAuthOptions = {
           role: token.role,
           username: token.username,
           token: token.token,
+          school_id: token.school_id,
         },
       };
     },
