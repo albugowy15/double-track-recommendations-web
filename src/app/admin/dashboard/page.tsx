@@ -1,4 +1,5 @@
 import Typography from "@/components/typography";
+import { protectedFetch } from "@/lib/api";
 import { ListChecks, Pencil, SearchCheck, Users } from "lucide-react";
 import { type Metadata } from "next";
 
@@ -6,7 +7,16 @@ export const metadata: Metadata = {
   title: "Dashboard Admin",
 };
 
-export default function OverviewPage() {
+export interface StatisticsResponse {
+  registered_students: number;
+  questionnare_completed: number;
+  recommendation_acceptance: number;
+  consistency_avg: number;
+}
+
+export default async function OverviewPage() {
+  const statisticsResponse =
+    await protectedFetch<StatisticsResponse>("/v1/statistics");
   return (
     <>
       <Typography variant="h2">Ringkasan</Typography>
@@ -18,7 +28,9 @@ export default function OverviewPage() {
           </div>
           <div>
             <Typography variant="body1">Total Siswa Terdaftar</Typography>
-            <Typography variant="h3">100</Typography>
+            <Typography variant="h3">
+              {statisticsResponse?.data?.registered_students}
+            </Typography>
             <Typography variant="label1" className="text-xs font-normal">
               Jumlah siswa yang telah didaftarkan kedalam aplikasi.
             </Typography>
@@ -31,7 +43,9 @@ export default function OverviewPage() {
           </div>
           <div>
             <Typography variant="body1">Kuesioner Diisi</Typography>
-            <Typography variant="h3">55</Typography>
+            <Typography variant="h3">
+              {statisticsResponse?.data?.questionnare_completed}
+            </Typography>
             <Typography variant="label1" className="text-xs font-normal">
               Jumlah siswa yang telah selesai mengisi kuesioner.
             </Typography>
@@ -44,7 +58,9 @@ export default function OverviewPage() {
           </div>
           <div>
             <Typography variant="body1">Rekomendasi Sesuai</Typography>
-            <Typography variant="h3">90%</Typography>
+            <Typography variant="h3">
+              {statisticsResponse?.data?.recommendation_acceptance}%
+            </Typography>
             <Typography variant="label1" className="text-xs font-normal">
               Persentase hasil rekomendasi keterampilan sesuai dengan apa yang
               diharapkan siswa.
@@ -58,7 +74,9 @@ export default function OverviewPage() {
           </div>
           <div>
             <Typography variant="body1">Konsistensi</Typography>
-            <Typography variant="h3">90%</Typography>
+            <Typography variant="h3">
+              {statisticsResponse?.data?.consistency_avg}%
+            </Typography>
             <Typography variant="label1" className="text-xs font-normal">
               Persentase isian kuesioner dengan konsistensi yang baik (diatas
               0,3).

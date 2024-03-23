@@ -1,6 +1,5 @@
 "use client";
 
-import { type AlternativeResponse } from "@/app/admin/dashboard/kuesioner/page";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,31 +28,52 @@ import { Save } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { type AlternativeResponse } from "../page";
+import { useToastMutate } from "@/lib/hooks";
+import { addQuestionnareSettingAction } from "../actions";
+
+// const criterias = [
+//   {
+//     name: "multimedia",
+//     label: "Multimedia",
+//   },
+//   {
+//     name: "teknik kendaraan ringan",
+//     label: "Teknik Kendaraan Ringan",
+//   },
+//   {
+//     name: "tata boga",
+//     label: "Tata Boga",
+//   },
+//   {
+//     name: "tata busana",
+//     label: "Tata Busana",
+//   },
+// ];
 
 const criteriaSettingSchema = z.object({
-  jumlah_lapangan_pekerjaan: z
+  total_open_jobs: z
     .string({ required_error: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
-  gaji: z
+  salary: z
     .string({ required_error: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
-  peluang_wirausaha: z
+  entrepreneurship_opportunity: z
     .string({ required_error: "Wajib diisi" })
     .min(1, { message: "Wajib diisi" }),
 });
 
-type CriteriaSettingForm = z.infer<typeof criteriaSettingSchema>;
+export type CriteriaSettingForm = z.infer<typeof criteriaSettingSchema>;
 
-export default function CriteriaSettings({
-  alternatives,
-}: {
+interface CriteriaSettingsProps {
   alternatives: AlternativeResponse[];
-}) {
+}
+export default function CriteriaSettings(props: CriteriaSettingsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const defaultValue = alternatives.find(
-    (val) => val.skill == searchParams?.get("keterampilan"),
+  const defaultValue = props.alternatives.find(
+    (val) => val.id.toString() === searchParams?.get("keterampilan"),
   );
 
   const form = useForm<CriteriaSettingForm>({
@@ -66,23 +86,31 @@ export default function CriteriaSettings({
     router.push(`${pathname}?${newParams.toString()}`);
   };
 
+  const mutateAddSettingToast = useToastMutate({
+    success: "Berhasil menyimpan pengaturan",
+  });
+
   const onSubmit: SubmitHandler<CriteriaSettingForm> = (data) => {
-    // TODO: hfhehfhe
+    if (defaultValue) {
+      mutateAddSettingToast.mutate(
+        addQuestionnareSettingAction(defaultValue.id, data),
+      );
+    }
   };
 
   return (
     <>
       <Select
-        defaultValue={defaultValue ? defaultValue.skill : undefined}
+        defaultValue={defaultValue ? defaultValue.id.toString() : undefined}
         onValueChange={handleCriteriaChange}
       >
         <SelectTrigger className="w-[280px]">
           <SelectValue placeholder="Pilih bidang keterampilan" />
         </SelectTrigger>
         <SelectContent>
-          {alternatives.map((criteria) => (
-            <SelectItem value={criteria.skill} key={criteria.id}>
-              {criteria.skill}
+          {props.alternatives.map((item) => (
+            <SelectItem value={item.id.toString()} key={item.id}>
+              {item.alternative}
             </SelectItem>
           ))}
         </SelectContent>
@@ -91,10 +119,10 @@ export default function CriteriaSettings({
       {defaultValue ? (
         <Card>
           <CardHeader>
-            <CardTitle>{defaultValue?.skill}</CardTitle>
+            <CardTitle>{defaultValue.alternative}</CardTitle>
             <CardDescription>
               Silahkan tentukan nilai kriteria jumlah lapangan pekerjaan, gaji,
-              peluang wirausaha untuk keterampilan {defaultValue?.skill}
+              peluang wirausaha untuk keterampilan {defaultValue.alternative}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -103,7 +131,7 @@ export default function CriteriaSettings({
                 <div className="mb-4 flex justify-between gap-5">
                   <FormField
                     control={form.control}
-                    name="jumlah_lapangan_pekerjaan"
+                    name="total_open_jobs"
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel>Jumlah Lapangan Pekerjaan</FormLabel>
@@ -132,7 +160,7 @@ export default function CriteriaSettings({
 
                   <FormField
                     control={form.control}
-                    name="gaji"
+                    name="salary"
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel>Gaji</FormLabel>
@@ -159,7 +187,7 @@ export default function CriteriaSettings({
 
                   <FormField
                     control={form.control}
-                    name="peluang_wirausaha"
+                    name="entrepreneurship_opportunity"
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel>Peluang Wirausaha</FormLabel>
@@ -176,7 +204,7 @@ export default function CriteriaSettings({
                             <SelectItem value="1">1 - Sangat Kecil</SelectItem>
                             <SelectItem value="2">2 - Kecil</SelectItem>
                             <SelectItem value="3">3 - Besar</SelectItem>
-                            <SelectItem value="4">4 - Sangat</SelectItem>
+                            <SelectItem value="4">4 - Sangat Besar</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
