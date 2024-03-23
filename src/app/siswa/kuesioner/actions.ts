@@ -2,7 +2,9 @@
 
 import { protectedFetch } from "@/lib/api";
 
-export async function submitAnswer(data: unknown) {
+export async function submitAnswer(
+  data: { id: number; number: number; answer: string }[],
+) {
   try {
     const response = await protectedFetch<null>("/v1/questionnare/answers", {
       method: "POST",
