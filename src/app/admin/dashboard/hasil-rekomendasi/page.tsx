@@ -1,4 +1,4 @@
-import { DataTable } from "@/app/admin/dashboard/_components/_data-table";
+import { DataTable } from "@/app/admin/dashboard/_components/data-table";
 import {
   columns,
   type RecommendationResult,

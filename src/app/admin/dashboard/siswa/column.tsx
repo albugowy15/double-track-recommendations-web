@@ -1,6 +1,5 @@
 "use client";
 
-import { type StudentById } from "@/app/admin/dashboard/siswa/edit/[studentId]/page";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,12 +13,47 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-
+import { type Student } from "@/data/siswa";
+import { useToastMutate } from "@/lib/hooks";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { deleteStudentAction } from "./actions";
 
-export const columns: ColumnDef<StudentById>[] = [
+const DeleteStudentDialog = (props: { id: string; fullname: string }) => {
+  const mutateDeleteStudentToast = useToastMutate({
+    success: "Berhasil menghapus siswa",
+  });
+  function handleDeleteStudent() {
+    mutateDeleteStudentToast.mutate(deleteStudentAction(props.id));
+  }
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" size="icon">
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Apakah Anda yakin ingin menghapus data siswa atas nama{" "}
+            <span className="font-bold">{props.fullname}</span>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Batal</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDeleteStudent}>
+            Ya, Hapus
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
+
+export const columns: ColumnDef<Student>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -40,7 +74,13 @@ export const columns: ColumnDef<StudentById>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    header: "No.",
+    cell: ({ row }) => {
+      return <>{row.index + 1}</>;
+    },
+  },
+  {
+    accessorKey: "nisn",
     header: ({ column }) => {
       return (
         <Button
@@ -48,7 +88,7 @@ export const columns: ColumnDef<StudentById>[] = [
           className="px-0"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          ID
+          NISN
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -78,21 +118,6 @@ export const columns: ColumnDef<StudentById>[] = [
     header: "Email",
   },
   {
-    accessorKey: "nisn",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="px-0"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          NISN
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
     id: "actions",
     header: "Aksi",
     cell: ({ row }) => {
@@ -108,26 +133,7 @@ export const columns: ColumnDef<StudentById>[] = [
               <Pencil className="h-4 w-4" />
             </Button>
           </Link>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="destructive" size="icon">
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Apakah Anda yakin ingin menghapus data siswa atas nama{" "}
-                  <span className="font-bold">{student.fullname}</span>
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Batal</AlertDialogCancel>
-                <AlertDialogAction>Ya, Hapus</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <DeleteStudentDialog id={student.id} fullname={student.fullname} />
         </div>
       );
     },

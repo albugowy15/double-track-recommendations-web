@@ -3,8 +3,10 @@
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { type Question } from "@/data/kuesioner";
+import { useToastMutate } from "@/lib/hooks";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
+import { submitAnswer } from "../actions";
 
 export const QuestionnareForm = ({ questions }: { questions: Question[] }) => {
   const {
@@ -13,8 +15,11 @@ export const QuestionnareForm = ({ questions }: { questions: Question[] }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = () => {
-    //
+  const mutateToast = useToastMutate({ success: "Berhasil menyimpan jawaban" });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
+    mutateToast.mutate(submitAnswer(data));
   };
 
   return (

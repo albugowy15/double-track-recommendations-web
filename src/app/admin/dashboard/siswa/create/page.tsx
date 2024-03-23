@@ -1,4 +1,4 @@
-import StudentForm from "@/app/admin/dashboard/siswa/create/_components/student-form";
+import StudentForm from "@/app/admin/dashboard/siswa/create/_components/add-student-form";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -23,14 +23,15 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { asOptionalField } from "@/lib/utils";
-import { type StudentById } from "@/app/admin/dashboard/siswa/edit/[studentId]/page";
+import { useToastMutate } from "@/lib/hooks";
+import { editStudentAction } from "../../../actions";
 
-const addStudentFormSchema = z.object({
+const editStudentFormSchema = z.object({
   fullname: z
     .string({ required_error: "Nama lengkap wajib diisi" })
     .min(1, { message: "Nama lengkap tidak boleh kosong" }),
   nisn: z
-    .string({ required_error: "Name lengkap wajib diisi" })
+    .string({ required_error: "NISN  wajib diisi" })
     .min(1, { message: "NISN tidak boleh kosong" }),
   email: asOptionalField(z.string().email({ message: "Email tidak valid" })),
   username: asOptionalField(
@@ -41,40 +42,41 @@ const addStudentFormSchema = z.object({
       })
       .max(20, { message: "Username tidak boleh lebih dari 20 karakter" }),
   ),
+  phone_number: asOptionalField(
+    z
+      .string()
+      .min(8, { message: "Nomor handphone tidak valid" })
+      .max(14, { message: "Nomor handphone tidak valid" }),
+  ),
 });
 
-type AddStudentForm = z.infer<typeof addStudentFormSchema>;
+export type EditStudentForm = z.infer<typeof editStudentFormSchema>;
 
-interface StudentFormProps {
-  prevData?: StudentById;
-}
-
-export default function StudentForm(props: StudentFormProps) {
-  const form = useForm<AddStudentForm>({
-    resolver: zodResolver(addStudentFormSchema),
-    defaultValues: {
-      email: props.prevData?.email ?? "",
-      fullname: props.prevData?.fullname ?? "",
-      nisn: props.prevData?.nisn ?? "",
-      username: props.prevData?.username ?? "",
-    },
+export default function EditStudentForm(props: {
+  prevData: EditStudentForm;
+  studentId: string;
+}) {
+  const form = useForm<EditStudentForm>({
+    resolver: zodResolver(editStudentFormSchema),
+    defaultValues: props.prevData,
   });
 
-  const formTitle = props.prevData ? "Edit Siswa" : "Tambah Siswa";
-  const formDescription = props.prevData
-    ? "Silahkan isi formulir berikut untuk memperbarui data siswa"
-    : "Silahkan isi formulir berikut untuk menambahkan siswa";
+  const mutateEditStudent = useToastMutate({
+    success: "Berhasil memperbarui data siswa",
+  });
 
-  const onSubmit: SubmitHandler<AddStudentForm> = (_data) => {
-    // TODO: Handle submit
+  const onSubmit: SubmitHandler<EditStudentForm> = (data) => {
+    mutateEditStudent.mutate(editStudentAction(props.studentId, data));
   };
 
   return (
     <Form {...form}>
       <Card>
         <CardHeader>
-          <CardTitle>{formTitle}</CardTitle>
-          <CardDescription>{formDescription}</CardDescription>
+          <CardTitle>Edit Siswa</CardTitle>
+          <CardDescription>
+            Isi form berikut untuk memperbarui data siswa
+          </CardDescription>
         </CardHeader>
 
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -116,7 +118,9 @@ export default function StudentForm(props: StudentFormProps) {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>
+                    Username <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -131,6 +135,20 @@ export default function StudentForm(props: StudentFormProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="email" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="phone_number"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nomor HP</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
