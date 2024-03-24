@@ -1,17 +1,27 @@
 import EditAdminProfileForm from "@/app/admin/profil/edit/_components/edit-profile-form";
+import { protectedFetch } from "@/lib/api";
+import { type AdminProfileResponse } from "../page";
+import { type Metadata } from "next";
 
-export default function EditAdminProfilePage() {
-  const prevAdmin = {
-    username: "admin",
-    email: "admin@gmail.com",
-    name: "admin",
-    school_name: "SMA Kita",
-    nik: "53543643743743",
-  };
+export const metadata: Metadata = {
+  title: "Edit Profil Administrator",
+};
+
+export default async function EditAdminProfilePage() {
+  const adminProfileResponse =
+    await protectedFetch<AdminProfileResponse>("/v1/admin/profile");
+
+  if (!adminProfileResponse?.data) return null;
 
   return (
     <main className="px-3 pt-5 md:container">
-      <EditAdminProfileForm prev={prevAdmin} />
+      <EditAdminProfileForm
+        prev={{
+          username: adminProfileResponse.data?.username,
+          email: adminProfileResponse.data?.email,
+          phone_number: adminProfileResponse.data?.phone_number,
+        }}
+      />
     </main>
   );
 }
