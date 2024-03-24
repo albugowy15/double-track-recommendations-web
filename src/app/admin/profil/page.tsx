@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { protectedFetch } from "@/lib/api";
 import { Pencil } from "lucide-react";
 import { type Metadata } from "next";
 import Link from "next/link";
@@ -18,7 +19,23 @@ export const metadata: Metadata = {
   description: "Profil akun administrator",
 };
 
-export default function AdminProfilePage() {
+export interface AdminProfileResponse {
+  id: string;
+  email: string;
+  username: string;
+  phone_number: string;
+}
+
+export interface SchoolResponse {
+  id: string;
+  name: string;
+}
+
+export default async function AdminProfilePage() {
+  const schoolResponse = await protectedFetch<SchoolResponse>("/v1/school");
+  const adminProfileResponse =
+    await protectedFetch<AdminProfileResponse>("/v1/admin/profile");
+
   return (
     <main className="px-3 pt-5 md:container">
       <Card className="mx-auto w-full min-w-fit sm:w-[500px]">
@@ -29,40 +46,43 @@ export default function AdminProfilePage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <Separator />
           <Typography
             variant="body1"
             className="flex items-center justify-between py-2 font-semibold"
           >
-            Nama
-            <span className="font-normal">admin</span>
+            Username{" "}
+            <span className="font-normal">
+              {adminProfileResponse?.data?.username}
+            </span>
           </Typography>
           <Separator />
           <Typography
             variant="body1"
             className="flex items-center justify-between py-2 font-semibold"
           >
-            Username <span className="font-normal">admin</span>
+            Asal Sekolah{" "}
+            <span className="font-normal">{schoolResponse?.data?.name}</span>
           </Typography>
           <Separator />
           <Typography
             variant="body1"
             className="flex items-center justify-between py-2 font-semibold"
           >
-            Asal Sekolah <span className="font-normal">SMA contoh</span>
+            Email{" "}
+            <span className="font-normal">
+              {adminProfileResponse?.data?.email}
+            </span>
           </Typography>
           <Separator />
           <Typography
             variant="body1"
             className="flex items-center justify-between py-2 font-semibold"
           >
-            NIK <span className="font-normal">36463463463643643</span>
-          </Typography>
-          <Separator />
-          <Typography
-            variant="body1"
-            className="flex items-center justify-between py-2 font-semibold"
-          >
-            Email <span className="font-normal">contoh@gmail.com</span>
+            Nomor Telepon{" "}
+            <span className="font-normal">
+              {adminProfileResponse?.data?.phone_number}
+            </span>
           </Typography>
         </CardContent>
         <CardFooter className="flex justify-center">
