@@ -14,11 +14,12 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminStudentDashboardPage() {
-  const schoolResponse = await protectedFetch<{ id: string; name: string }>(
-    "/v1/school",
-  );
-  const studentResponse = await protectedFetch<Student[]>("/v1/students");
+  const [schoolResponse, studentResponse] = await Promise.all([
+    protectedFetch<{ id: string; name: string }>("/v1/school"),
+    protectedFetch<Student[]>("/v1/students"),
+  ]);
   if (!studentResponse && !schoolResponse) return null;
+
   return (
     <div className="mx-auto">
       <section className="flex justify-between pb-6">
