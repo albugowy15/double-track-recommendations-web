@@ -8,6 +8,11 @@ type FetchOption = {
   body?: unknown;
   headers?: Record<string, string>;
 };
+
+type FetchResult<T> = {
+  ok: boolean;
+  status: number;
+} & APIResponse<T>;
 /**
  * Fetches data from a protected endpoint.
  * Make sure to only call this function inside Server Component.
@@ -21,7 +26,7 @@ type FetchOption = {
 export async function protectedFetch<T>(
   endpoint: string,
   option?: FetchOption,
-): Promise<APIResponse<T>> {
+): Promise<FetchResult<T>> {
   const session = await getServerAuthSession();
   if (!session) redirect("403");
 
@@ -38,7 +43,13 @@ export async function protectedFetch<T>(
     headers: headers,
     body: option?.body ? JSON.stringify(option?.body) : undefined,
   });
-  return (await res.json()) as APIResponse<T>;
+
+  const json = (await res.json()) as APIResponse<T>;
+  return {
+    ok: res.ok,
+    status: res.status,
+    ...json,
+  };
 }
 
 /**
@@ -54,7 +65,7 @@ export async function protectedFetch<T>(
 export async function publicFetch<T>(
   endpoint: string,
   option?: FetchOption,
-): Promise<APIResponse<T>> {
+): Promise<FetchResult<T>> {
   const url = env.NEXT_PUBLIC_API_URL + endpoint;
   const method = option?.method ?? "GET";
   const defaultHeaders = {
@@ -67,5 +78,10 @@ export async function publicFetch<T>(
     headers: headers,
     body: option?.body ? JSON.stringify(option?.body) : undefined,
   });
-  return (await res.json()) as APIResponse<T>;
+  const json = (await res.json()) as APIResponse<T>;
+  return {
+    ok: res.ok,
+    status: res.status,
+    ...json,
+  };
 }
