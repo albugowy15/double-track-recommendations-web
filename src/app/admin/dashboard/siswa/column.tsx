@@ -13,12 +13,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { type Student } from "@/data/siswa";
 import { useToastMutate } from "@/lib/hooks";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { deleteStudentAction } from "./actions";
+import { type Student } from "./page";
 
 const DeleteStudentDialog = (props: { id: string; fullname: string }) => {
   const mutateDeleteStudentToast = useToastMutate({

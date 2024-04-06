@@ -1,11 +1,9 @@
 import { DataTable } from "@/app/admin/dashboard/_components/data-table";
-import {
-  columns,
-  type RecommendationResult,
-} from "@/app/admin/dashboard/hasil-rekomendasi/_column";
+import { columns } from "@/app/admin/dashboard/hasil-rekomendasi/_column";
+import { type RecommendationResult } from "@/app/siswa/rekomendasi/page";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { studentrecommendationResults } from "@/data/rekomendasi";
+import { protectedFetch } from "@/lib/api";
 import { AlertTriangle } from "lucide-react";
 import { type Metadata } from "next";
 
@@ -13,12 +11,23 @@ export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
 };
 
-async function getData(): Promise<RecommendationResult[]> {
-  return Promise.all(studentrecommendationResults);
+export interface StudentRecommendation {
+  consistency_ratio: number;
+  fullname: string;
+  student_id: string;
+  id: number;
+  nisn: string;
+  ahp_results: Array<RecommendationResult>;
+  topsis_results?: Array<RecommendationResult>;
 }
 
 export default async function RecommendationResultDashboardPage() {
-  const recommendationResults = await getData();
+  const studentRecommendationsRes = await protectedFetch<
+    Array<StudentRecommendation>
+  >("/v1/recommendations");
+
+  if (!studentRecommendationsRes?.data) return null;
+
   return (
     <div className="mx-auto">
       <section className="pb-2">
@@ -34,18 +43,18 @@ export default async function RecommendationResultDashboardPage() {
           <AlertDescription>
             <strong>Angka konsistensi</strong> berpengaruh pada rekomendasi
             keterampilan yang dihasilkan. Untuk mendapatkan rekomendasi terbaik,
-            angka konsistensi wajib <strong>dibawah 0,3</strong>. Apabila angka
-            konsistensi lebih dari 0,3, maka siswa dimohon untuk mengulang
+            angka konsistensi wajib <strong>dibawah 0,1</strong>. Apabila angka
+            konsistensi lebih dari 0,1, maka siswa dimohon untuk mengulang
             mengisi kuesioner hingga mendapatkan angka konsistensi kurang dari
-            0,3
+            0,1
           </AlertDescription>
         </Alert>
       </section>
       <DataTable
         columns={columns}
-        data={recommendationResults}
+        data={studentRecommendationsRes.data ?? []}
         search={{
-          column: "student_name",
+          column: "fullname",
           placeholder: "Cari siswa",
         }}
       />

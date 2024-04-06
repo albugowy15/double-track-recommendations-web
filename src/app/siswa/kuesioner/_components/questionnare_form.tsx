@@ -3,11 +3,11 @@
 import React from "react";
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import { type Question } from "@/data/kuesioner";
 import { useToastMutate } from "@/lib/hooks";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { submitAnswer } from "../actions";
+import { type Question } from "../page";
 
 function questiontInputName(id: number, number: number) {
   return `${id}_${number}`;
