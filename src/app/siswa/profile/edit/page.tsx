@@ -8,7 +8,7 @@ import {
 import { type Metadata } from "next";
 import EditProfileForm from "../_components/edit-profil-form";
 import { protectedFetch } from "@/lib/api";
-import { type StudentProfileResponse } from "../types";
+import { type StudentProfileResponse } from "@/types/data/student";
 
 export const metadata: Metadata = {
   title: "Edit Profile Siswa",

@@ -5,20 +5,11 @@ import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { TriangleAlert } from "lucide-react";
 import ResetQuestionnareButton from "./_components/restart-questionnare-button";
+import { type Question } from "@/types/data/question";
 
 export const metadata: Metadata = {
   title: "Kuesioner siswa",
 };
-
-export interface Question {
-  id: number;
-  number: number;
-  question: string;
-  options: string[];
-  type: "text" | "radio" | "range";
-  min_text?: string;
-  max_text?: string;
-}
 
 export default async function QuestionnarePage() {
   const questionnareStatusRes = await protectedFetch<{

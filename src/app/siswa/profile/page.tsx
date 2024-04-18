@@ -9,10 +9,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { protectedFetch } from "@/lib/api";
+import { type StudentProfileResponse } from "@/types/data/student";
 import { PencilIcon } from "lucide-react";
 import { type Metadata } from "next";
 import Link from "next/link";
-import { type StudentProfileResponse } from "./types";
 
 export const metadata: Metadata = {
   title: "Profil siswa",

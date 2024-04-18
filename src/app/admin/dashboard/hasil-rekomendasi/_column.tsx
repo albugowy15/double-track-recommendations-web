@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Eye } from "lucide-react";
-import { type StudentRecommendation } from "./page";
 import Link from "next/link";
 import DeleteRecommendationDialog from "./_components/delete-recommendation-dialog";
+import { type StudentRecommendation } from "@/types/data/recommendation";
 
 export const columns: ColumnDef<StudentRecommendation>[] = [
   {

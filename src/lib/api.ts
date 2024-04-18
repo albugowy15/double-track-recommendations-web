@@ -44,12 +44,17 @@ export async function protectedFetch<T>(
     body: option?.body ? JSON.stringify(option?.body) : undefined,
   });
 
-  const json = (await res.json()) as APIResponse<T>;
-  return {
-    ok: res.ok,
-    status: res.status,
-    ...json,
-  };
+  try {
+    const json = (await res.json()) as APIResponse<T>;
+    return {
+      ok: res.ok,
+      status: res.status,
+      ...json,
+    };
+  } catch (e) {
+    console.error(e);
+    throw new Error("Error read the json response");
+  }
 }
 
 /**

@@ -44,6 +44,7 @@ interface LoginInputProps {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
+
 const LoginInput = ({
   isLoading,
   setIsLoading,

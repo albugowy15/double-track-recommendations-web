@@ -18,7 +18,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { deleteStudentAction } from "./actions";
-import { type Student } from "./page";
+import { type Student } from "@/types/data/student";
 
 const DeleteStudentDialog = (props: { id: string; fullname: string }) => {
   const mutateDeleteStudentToast = useToastMutate({

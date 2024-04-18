@@ -14,11 +14,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { type RecommendationResult } from "../page";
+import { type RecommendationResult } from "@/types/data/recommendation";
 
 interface RecommendationCardProps {
   variant: "AHP" | "TOPSIS";
-  data: Array<RecommendationResult>;
+  data: RecommendationResult[];
 }
 
 const RecommendationCard = (props: RecommendationCardProps) => {

@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { type StudentRecommendation } from "../page";
 import { Trash2 } from "lucide-react";
 import { useToastMutate } from "@/lib/hooks";
 import { deleteStudentRecommendationAction } from "../actions";
+import { type StudentRecommendation } from "@/types/data/recommendation";
 
 const DeleteRecommendationDialog = ({
   recommendation,

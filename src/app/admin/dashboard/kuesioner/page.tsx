@@ -6,23 +6,12 @@ import { CircleAlert, CircleCheckBig, Loader2 } from "lucide-react";
 import { type Metadata } from "next";
 import { Suspense } from "react";
 import SettingsTable from "./_components/settings-table";
+import { type AlternativeResponse } from "@/types/data/alternative";
+import { type SettingsResponse } from "@/types/data/setting";
 
 export const metadata: Metadata = {
   title: "Kuesinoner",
 };
-
-export interface AlternativeResponse {
-  id: number;
-  alternative: string;
-  description: string;
-}
-
-export interface SettingsResponse
-  extends Omit<AlternativeResponse, "description"> {
-  total_open_jobs: number;
-  salary: number;
-  entrepreneurship_opportunity: number;
-}
 
 export default async function QuestionnareDashboardPage() {
   const [alternativesResponse, missingSettingsResponse, validSettingsResponse] =

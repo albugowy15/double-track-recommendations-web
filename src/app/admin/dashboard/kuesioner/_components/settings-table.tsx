@@ -6,11 +6,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { type SettingsResponse } from "../page";
+import { type SettingsResponse } from "@/types/data/setting";
 
 interface SettingsTableProps {
   data: SettingsResponse[];
 }
+
 const SettingsTable = (props: SettingsTableProps) => {
   return (
     <div className="rounded-md border">

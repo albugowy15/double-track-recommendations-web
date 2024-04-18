@@ -28,28 +28,9 @@ import { Save } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { type AlternativeResponse } from "../page";
 import { useToastMutate } from "@/lib/hooks";
 import { addQuestionnareSettingAction } from "../actions";
-
-// const criterias = [
-//   {
-//     name: "multimedia",
-//     label: "Multimedia",
-//   },
-//   {
-//     name: "teknik kendaraan ringan",
-//     label: "Teknik Kendaraan Ringan",
-//   },
-//   {
-//     name: "tata boga",
-//     label: "Tata Boga",
-//   },
-//   {
-//     name: "tata busana",
-//     label: "Tata Busana",
-//   },
-// ];
+import { type AlternativeResponse } from "@/types/data/alternative";
 
 const criteriaSettingSchema = z.object({
   total_open_jobs: z
