@@ -1,9 +1,9 @@
 import { DataTable } from "@/app/admin/dashboard/_components/data-table";
 import { columns } from "@/app/admin/dashboard/hasil-rekomendasi/_column";
-import { type RecommendationResult } from "@/app/siswa/rekomendasi/page";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { protectedFetch } from "@/lib/api";
+import { type StudentRecommendation } from "@/types/data/recommendation";
 import { AlertTriangle } from "lucide-react";
 import { type Metadata } from "next";
 
@@ -11,19 +11,9 @@ export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
 };
 
-export interface StudentRecommendation {
-  consistency_ratio: number;
-  fullname: string;
-  student_id: string;
-  id: number;
-  nisn: string;
-  ahp_results: Array<RecommendationResult>;
-  topsis_results?: Array<RecommendationResult>;
-}
-
 export default async function RecommendationResultDashboardPage() {
   const studentRecommendationsRes = await protectedFetch<
-    Array<StudentRecommendation>
+    StudentRecommendation[]
   >("/v1/recommendations");
 
   if (!studentRecommendationsRes?.data) return null;

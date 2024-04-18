@@ -1,6 +1,6 @@
 import EditAdminProfileForm from "@/app/admin/profil/edit/_components/edit-profile-form";
 import { protectedFetch } from "@/lib/api";
-import { type AdminProfileResponse } from "../page";
+import { type AdminProfileResponse } from "@/types/data/admin";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {

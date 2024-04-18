@@ -6,20 +6,12 @@ import { UserPlus2 } from "lucide-react";
 import { type Metadata } from "next";
 import Link from "next/link";
 import { protectedFetch } from "@/lib/api";
+import { type Student } from "@/types/data/student";
 
 export const metadata: Metadata = {
   title: "Data Siswa",
   description: "Data Siswa yang telah terdaftar",
 };
-
-export interface Student {
-  id: string;
-  fullname: string;
-  username: string;
-  nisn: string;
-  email: string;
-  phone_number: string;
-}
 
 export default async function AdminStudentDashboardPage() {
   const [schoolResponse, studentResponse] = await Promise.all([

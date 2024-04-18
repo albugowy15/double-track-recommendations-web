@@ -13,11 +13,11 @@ export async function updateAdminProfileAction(data: EditAdminProfileForm) {
     });
 
     if (res?.error) {
-      console.log(res?.error);
+      console.error(res?.error);
       return { error: res?.error };
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return { error: "Unknown error" };
   }
   revalidatePath("/admin/profil");

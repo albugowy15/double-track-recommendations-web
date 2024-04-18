@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 import EditStudentForm from "./_components/edit-student-form";
 import { protectedFetch } from "@/lib/api";
-import { type Student } from "../../page";
+import { type Student } from "@/types/data/student";
 
 export const metadata: Metadata = {
   title: "Edit Siswa",

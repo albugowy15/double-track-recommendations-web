@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { protectedFetch } from "@/lib/api";
+import { type AdminProfileResponse } from "@/types/data/admin";
+import { type SchoolResponse } from "@/types/data/school";
 import { Pencil } from "lucide-react";
 import { type Metadata } from "next";
 import Link from "next/link";
@@ -18,18 +20,6 @@ export const metadata: Metadata = {
   title: "Profil Admin",
   description: "Profil akun administrator",
 };
-
-export interface AdminProfileResponse {
-  id: string;
-  email: string;
-  username: string;
-  phone_number: string;
-}
-
-export interface SchoolResponse {
-  id: string;
-  name: string;
-}
 
 export default async function AdminProfilePage() {
   const schoolResponse = await protectedFetch<SchoolResponse>("/v1/school");

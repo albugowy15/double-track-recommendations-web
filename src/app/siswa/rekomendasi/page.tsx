@@ -4,27 +4,11 @@ import { protectedFetch } from "@/lib/api";
 import { type Metadata } from "next";
 import RecommendationCard from "./_components/recommendation-card";
 import { TriangleAlert } from "lucide-react";
+import { type AhpRecommendation } from "@/types/data/recommendation";
 
 export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
 };
-
-export interface RecommendationResult {
-  alternative: string;
-  description?: string;
-  score: number;
-  id: number;
-}
-
-interface AhpRecommendation {
-  result: Array<RecommendationResult>;
-  consistency_ratio: number;
-}
-
-// interface TopsisRecommendation {
-//   result: Array<RecommendationResult>;
-//   id: number;
-// }
 
 export interface Recommendation {
   ahp: AhpRecommendation;

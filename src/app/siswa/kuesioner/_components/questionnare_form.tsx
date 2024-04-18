@@ -7,7 +7,7 @@ import { useToastMutate } from "@/lib/hooks";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { submitAnswer } from "../actions";
-import { type Question } from "../page";
+import { type Question } from "@/types/data/question";
 
 function questiontInputName(id: number, number: number) {
   return `${id}_${number}`;

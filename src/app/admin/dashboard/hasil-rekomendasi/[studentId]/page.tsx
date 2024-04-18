@@ -1,26 +1,15 @@
 import RecommendationCard from "@/app/siswa/rekomendasi/_components/recommendation-card";
-import { type RecommendationResult } from "@/app/siswa/rekomendasi/page";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { protectedFetch } from "@/lib/api";
 import { type Metadata } from "next";
 import React from "react";
-import { type Student } from "../../siswa/page";
+import { type StudentRecommendationDetail } from "@/types/data/recommendation";
+import { type Student } from "@/types/data/student";
 
 export const metadata: Metadata = {
   title: "Detail Rekomendasi Siswa",
 };
-
-interface StudentRecommendationDetail {
-  ahp: {
-    consistency_ratio: number;
-    result: Array<RecommendationResult>;
-  };
-  topsis?: {
-    id: number;
-    result: Array<RecommendationResult>;
-  };
-}
 
 export default async function StudentRecommendationDetailPage({
   params,
