@@ -48,8 +48,10 @@ export default async function RecommendationPage() {
           Jawaban dari kuesioner yang telah kamu kerjakan{" "}
           <strong>tidak konsisten</strong> dengan nilai Consistency Ratio
           sebesar{" "}
-          <strong>{recommendationsRes.data.ahp.consistency_ratio}</strong>.{" "}
-          Sangat dianjurkan agar{" "}
+          <strong>
+            {recommendationsRes.data.ahp.consistency_ratio.toFixed(4)}
+          </strong>
+          . Sangat dianjurkan agar{" "}
           <strong>
             Anda mengulang mengisi kuesioner dengan jawaban yang konsisten
           </strong>{" "}
@@ -61,10 +63,10 @@ export default async function RecommendationPage() {
           variant="AHP"
           data={recommendationsRes?.data.ahp.result}
         />
-        <RecommendationCard
-          variant="TOPSIS"
-          data={recommendationsRes?.data.ahp.result}
-        />
+        {/* <RecommendationCard */}
+        {/*   variant="TOPSIS" */}
+        {/*   data={recommendationsRes?.data.ahp.result} */}
+        {/* /> */}
       </div>
     </main>
   );

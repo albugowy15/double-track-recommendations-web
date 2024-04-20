@@ -40,7 +40,7 @@ export default async function QuestionnarePage() {
           <AlertTitle>Selamat!</AlertTitle>
           <AlertDescription>
             <Typography variant="body1">
-              Anda telah berhasil mengisi kuesioner, silahkan kunjungi halaman
+              Anda telah mengisi kuesioner, silahkan kunjungi halaman
               rekomendasi untuk melihat hasil kuesioner Anda.
             </Typography>
             <Typography variant="body1">

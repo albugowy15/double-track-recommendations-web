@@ -2,6 +2,7 @@
 
 import { protectedFetch } from "@/lib/api";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function submitAnswer(
   data: { id: number; number: number; answer: string }[],
@@ -16,9 +17,10 @@ export async function submitAnswer(
     }
   } catch (e) {
     console.error(e);
-    return { error: "Unknown error" };
+    return { error: "Terjadi Kesalahan" };
   }
   revalidatePath("/siswa/kuesioner");
+  redirect("/siswa/rekomendasi");
 }
 
 export async function restartQuestionnareAction() {
@@ -32,7 +34,7 @@ export async function restartQuestionnareAction() {
     }
   } catch (e) {
     console.error(e);
-    return { error: "Unknown error" };
+    return { error: "Terjadi Kesalahan" };
   }
   revalidatePath("/siswa/kuesioner");
 }
