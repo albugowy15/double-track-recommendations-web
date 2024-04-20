@@ -24,20 +24,25 @@ import { Save } from "lucide-react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateAdminProfileAction } from "../../actions";
+import { asOptionalField } from "@/lib/utils";
 
 const editAdminProfileSchema = z.object({
   username: z
     .string({ required_error: "Username wajib diisi" })
     .min(1, { message: "Username wajib diisi" })
     .max(30, { message: "Username maksimal 30 karakter" }),
-  email: z
-    .string({ required_error: "Email wajib diisi" })
-    .min(1, { message: "Email wajib diisi" })
-    .email({ message: "Email tidak valid" }),
-  phone_number: z
-    .string({ required_error: "Nomor HP wajib diisi" })
-    .min(8, { message: "Nomor HP tidak valid" })
-    .max(15, { message: "Nomor HP tidak valid" }),
+  email: asOptionalField(
+    z
+      .string({ required_error: "Email wajib diisi" })
+      .min(1, { message: "Email wajib diisi" })
+      .email({ message: "Email tidak valid" }),
+  ),
+  phone_number: asOptionalField(
+    z
+      .string({ required_error: "Nomor HP wajib diisi" })
+      .min(8, { message: "Nomor HP tidak valid" })
+      .max(15, { message: "Nomor HP tidak valid" }),
+  ),
 });
 
 export type EditAdminProfileForm = z.infer<typeof editAdminProfileSchema>;
@@ -49,11 +54,7 @@ export default function EditAdminProfileForm({
 }) {
   const form = useForm<EditAdminProfileForm>({
     resolver: zodResolver(editAdminProfileSchema),
-    defaultValues: {
-      email: prev.email,
-      username: prev.username,
-      phone_number: prev.phone_number,
-    },
+    defaultValues: prev,
   });
 
   const mutateUpdateAdminProfileToast = useToastMutate({
