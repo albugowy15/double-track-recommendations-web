@@ -9,15 +9,19 @@ import { type Metadata } from "next";
 import EditProfileForm from "../_components/edit-profil-form";
 import { protectedFetch } from "@/lib/api";
 import { type StudentProfileResponse } from "@/types/data/student";
+import { unstable_noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "Edit Profile Siswa",
 };
 
 export default async function EditStudentProfilePage() {
+  unstable_noStore();
   const response = await protectedFetch<StudentProfileResponse>(
     "/v1/students/profile",
   );
+  console.log(response.data);
+  if (!response?.data) return null;
 
   return (
     <main className="px-2 py-4">
@@ -27,7 +31,16 @@ export default async function EditStudentProfilePage() {
           <CardDescription>Silahkan edit profil akun Anda</CardDescription>
         </CardHeader>
         <CardContent>
-          <EditProfileForm defaultValues={response.data} />
+          <EditProfileForm
+            defaultValues={{
+              fullname: response.data.fullname,
+              username: response.data.username,
+              email: response.data.email ?? undefined,
+              phone_number: response.data.phone_number ?? undefined,
+              nisn: response.data.nisn,
+              school: response.data.school,
+            }}
+          />
         </CardContent>
       </Card>
     </main>
