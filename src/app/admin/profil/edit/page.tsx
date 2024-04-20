@@ -17,9 +17,9 @@ export default async function EditAdminProfilePage() {
     <main className="px-3 pt-5 md:container">
       <EditAdminProfileForm
         prev={{
-          username: adminProfileResponse.data?.username,
-          email: adminProfileResponse.data?.email,
-          phone_number: adminProfileResponse.data?.phone_number,
+          username: adminProfileResponse.data.username,
+          email: adminProfileResponse.data.email ?? undefined,
+          phone_number: adminProfileResponse.data.phone_number ?? undefined,
         }}
       />
     </main>
