@@ -3,8 +3,8 @@ export interface Student {
   fullname: string;
   username: string;
   nisn: string;
-  email: string;
-  phone_number: string;
+  email: string | null;
+  phone_number: string | null;
 }
 
 export interface StudentProfileResponse extends Student {

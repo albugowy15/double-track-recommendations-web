@@ -15,6 +15,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateProfile } from "../actions";
 import { useToastMutate } from "@/lib/hooks";
+import { asOptionalField } from "@/lib/utils";
 
 const studentProfileSchema = z.object({
   fullname: z
@@ -26,8 +27,8 @@ const studentProfileSchema = z.object({
   nisn: z
     .string({ required_error: "NISN wajib diisi" })
     .min(1, { message: "NISN masih kosong" }),
-  email: z.string().email("Email tidak valid").optional(),
-  phone_number: z.string().optional(),
+  email: asOptionalField(z.string().email("Email tidak valid")),
+  phone_number: asOptionalField(z.string()),
   school: z
     .string({ required_error: "Sekolah wajib diisi" })
     .min(1, { message: "Sekolah masih kosong" }),

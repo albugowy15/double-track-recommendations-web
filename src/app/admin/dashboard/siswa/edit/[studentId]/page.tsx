@@ -23,8 +23,8 @@ export default async function EditStudentPage({
         fullname: studentResponse.data.fullname,
         nisn: studentResponse.data.nisn,
         username: studentResponse.data.username,
-        email: studentResponse.data.email,
-        phone_number: studentResponse.data.phone_number,
+        email: studentResponse.data.email ?? undefined,
+        phone_number: studentResponse.data.phone_number ?? undefined,
       }}
     />
   );
