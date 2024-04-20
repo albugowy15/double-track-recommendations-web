@@ -1,6 +1,7 @@
 import {
   BarChart2,
   FileQuestion,
+  KeyRound,
   LayoutDashboard,
   Newspaper,
   Star,
@@ -40,6 +41,12 @@ export const studentNavigation: Navigation[] = [
     description: "Profil siswa",
   },
   {
+    href: "/siswa/ubah-password",
+    title: "Ubah Password",
+    icon: <KeyRound className="mr-2 h-4 w-4" />,
+    description: "Ubah Password Akun Siswa",
+  },
+  {
     href: "/siswa/rekomendasi",
     title: "Rekomendasi",
     icon: <Star className="mr-2 h-4 w-4" />,
@@ -53,6 +60,12 @@ export const adminNavigation: Navigation[] = [
     title: "Profil",
     icon: <User2 className="mr-2 h-4 w-4" />,
     description: "Profil admin",
+  },
+  {
+    href: "/admin/ubah-password",
+    title: "Ubah Password",
+    icon: <KeyRound className="mr-2 h-4 w-4" />,
+    description: "Ubah Password Akun Admin",
   },
   {
     href: "/admin/dashboard",
