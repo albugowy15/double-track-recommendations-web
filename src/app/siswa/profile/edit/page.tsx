@@ -9,14 +9,12 @@ import { type Metadata } from "next";
 import EditProfileForm from "../_components/edit-profil-form";
 import { protectedFetch } from "@/lib/api";
 import { type StudentProfileResponse } from "@/types/data/student";
-import { unstable_noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "Edit Profile Siswa",
 };
 
 export default async function EditStudentProfilePage() {
-  unstable_noStore();
   const response = await protectedFetch<StudentProfileResponse>(
     "/v1/students/profile",
   );
