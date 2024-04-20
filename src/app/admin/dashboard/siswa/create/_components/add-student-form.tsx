@@ -94,7 +94,7 @@ export default function StudentForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit">
+            <Button type="submit" loading={mutateStudentToast.isLoading}>
               <Save className="mr-2 h-4 w-4" />
               Simpan
             </Button>

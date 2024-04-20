@@ -118,7 +118,10 @@ export default function EditAdminProfileForm({
             />
           </CardContent>
           <CardFooter className="flex justify-center">
-            <Button type="submit">
+            <Button
+              type="submit"
+              loading={mutateUpdateAdminProfileToast.isLoading}
+            >
               <Save className="mr-2 h-4 w-4" /> Simpan
             </Button>
           </CardFooter>

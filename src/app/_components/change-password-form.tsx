@@ -17,7 +17,6 @@ import { z } from "zod";
 import { changeAdminPasswordAction } from "../admin/ubah-password/actions";
 import { changeStudentPasswordAction } from "../siswa/ubah-password/actions";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
 
 interface ChangePasswordFormProps {
   variant: "admin" | "student";
@@ -119,16 +118,9 @@ function ChangePasswordForm(props: ChangePasswordFormProps) {
         <Button
           type="submit"
           className="w-full"
-          disabled={mutateChangePassword.isLoading}
+          loading={mutateChangePassword.isLoading}
         >
-          {mutateChangePassword.isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Tunggu...
-            </>
-          ) : (
-            <>Simpan</>
-          )}
+          Simpan
         </Button>
       </form>
     </Form>

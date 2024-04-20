@@ -15,10 +15,10 @@ const ResetQuestionnareButton = () => {
   return (
     <Button
       className="mt-4"
-      disabled={mutateResetQuestionnareToast.isLoading}
+      loading={mutateResetQuestionnareToast.isLoading}
       onClick={handleRestartQuestionnare}
     >
-      {mutateResetQuestionnareToast.isLoading ? "Tunggu" : "Ulang Kuesioner"}
+      Ulang Kuesioner
     </Button>
   );
 };

@@ -36,7 +36,7 @@ const DeleteRecommendationDialog = ({
       <AlertDialogTrigger asChild>
         <Button
           variant="destructive"
-          disabled={mutateDeleteStudentRecommendationToast.isLoading}
+          loading={mutateDeleteStudentRecommendationToast.isLoading}
           size="icon"
         >
           <Trash2 className="h-4 w-4" />
