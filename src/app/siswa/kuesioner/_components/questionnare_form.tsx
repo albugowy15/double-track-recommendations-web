@@ -79,7 +79,7 @@ export const QuestionnareForm = ({ questions }: { questions: Question[] }) => {
           ) : null}
         </div>
       ))}
-      <Button type="submit" className="w-fit">
+      <Button type="submit" className="w-fit" loading={mutateToast.isLoading}>
         Submit
       </Button>
     </form>

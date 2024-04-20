@@ -158,7 +158,7 @@ export default function EditStudentForm(props: {
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit">
+            <Button type="submit" loading={mutateEditStudent.isLoading}>
               <Save className="mr-2 h-4 w-4" />
               Simpan
             </Button>

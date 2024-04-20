@@ -193,7 +193,7 @@ export default function CriteriaSettings(props: CriteriaSettingsProps) {
                     )}
                   />
                 </div>
-                <Button type="submit">
+                <Button type="submit" loading={mutateAddSettingToast.isLoading}>
                   <Save className="mr-2 h-4 w-4" />
                   Simpan
                 </Button>

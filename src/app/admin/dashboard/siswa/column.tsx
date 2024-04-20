@@ -30,7 +30,11 @@ const DeleteStudentDialog = (props: { id: string; fullname: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="icon">
+        <Button
+          variant="destructive"
+          size="icon"
+          loading={mutateDeleteStudentToast.isLoading}
+        >
           <Trash2 className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>

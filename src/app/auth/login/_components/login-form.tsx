@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
@@ -125,15 +124,8 @@ const LoginInput = ({
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Mohon Tunggu...
-            </>
-          ) : (
-            <>Login</>
-          )}
+        <Button type="submit" className="w-full" loading={isLoading}>
+          Login
         </Button>
       </form>
     </Form>

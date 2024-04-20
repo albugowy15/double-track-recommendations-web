@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircleIcon } from "lucide-react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateProfile } from "../actions";
@@ -138,15 +137,8 @@ const EditProfileForm = ({ defaultValues }: EditProfileFormProps) => {
           )}
         />
 
-        <Button type="submit" disabled={mutateToast.isLoading}>
-          {mutateToast.isLoading ? (
-            <>
-              <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-              Tunggu...
-            </>
-          ) : (
-            "Perbarui Profil"
-          )}
+        <Button type="submit" loading={mutateToast.isLoading}>
+          Perbarui Profil
         </Button>
       </form>
     </Form>
