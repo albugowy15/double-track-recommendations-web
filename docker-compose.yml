@@ -1,0 +1,7 @@
+services:
+  double-track-recommendation-web:
+    build:
+      context: .
+    image: double-track-recommendation-web
+    ports:
+      - "3000:3000"

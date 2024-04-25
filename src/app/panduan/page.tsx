@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function GuidePage() {
   return (
-    <>
+    <main className="px-3 py-5 md:container">
       <Typography variant="h2">
         Panduan Penggunaan Sistem Rekomendasi Keterampilan Double Track
       </Typography>
@@ -162,6 +162,6 @@ export default function GuidePage() {
         Sangat disarankan siswa mengisi kuesioner dengan teliti agar mendapatkan
         hasil rekomendasi terbaik.
       </Typography>
-    </>
+    </main>
   );
 }

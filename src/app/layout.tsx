@@ -29,7 +29,7 @@ export default function RootLayout({
         >
           <Toaster />
           <Navbar />
-          <div className="px-3 py-5 md:container">{children}</div>
+          <div>{children}</div>
           <Footer />
         </ThemeProvider>
       </body>
