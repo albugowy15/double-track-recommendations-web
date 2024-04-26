@@ -4,7 +4,10 @@ import { protectedFetch } from "@/lib/api";
 import { type Metadata } from "next";
 import RecommendationCard from "./_components/recommendation-card";
 import { TriangleAlert } from "lucide-react";
-import { type AhpRecommendation } from "@/types/data/recommendation";
+import {
+  TopsisRecommendation,
+  type AhpRecommendation,
+} from "@/types/data/recommendation";
 
 export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
@@ -12,6 +15,7 @@ export const metadata: Metadata = {
 
 export interface Recommendation {
   ahp: AhpRecommendation;
+  topsis: TopsisRecommendation;
 }
 
 export default async function RecommendationPage() {
@@ -32,7 +36,10 @@ export default async function RecommendationPage() {
   }
 
   if (!recommendationsRes?.data) return null;
-
+  console.log(
+    "topsis recommendation : ",
+    recommendationsRes.data?.topsis.result,
+  );
   return (
     <main className="px-3 pt-5 md:container">
       <Typography variant="h2">
@@ -63,10 +70,10 @@ export default async function RecommendationPage() {
           variant="AHP"
           data={recommendationsRes?.data.ahp.result}
         />
-        {/* <RecommendationCard */}
-        {/*   variant="TOPSIS" */}
-        {/*   data={recommendationsRes?.data.ahp.result} */}
-        {/* /> */}
+        <RecommendationCard
+          variant="TOPSIS"
+          data={recommendationsRes?.data.topsis.result}
+        />
       </div>
     </main>
   );
