@@ -11,7 +11,7 @@ export interface AhpRecommendation {
 }
 
 export interface TopsisRecommendation {
-  result: RecommendationResult;
+  result: RecommendationResult[];
   id: number;
 }
 
