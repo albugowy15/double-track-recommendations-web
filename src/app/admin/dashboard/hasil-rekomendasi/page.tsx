@@ -1,23 +1,16 @@
-import { DataTable } from "@/app/admin/dashboard/_components/data-table";
-import { columns } from "@/app/admin/dashboard/hasil-rekomendasi/_column";
+import React from "react";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { protectedFetch } from "@/lib/api";
-import { type StudentRecommendation } from "@/types/data/recommendation";
 import { AlertTriangle } from "lucide-react";
 import { type Metadata } from "next";
+import { RecommendationTable } from "./_components/recommendation-table";
+import Loading from "@/app/loading";
 
 export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
 };
 
 export default async function RecommendationResultDashboardPage() {
-  const studentRecommendationsRes = await protectedFetch<
-    StudentRecommendation[]
-  >("/v1/recommendations");
-
-  if (!studentRecommendationsRes?.data) return null;
-
   return (
     <div className="mx-auto">
       <section className="pb-2">
@@ -40,14 +33,9 @@ export default async function RecommendationResultDashboardPage() {
           </AlertDescription>
         </Alert>
       </section>
-      <DataTable
-        columns={columns}
-        data={studentRecommendationsRes.data ?? []}
-        search={{
-          column: "fullname",
-          placeholder: "Cari siswa",
-        }}
-      />
+      <React.Suspense fallback={<Loading />}>
+        <RecommendationTable />
+      </React.Suspense>
     </div>
   );
 }

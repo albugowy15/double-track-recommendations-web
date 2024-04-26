@@ -3,6 +3,7 @@ import { protectedFetch } from "@/lib/api";
 import { type StatisticsResponse } from "@/types/data/common";
 import { Pencil, SearchCheck, Users } from "lucide-react";
 import { type Metadata } from "next";
+import { StatisticCard } from "./_components/statistic-card";
 
 export const metadata: Metadata = {
   title: "Dashboard Admin",
@@ -16,53 +17,31 @@ export default async function OverviewPage() {
       <Typography variant="h2">Ringkasan</Typography>
 
       <section className="grid gap-3 py-5 md:grid-cols-3">
-        <div className="flex items-start gap-3 rounded-md border p-3">
-          <div className="rounded-md border bg-secondary p-3">
-            <Users className="h-8 w-8" />
-          </div>
-          <div>
-            <Typography variant="body1">Total Siswa Terdaftar</Typography>
-            <Typography variant="h3">
-              {statisticsResponse?.data?.registered_students}
-            </Typography>
-            <Typography variant="label1" className="text-xs font-normal">
-              Jumlah siswa yang telah didaftarkan kedalam aplikasi.
-            </Typography>
-          </div>
-        </div>
+        <StatisticCard
+          title="Total Siswa Terdaftar"
+          desc="Jumlah siswa yang telah didaftarkan kedalam aplikasi."
+          data={statisticsResponse?.data?.registered_students}
+          icon={<Users className="h-8 w-8" />}
+        />
 
-        <div className="flex items-start gap-3 rounded-md border p-3">
-          <div className="rounded-md border bg-secondary p-3">
-            <Pencil className="h-8 w-8" />
-          </div>
-          <div>
-            <Typography variant="body1">Kuesioner Diisi</Typography>
-            <Typography variant="h3">
-              {statisticsResponse?.data?.questionnare_completed}
-            </Typography>
-            <Typography variant="label1" className="text-xs font-normal">
-              Jumlah siswa yang telah selesai mengisi kuesioner.
-            </Typography>
-          </div>
-        </div>
+        <StatisticCard
+          title="Kuesioner Diisi"
+          desc="Jumlah siswa yang telah selesai mengisi kuesioner."
+          data={statisticsResponse?.data?.questionnare_completed}
+          icon={<Pencil className="h-8 w-8" />}
+        />
 
-        <div className="flex items-start gap-3 rounded-md border p-3">
-          <div className="rounded-md border bg-secondary p-3">
-            <SearchCheck className="h-8 w-8" />
-          </div>
-          <div>
-            <Typography variant="body1">Konsistensi</Typography>
-            <Typography variant="h3">
-              {statisticsResponse?.data?.consistency_avg
-                ? statisticsResponse.data.consistency_avg.toFixed(4)
-                : 0.0}
-            </Typography>
-            <Typography variant="label1" className="text-xs font-normal">
-              Persentase isian kuesioner dengan konsistensi yang baik (diatas
-              0,1).
-            </Typography>
-          </div>
-        </div>
+        <StatisticCard
+          title="Konsitensi"
+          desc="Persentase isian kuesioner dengan konsistensi yang baik (diatas
+              0,1)."
+          data={
+            statisticsResponse?.data?.consistency_avg
+              ? statisticsResponse.data.consistency_avg.toFixed(4)
+              : 0.0
+          }
+          icon={<SearchCheck className="h-8 w-8" />}
+        />
       </section>
     </>
   );
