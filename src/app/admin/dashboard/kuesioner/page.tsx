@@ -1,27 +1,20 @@
 import CriteriaSettings from "@/app/admin/dashboard/kuesioner/_components/criteria-settings";
 import Typography from "@/components/typography";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { protectedFetch, publicFetch } from "@/lib/api";
-import { CircleAlert, CircleCheckBig, Loader2 } from "lucide-react";
+import { publicFetch } from "@/lib/api";
 import { type Metadata } from "next";
-import { Suspense } from "react";
-import SettingsTable from "./_components/settings-table";
+import React from "react";
+import { SettingsTable } from "./_components/settings-table";
 import { type AlternativeResponse } from "@/types/data/alternative";
-import { type SettingsResponse } from "@/types/data/setting";
+import Loading from "@/app/loading";
+import { SettingsStatus } from "./_components/settings-status";
 
 export const metadata: Metadata = {
   title: "Kuesinoner",
 };
 
 export default async function QuestionnareDashboardPage() {
-  const [alternativesResponse, missingSettingsResponse, validSettingsResponse] =
-    await Promise.all([
-      publicFetch<AlternativeResponse[]>("/v1/alternatives"),
-      protectedFetch<AlternativeResponse[]>(
-        "/v1/questionnare/settings/incomplete",
-      ),
-      protectedFetch<SettingsResponse[]>("/v1/questionnare/settings"),
-    ]);
+  const alternativesResponse =
+    await publicFetch<AlternativeResponse[]>("/v1/alternatives");
   return (
     <div className="mx-auto flex flex-col gap-6">
       <section>
@@ -34,47 +27,12 @@ export default async function QuestionnareDashboardPage() {
         </Typography>
       </section>
       <section>
-        {missingSettingsResponse?.data &&
-        missingSettingsResponse.data.length != 0 ? (
-          <Alert variant="destructive">
-            <CircleAlert className="h-4 w-4" />
-            <AlertTitle>Peringatan!</AlertTitle>
-            <AlertDescription>
-              Anda belum mengatur nilai jumlah lapangan pekerjaan, gaji, dan
-              peluang wirausaha untuk setiap bidang keterampilan. Silahkan atur
-              nilai lapangan pekerjaan, gaji, dan peluang wirausaha untuk bidang
-              keterampilan berikut:
-              <ul className="pt-4">
-                {missingSettingsResponse.data.map((item) => (
-                  <li key={item.id} className="list-disc list-inside">
-                    {item.alternative}
-                  </li>
-                ))}
-              </ul>
-            </AlertDescription>
-          </Alert>
-        ) : (
-          <Alert>
-            <CircleCheckBig className="h-4 w-4" />
-            <AlertTitle>Selamat!</AlertTitle>
-            <AlertDescription>
-              Anda telah mengatur nilai jumlah lapangan pekerjaan, gaji, dan
-              peluang wirausaha untuk setiap bidang keterampilan.
-            </AlertDescription>
-          </Alert>
-        )}
+        <SettingsStatus />
       </section>
       <section>
-        <Suspense
-          fallback={
-            <div className="flex flex-col items-center justify-center gap-4">
-              <Loader2 className="h-6 w-6 animate-spin" />
-              Please Wait
-            </div>
-          }
-        >
+        <React.Suspense fallback={<Loading />}>
           <CriteriaSettings alternatives={alternativesResponse?.data ?? []} />
-        </Suspense>
+        </React.Suspense>
       </section>
       <section className="flex flex-col gap-3 py-4">
         <div>
@@ -84,7 +42,10 @@ export default async function QuestionnareDashboardPage() {
             untuk setiap bidang keterampilan yang telah Anda atur
           </Typography>
         </div>
-        <SettingsTable data={validSettingsResponse?.data ?? []} />
+
+        <React.Suspense fallback={<Loading />}>
+          <SettingsTable />
+        </React.Suspense>
       </section>
     </div>
   );

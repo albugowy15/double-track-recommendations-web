@@ -6,13 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { protectedFetch } from "@/lib/api";
 import { type SettingsResponse } from "@/types/data/setting";
 
-interface SettingsTableProps {
-  data: SettingsResponse[];
-}
-
-const SettingsTable = (props: SettingsTableProps) => {
+async function SettingsTable() {
+  const validSettingsResponse = await protectedFetch<SettingsResponse[]>(
+    "/v1/questionnare/settings",
+  );
   return (
     <div className="rounded-md border">
       <Table>
@@ -26,7 +26,7 @@ const SettingsTable = (props: SettingsTableProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {props.data.map((item, index) => (
+          {validSettingsResponse.data?.map((item, index) => (
             <TableRow key={item.id}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{item.alternative}</TableCell>
@@ -39,6 +39,6 @@ const SettingsTable = (props: SettingsTableProps) => {
       </Table>
     </div>
   );
-};
+}
 
-export default SettingsTable;
+export { SettingsTable };
