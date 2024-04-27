@@ -1,31 +1,29 @@
-import { getToken } from "next-auth/jwt";
-import {
-  type NextFetchEvent,
-  type NextRequest,
-  NextResponse,
-} from "next/server";
+import { withAuth, type NextRequestWithAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest, _next: NextFetchEvent) {
-  const { pathname } = request.nextUrl;
-  const protectedPaths = ["/admin", "/siswa"];
-  const matchesProtectedPath = protectedPaths.some((path) =>
-    pathname.startsWith(path),
-  );
-  if (matchesProtectedPath) {
-    const token = await getToken({ req: request });
-    if (!token) {
-      const url = new URL("/auth/login", request.url);
-      url.searchParams.set("callbackUrl", encodeURI(request.url));
-      return NextResponse.redirect(url);
+export default withAuth(
+  function middleware(request: NextRequestWithAuth) {
+    if (
+      request.nextUrl.pathname.startsWith("/admin") &&
+      request.nextauth.token?.role !== "admin"
+    ) {
+      return NextResponse.rewrite(new URL("/403", request.url));
     }
-    if (pathname.startsWith("/admin") && token.role !== "admin") {
-      const url = new URL(`/403`, request.url);
-      return NextResponse.rewrite(url);
+
+    if (
+      request.nextUrl.pathname.startsWith("/siswa") &&
+      request.nextauth.token?.role !== "student"
+    ) {
+      return NextResponse.rewrite(new URL("/403", request.url));
     }
-    if (pathname.startsWith("/siswa") && token.role !== "student") {
-      const url = new URL(`/403`, request.url);
-      return NextResponse.rewrite(url);
-    }
-  }
-  return NextResponse.next();
-}
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token,
+    },
+  },
+);
+
+export const config = {
+  matcher: ["/admin/:path*", "/siswa/:path*"],
+};

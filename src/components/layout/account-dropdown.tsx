@@ -18,6 +18,7 @@ import {
   studentNavigation,
 } from "@/config/navigation";
 import { type Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
 const AccountDropdown = ({ session }: { session: Session }) => {
   return (
@@ -63,12 +64,7 @@ const AccountDropdown = ({ session }: { session: Session }) => {
           </>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={async () => {
-            const signOut = (await import("next-auth/react")).signOut;
-            void signOut();
-          }}
-        >
+        <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Logout</span>
         </DropdownMenuItem>
