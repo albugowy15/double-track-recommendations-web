@@ -5,7 +5,7 @@ import { type Metadata } from "next";
 import RecommendationCard from "./_components/recommendation-card";
 import { TriangleAlert } from "lucide-react";
 import {
-  TopsisRecommendation,
+  type TopsisRecommendation,
   type AhpRecommendation,
 } from "@/types/data/recommendation";
 
@@ -36,10 +36,6 @@ export default async function RecommendationPage() {
   }
 
   if (!recommendationsRes?.data) return null;
-  console.log(
-    "topsis recommendation : ",
-    recommendationsRes.data?.topsis.result,
-  );
   return (
     <main className="px-3 pt-5 md:container">
       <Typography variant="h2">

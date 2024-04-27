@@ -18,7 +18,6 @@ export default async function EditStudentProfilePage() {
   const response = await protectedFetch<StudentProfileResponse>(
     "/v1/students/profile",
   );
-  console.log(response.data);
   if (!response?.data) return null;
 
   return (
