@@ -28,7 +28,7 @@ export async function protectedFetch<T>(
   option?: FetchOption,
 ): Promise<FetchResult<T>> {
   const session = await getServerAuthSession();
-  if (!session) redirect("403");
+  if (!session) redirect("/403");
 
   const url = env.NEXT_PUBLIC_API_URL + endpoint;
   const method = option?.method ?? "GET";
@@ -38,13 +38,13 @@ export async function protectedFetch<T>(
   };
   const headers = { ...defaultHeaders, ...option?.headers };
 
-  const res = await fetch(url, {
-    method: method,
-    headers: headers,
-    body: option?.body ? JSON.stringify(option?.body) : undefined,
-  });
-
   try {
+    const res = await fetch(url, {
+      method: method,
+      headers: headers,
+      body: option?.body ? JSON.stringify(option?.body) : undefined,
+    });
+
     const json = (await res.json()) as APIResponse<T>;
     return {
       ok: res.ok,
@@ -52,8 +52,8 @@ export async function protectedFetch<T>(
       ...json,
     };
   } catch (e) {
-    console.error(e);
-    throw new Error("Error read the json response");
+    console.error("Fetch failed: ", e);
+    throw new Error("Error fetch data from " + endpoint);
   }
 }
 
@@ -78,15 +78,20 @@ export async function publicFetch<T>(
   };
   const headers = { ...defaultHeaders, ...option?.headers };
 
-  const res = await fetch(url, {
-    method: method,
-    headers: headers,
-    body: option?.body ? JSON.stringify(option?.body) : undefined,
-  });
-  const json = (await res.json()) as APIResponse<T>;
-  return {
-    ok: res.ok,
-    status: res.status,
-    ...json,
-  };
+  try {
+    const res = await fetch(url, {
+      method: method,
+      headers: headers,
+      body: option?.body ? JSON.stringify(option?.body) : undefined,
+    });
+    const json = (await res.json()) as APIResponse<T>;
+    return {
+      ok: res.ok,
+      status: res.status,
+      ...json,
+    };
+  } catch (e) {
+    console.error("Fetch failed: ", e);
+    throw new Error("Error fetch data from " + endpoint);
+  }
 }

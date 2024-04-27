@@ -19,8 +19,6 @@ declare module "next-auth" {
   }
 }
 
-export const protectedPaths = ["/auth/login"];
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -54,8 +52,9 @@ export const authOptions: NextAuthOptions = {
         const response = (await res.json()) as APIResponse<LoginResponseData>;
         if (res.ok && response.data) {
           return {
-            ...response.data,
             id: "",
+            token: response.data.token,
+            role: response.data.role,
           };
         } else {
           console.error("error: ", response);
