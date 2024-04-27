@@ -1,10 +1,8 @@
-import React from "react";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { type Metadata } from "next";
 import { RecommendationTable } from "./_components/recommendation-table";
-import Loading from "@/app/loading";
 
 export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
@@ -33,9 +31,7 @@ export default async function RecommendationResultDashboardPage() {
           </AlertDescription>
         </Alert>
       </section>
-      <React.Suspense fallback={<Loading />}>
-        <RecommendationTable />
-      </React.Suspense>
+      <RecommendationTable />
     </div>
   );
 }
