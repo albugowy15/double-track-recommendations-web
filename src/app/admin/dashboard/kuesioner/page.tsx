@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 import React from "react";
 import { SettingsTable } from "./_components/settings-table";
 import { type AlternativeResponse } from "@/types/data/alternative";
+import Loading from "@/app/loading";
 import { SettingsStatus } from "./_components/settings-status";
 
 export const metadata: Metadata = {
@@ -39,7 +40,10 @@ export default async function QuestionnareDashboardPage() {
             untuk setiap bidang keterampilan yang telah Anda atur
           </Typography>
         </div>
-        <SettingsTable />
+
+        <React.Suspense fallback={<Loading />}>
+          <SettingsTable />
+        </React.Suspense>
       </section>
     </div>
   );
