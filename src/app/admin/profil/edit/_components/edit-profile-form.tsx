@@ -63,7 +63,6 @@ export default function EditAdminProfileForm({
 
   const onSubmit: SubmitHandler<EditAdminProfileForm> = (data) => {
     mutateUpdateAdminProfileToast.mutate(updateAdminProfileAction(data));
-    console.log(data);
   };
 
   return (
