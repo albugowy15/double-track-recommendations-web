@@ -17,9 +17,11 @@ import { z } from "zod";
 import { changeAdminPasswordAction } from "../admin/ubah-password/actions";
 import { changeStudentPasswordAction } from "../siswa/ubah-password/actions";
 import { Button } from "@/components/ui/button";
+import React from "react";
+import { type Role } from "@/types/data/common";
 
 interface ChangePasswordFormProps {
-  variant: "admin" | "student";
+  variant: Role;
 }
 
 const changePasswordSchema = z.object({

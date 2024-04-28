@@ -7,10 +7,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { type APIResponse } from "@/types/api";
 import { env } from "@/env.mjs";
+import { type Role } from "@/types/data/common";
 
 export interface LoginResponseData {
   token: string;
-  role: "admin" | "student";
+  role: Role;
 }
 
 declare module "next-auth" {
