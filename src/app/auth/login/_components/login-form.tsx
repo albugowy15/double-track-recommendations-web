@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,6 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
+import React from "react";
+import { type Role } from "@/types/data/common";
 
 const loginFormSchema = z.object({
   username: z
@@ -39,7 +40,7 @@ const loginFormSchema = z.object({
 type LoginForm = z.infer<typeof loginFormSchema>;
 
 interface LoginInputProps {
-  activeTab: "student" | "admin";
+  activeTab: Role;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
@@ -92,6 +93,11 @@ const LoginInput = ({
       });
   };
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  function handleShowPassword() {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -117,7 +123,22 @@ const LoginInput = ({
               <FormLabel>Password</FormLabel>
               <FormDescription>Masukkan password Anda</FormDescription>
               <FormControl>
-                <Input type="password" {...field} placeholder="Password" />
+                <div>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    {...field}
+                    placeholder="Password"
+                  />
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      className="text-sm py-1 font-medium text-blue-600 cursor-pointer w-fit"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? "Tampilkan" : "Sembunyikan"} password
+                    </button>
+                  </div>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -133,7 +154,7 @@ const LoginInput = ({
 };
 
 export const LoginForm = () => {
-  const [tab, setTab] = useState<"student" | "admin">("student");
+  const [tab, setTab] = useState<Role>("student");
   const [buttonLoading, setButtonLoading] = useState(false);
 
   return (

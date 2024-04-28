@@ -38,6 +38,7 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
+  iconLoading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -47,6 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant,
       size,
       loading = false,
+      iconLoading = false,
       asChild = false,
       children,
       ...props
@@ -64,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {loading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Tunggu...
+            {iconLoading ? null : "Tunggu..."}
           </>
         ) : (
           children

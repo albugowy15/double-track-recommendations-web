@@ -33,6 +33,7 @@ const DeleteStudentDialog = (props: { id: string; fullname: string }) => {
         <Button
           variant="destructive"
           size="icon"
+          iconLoading
           loading={mutateDeleteStudentToast.isLoading}
         >
           <Trash2 className="h-4 w-4" />
