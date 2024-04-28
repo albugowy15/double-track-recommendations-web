@@ -135,7 +135,7 @@ const LoginInput = ({
                       className="text-sm py-1 font-medium text-blue-600 cursor-pointer w-fit"
                       onClick={handleShowPassword}
                     >
-                      {showPassword ? "Tampilkan" : "Sembunyikan"} password
+                      {showPassword ? "Sembunyikan" : "Tampilkan"} password
                     </button>
                   </div>
                 </div>
