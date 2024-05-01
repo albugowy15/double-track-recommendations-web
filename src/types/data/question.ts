@@ -7,3 +7,5 @@ export interface Question {
   min_text?: string;
   max_text?: string;
 }
+
+export type QuestionnareStatus = "NOTREADY" | "READY" | "COMPLETED";
