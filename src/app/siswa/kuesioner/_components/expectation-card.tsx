@@ -49,7 +49,7 @@ async function QuestionnareExpectationCard() {
       <CardFooter>
         <Button asChild variant="default">
           <Link href="/siswa/kuesioner/ekspektasi">
-            {expectationStatusRes.data.status === "READY" ? "Isi" : "Ulang"}{" "}
+            {expectationStatusRes.data.status === "READY" ? "Isi" : "Lihat"}{" "}
             Kuesioner
           </Link>
         </Button>
