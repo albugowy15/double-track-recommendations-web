@@ -7,6 +7,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import {
   Select,
@@ -15,11 +16,13 @@ import {
   SelectValue,
   SelectContent,
 } from "@/components/ui/select";
+import { useToastMutate } from "@/lib/hooks";
 import { type AlternativeResponse } from "@/types/data/alternative";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { saveExpectationsAction } from "../actions";
 
 const expectationsFormSchema = z.object({
   first: z
@@ -69,8 +72,13 @@ function ExpectationsForm(props: ExpectationsFormProps) {
     resolver: zodResolver(expectationsFormSchema),
   });
 
+  const mutateExpectation = useToastMutate({
+    success: "Berhasil menyimpan jawaban kuesioner ekspektasi",
+  });
+
   function onSubmit(data: ExpectationsFormSchema) {
     console.log("form Ekspektasi:", data);
+    mutateExpectation.mutate(saveExpectationsAction(data));
   }
 
   return (
@@ -83,22 +91,30 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           name="first"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-1</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-1</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
@@ -107,22 +123,30 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           name="second"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-2</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-2</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
@@ -130,45 +154,62 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           name="third"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-3</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-3</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
+
         <FormField
           name="fourth"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-4</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-4</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
@@ -176,22 +217,30 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           name="fifth"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-5</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-5</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
@@ -199,22 +248,30 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           name="sixth"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-6</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-6</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
@@ -222,25 +279,34 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           name="seventh"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Keterampilan Urutan ke-7</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih bidang keterampilan" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {props.alternatives.map((item) => (
-                    <SelectItem key={item.id} value={item.id.toString()}>
-                      {item.alternative}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex gap-2 items-center">
+              <div className="flex-1">
+                <FormLabel>Keterampilan Urutan ke-7</FormLabel>
+                <FormMessage className="text-xs" />
+              </div>
+              <div className="w-[50%]">
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih bidang keterampilan" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.alternatives.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.alternative}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </FormItem>
           )}
         />
+
         <Button type="submit" className="w-fit">
           Simpan
         </Button>
