@@ -1,0 +1,155 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToastMutate } from "@/lib/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { registerStudentAction } from "../actions";
+
+const studentRegisterSchema = z.object({
+  fullname: z
+    .string({ required_error: "Nama lengkap wajib diisi" })
+    .min(1, { message: "Nama lengkap wajib diisi" }),
+  nisn: z
+    .string({ required_error: "NISN wajib diisi" })
+    .min(1, { message: "NISN wajib diisi" }),
+  email: z
+    .string({ required_error: "Email wajib diisi" })
+    .min(1, { message: "Email wajib diisi" })
+    .email({ message: "Email tidak valid" }),
+  username: z.string({ required_error: "Username wajib diisi" }).min(5, {
+    message: "Username minimal terdiri dari 5 karakter tanpa spasi",
+  }),
+  password: z.string({ required_error: "Password wajib diisi" }).min(6, {
+    message: "Password minimal terdiri dari 6 karakter tanpa spasi",
+  }),
+});
+
+type StudentRegisterSchema = z.infer<typeof studentRegisterSchema>;
+
+function StudentRegisterForm() {
+  const form = useForm<StudentRegisterSchema>({
+    resolver: zodResolver(studentRegisterSchema),
+  });
+
+  const mutateRegisterStudent = useToastMutate({
+    success: "Berhasil membuat akun siswa",
+  });
+  function onSubmit(data: StudentRegisterSchema) {
+    mutateRegisterStudent.mutate(registerStudentAction(data));
+  }
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  function handleShowPassword() {
+    setShowPassword(!showPassword);
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="fullname"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nama lengkap</FormLabel>
+              <FormControl>
+                <Input {...field} type="text" placeholder="Nama Lengkap" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="nisn"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>NISN</FormLabel>
+              <FormControl>
+                <Input {...field} type="text" placeholder="NISN" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} type="email" placeholder="Email" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormDescription>Minimal 5 karakter tanpa spasi</FormDescription>
+              <FormControl>
+                <Input {...field} type="text" placeholder="Username" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormDescription>Minimal 6 karakter tanpa spasi</FormDescription>
+              <FormControl>
+                <div>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    {...field}
+                    placeholder="Password"
+                  />
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      className="text-sm py-1 font-medium text-blue-600 cursor-pointer w-fit"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? "Sembunyikan" : "Tampilkan"} password
+                    </button>
+                  </div>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button variant="default" type="submit" className="w-full">
+          Register
+        </Button>
+      </form>
+    </Form>
+  );
+}
+
+export { StudentRegisterForm, type StudentRegisterSchema };
