@@ -26,7 +26,12 @@ function ResetExpectationDialog() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <div className="flex justify-center py-6">
-          <Button className="mx-auto">Ulang Kuesioner</Button>
+          <Button
+            loading={mutateResetExpectation.isLoading}
+            className="mx-auto"
+          >
+            Ulang Kuesioner
+          </Button>
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent>

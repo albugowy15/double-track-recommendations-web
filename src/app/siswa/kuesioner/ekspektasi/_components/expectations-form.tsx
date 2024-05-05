@@ -67,10 +67,26 @@ interface ExpectationsFormProps {
   alternatives: AlternativeResponse[];
 }
 
+interface AlternativeSelectItem extends AlternativeResponse {
+  selected: boolean;
+}
+
+type ExpectationsFormSchemaKeys = keyof ExpectationsFormSchema;
+
 function ExpectationsForm(props: ExpectationsFormProps) {
   const form = useForm<ExpectationsFormSchema>({
     resolver: zodResolver(expectationsFormSchema),
   });
+
+  const alternativeItems: AlternativeSelectItem[] = props.alternatives.map(
+    (item) => ({
+      selected: false,
+      ...item,
+    }),
+  );
+
+  const [selectAlternatives, setSelectAlternatives] =
+    React.useState<AlternativeSelectItem[]>(alternativeItems);
 
   const mutateExpectation = useToastMutate({
     success: "Berhasil menyimpan jawaban kuesioner ekspektasi",
@@ -78,6 +94,40 @@ function ExpectationsForm(props: ExpectationsFormProps) {
 
   function onSubmit(data: ExpectationsFormSchema) {
     mutateExpectation.mutate(saveExpectationsAction(data));
+  }
+
+  function handleSelectChange(value: string, name: ExpectationsFormSchemaKeys) {
+    const prevValue = form.getValues(name);
+
+    const newAlternativeItems = [...selectAlternatives];
+    if (prevValue) {
+      const prevAlternative = newAlternativeItems.find(
+        (item) => item.id === parseInt(prevValue),
+      );
+      if (prevAlternative) {
+        prevAlternative.selected = false;
+      }
+    }
+
+    const newAlternative = newAlternativeItems.find(
+      (item) => item.id === parseInt(value),
+    );
+    if (newAlternative) {
+      newAlternative.selected = true;
+    }
+    setSelectAlternatives(newAlternativeItems);
+  }
+
+  function getValidAlternatives(
+    fieldName: ExpectationsFormSchemaKeys,
+  ): AlternativeSelectItem[] {
+    const validAlternatives = selectAlternatives.filter(
+      (item) =>
+        item.id === parseInt(form.getValues(fieldName)) ||
+        item.selected === false,
+    );
+
+    return validAlternatives ?? [];
   }
 
   return (
@@ -97,7 +147,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "first");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -106,7 +159,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("first").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -129,7 +182,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "second");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -138,7 +194,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("second").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -160,7 +216,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "third");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -169,7 +228,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("third").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -192,7 +251,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "fourth");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -201,7 +263,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("fourth").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -223,7 +285,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "fifth");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -232,7 +297,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("fifth").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -254,7 +319,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "sixth");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -263,7 +331,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("sixth").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -285,7 +353,10 @@ function ExpectationsForm(props: ExpectationsFormProps) {
               </div>
               <div className="w-[50%]">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    handleSelectChange(value, "seventh");
+                    field.onChange(value);
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -294,7 +365,7 @@ function ExpectationsForm(props: ExpectationsFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {props.alternatives.map((item) => (
+                    {getValidAlternatives("seventh").map((item) => (
                       <SelectItem key={item.id} value={item.id.toString()}>
                         {item.alternative}
                       </SelectItem>
@@ -306,9 +377,23 @@ function ExpectationsForm(props: ExpectationsFormProps) {
           )}
         />
 
-        <Button type="submit" className="w-fit">
-          Simpan
-        </Button>
+        <div className="flex gap-2 items-center">
+          <Button
+            loading={mutateExpectation.isLoading}
+            type="submit"
+            className="w-fit"
+          >
+            Simpan
+          </Button>
+          <Button
+            type="reset"
+            loading={mutateExpectation.isLoading}
+            variant="secondary"
+            onClick={() => window.location.reload()}
+          >
+            Reset
+          </Button>
+        </div>
       </form>
     </Form>
   );
