@@ -19,13 +19,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ExpectationsQuestionnarePage() {
-  const alternatives =
-    await protectedFetch<AlternativeResponse[]>("/v1/alternatives");
-
-  const prevAnswers =
-    await protectedFetch<ExpectationResponse[]>("/v1/expectations");
-
-  console.log(prevAnswers);
+  const [alternatives, prevAnswers] = await Promise.all([
+    protectedFetch<AlternativeResponse[]>("/v1/alternatives"),
+    protectedFetch<ExpectationResponse[]>("/v1/expectations"),
+  ]);
 
   if (!prevAnswers.data || prevAnswers.data.length === 0) {
     return (

@@ -17,6 +17,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { registerStudentAction } from "../actions";
+import { type SchoolResponse } from "@/types/data/school";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const studentRegisterSchema = z.object({
   fullname: z
@@ -29,6 +37,9 @@ const studentRegisterSchema = z.object({
     .string({ required_error: "Email wajib diisi" })
     .min(1, { message: "Email wajib diisi" })
     .email({ message: "Email tidak valid" }),
+  school: z
+    .string({ required_error: "Sekolah wajib diisi" })
+    .min(1, { message: "Sekolah wajib diisi" }),
   username: z.string({ required_error: "Username wajib diisi" }).min(5, {
     message: "Username minimal terdiri dari 5 karakter tanpa spasi",
   }),
@@ -39,7 +50,11 @@ const studentRegisterSchema = z.object({
 
 type StudentRegisterSchema = z.infer<typeof studentRegisterSchema>;
 
-function StudentRegisterForm() {
+interface StudentRegisterFormProps {
+  schools: SchoolResponse[];
+}
+
+function StudentRegisterForm(props: StudentRegisterFormProps) {
   const form = useForm<StudentRegisterSchema>({
     resolver: zodResolver(studentRegisterSchema),
   });
@@ -85,7 +100,6 @@ function StudentRegisterForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="email"
@@ -99,7 +113,30 @@ function StudentRegisterForm() {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="school"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sekolah</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih sekolah" />
+                  </SelectTrigger>
+                </FormControl>
 
+                <SelectContent>
+                  {props.schools.map((school) => (
+                    <SelectItem key={school.id} value={school.id}>
+                      {school.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="username"
@@ -144,7 +181,12 @@ function StudentRegisterForm() {
             </FormItem>
           )}
         />
-        <Button variant="default" type="submit" className="w-full">
+        <Button
+          loading={mutateRegisterStudent.isLoading}
+          variant="default"
+          type="submit"
+          className="w-full"
+        >
           Register
         </Button>
       </form>

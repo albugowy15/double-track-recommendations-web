@@ -77,7 +77,6 @@ function ExpectationsForm(props: ExpectationsFormProps) {
   });
 
   function onSubmit(data: ExpectationsFormSchema) {
-    console.log("form Ekspektasi:", data);
     mutateExpectation.mutate(saveExpectationsAction(data));
   }
 
