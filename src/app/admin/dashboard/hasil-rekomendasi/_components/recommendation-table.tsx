@@ -8,8 +8,6 @@ async function RecommendationTable() {
     StudentRecommendation[]
   >("/v1/recommendations");
 
-  if (!studentRecommendationsRes?.data) return null;
-
   return (
     <DataTable
       columns={columns}
