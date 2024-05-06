@@ -8,7 +8,9 @@ import { TriangleAlert } from "lucide-react";
 import {
   type TopsisRecommendation,
   type AhpRecommendation,
+  TopsisAHPRecommendation,
 } from "@/types/data/recommendation";
+import { TopsisCard } from "./_components/topsis-card";
 
 export const metadata: Metadata = {
   title: "Hasil Rekomendasi",
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 export interface Recommendation {
   ahp: AhpRecommendation;
   topsis: TopsisRecommendation;
+  topsis_ahp: TopsisAHPRecommendation;
 }
 
 export default async function RecommendationPage() {
@@ -67,11 +70,11 @@ export default async function RecommendationPage() {
           variant="AHP"
           data={recommendationsRes?.data.ahp.result}
         />
-        <RecommendationCard
+        {/* <RecommendationCard
           variant="TOPSIS"
           data={recommendationsRes?.data.topsis.result}
-        />
+        /> */}
+        <TopsisCard data={recommendationsRes?.data.topsis.result} topsis_ahp={recommendationsRes?.data.topsis_ahp.result} />
       </div>
     </main>
   );
-}
