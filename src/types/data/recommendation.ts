@@ -5,8 +5,12 @@ export interface RecommendationResult {
   id: number;
 }
 
+export interface RecommendationResultWithRank extends RecommendationResult {
+  rank: number;
+}
+
 export interface AhpRecommendation {
-  result: RecommendationResult[];
+  result: RecommendationResultWithRank[];
   consistency_ratio: number;
 }
 
@@ -28,7 +32,7 @@ export interface StudentRecommendation {
 export interface StudentRecommendationDetail {
   ahp: {
     consistency_ratio: number;
-    result: RecommendationResult[];
+    result: RecommendationResultWithRank[];
   };
   topsis?: {
     id: number;

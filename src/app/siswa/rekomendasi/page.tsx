@@ -3,6 +3,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { protectedFetch } from "@/lib/api";
 import { type Metadata } from "next";
 import RecommendationCard from "./_components/recommendation-card";
+import { RecommendationCard as RecommendationCardV2 } from "./_components/v2/recommendation-card";
 import { TriangleAlert } from "lucide-react";
 import {
   type TopsisRecommendation,
@@ -62,7 +63,7 @@ export default async function RecommendationPage() {
         </AlertDescription>
       </Alert>
       <div className="mt-4 flex flex-col items-center gap-2 lg:flex-row">
-        <RecommendationCard
+        <RecommendationCardV2
           variant="AHP"
           data={recommendationsRes?.data.ahp.result}
         />

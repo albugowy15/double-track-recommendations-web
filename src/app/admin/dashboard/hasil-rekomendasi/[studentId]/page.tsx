@@ -1,4 +1,5 @@
 import RecommendationCard from "@/app/siswa/rekomendasi/_components/recommendation-card";
+import { RecommendationCard as RecommendationCardV2 } from "@/app/siswa/rekomendasi/_components/v2/recommendation-card";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { protectedFetch } from "@/lib/api";
@@ -62,7 +63,7 @@ export default async function StudentRecommendationDetailPage({
         </Alert>
       )}
       <div className="mt-4 flex flex-col gap-4">
-        <RecommendationCard
+        <RecommendationCardV2
           variant="AHP"
           data={recommendationDetailRes?.data.ahp.result}
         />
