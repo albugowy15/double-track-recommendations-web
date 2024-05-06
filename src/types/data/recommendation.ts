@@ -19,6 +19,11 @@ export interface TopsisRecommendation {
   id: number;
 }
 
+export interface TopsisAHPRecommendation {
+  result: RecommendationResult[];
+  id: number;
+}
+
 export interface StudentRecommendation {
   consistency_ratio: number;
   fullname: string;
