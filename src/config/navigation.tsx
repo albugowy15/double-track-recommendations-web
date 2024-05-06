@@ -21,10 +21,6 @@ export const homeNavigation: Navigation[] = [
     href: "/panduan",
     title: "Panduan",
   },
-  {
-    title: "Tentang",
-    href: "/tentang",
-  },
 ];
 
 export const studentNavigation: Navigation[] = [
