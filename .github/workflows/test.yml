@@ -12,6 +12,7 @@ concurrency:
 
 env:
   SKIP_ENV_VALIDATION: true
+  COREPACK_ENABLE_STRICT: 0
 
 jobs:
   typecheck:
@@ -24,8 +25,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: "pnpm"
+      - name: "Set pnpm with corepack"
+        run: corepack enable && corepack prepare pnpm@9.0.6 --activate
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i --frozen-lockfile
       - name: TypeScript
         run: pnpm typecheck
   lint:
@@ -38,8 +41,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: "pnpm"
+      - name: "Set pnpm with corepack"
+        run: corepack enable && corepack prepare pnpm@9.0.6 --activate
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i --frozen-lockfile
       - name: ESlint
         run: pnpm lint
   prettier:
@@ -52,7 +57,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: "pnpm"
+      - name: "Set pnpm with corepack"
+        run: corepack enable && corepack prepare pnpm@9.0.6 --activate
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i --frozen-lockfile
       - name: Prettier
         run: pnpm format:check
