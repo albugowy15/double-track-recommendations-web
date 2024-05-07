@@ -43,4 +43,8 @@ export interface StudentRecommendationDetail {
     id: number;
     result: RecommendationResult[];
   };
+  topsis_ahp?: {
+    id: number;
+    result: RecommendationResult[];
+  };
 }
