@@ -39,6 +39,8 @@ export default async function RecommendationPage() {
   }
 
   if (!recommendationsRes?.data) return null;
+
+  const isConsistent = recommendationsRes.data.ahp.consistency_ratio < 0.1;
   return (
     <main className="px-3 pt-5 md:container">
       <Typography variant="h2">
@@ -48,20 +50,28 @@ export default async function RecommendationPage() {
         Berikut hasil rekomendasi bidang keterampilan yang sesuai dengan
         preferensimu.
       </Typography>
-      <Alert variant="destructive" className="my-4 max-w-2xl">
-        <AlertTitle>Perhatian!</AlertTitle>
+      <Alert
+        variant={isConsistent ? "default" : "destructive"}
+        className="my-4 max-w-2xl"
+      >
+        <AlertTitle>{isConsistent ? "Selamat" : "Perhatian"}!</AlertTitle>
         <AlertDescription>
           Jawaban dari kuesioner yang telah kamu kerjakan{" "}
-          <strong>tidak konsisten</strong> dengan nilai Consistency Ratio
-          sebesar{" "}
+          <strong>{isConsistent ? "konsisten" : "tidak konsisten"}</strong>{" "}
+          dengan nilai Consistency Ratio sebesar{" "}
           <strong>
             {recommendationsRes.data.ahp.consistency_ratio.toFixed(4)}
           </strong>
-          . Sangat dianjurkan agar{" "}
-          <strong>
-            Anda mengulang mengisi kuesioner dengan jawaban yang konsisten
-          </strong>{" "}
-          untuk mendapatkan hasil rekomendasi terbaik.
+          .{" "}
+          {isConsistent ? null : (
+            <>
+              Sangat dianjurkan agar{" "}
+              <strong>
+                Anda mengulang mengisi kuesioner dengan jawaban yang konsisten
+              </strong>{" "}
+              untuk mendapatkan hasil rekomendasi terbaik.
+            </>
+          )}
         </AlertDescription>
       </Alert>
       <div className="mt-4 flex flex-col items-center gap-2 lg:flex-row">
