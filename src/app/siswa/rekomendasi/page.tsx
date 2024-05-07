@@ -69,6 +69,9 @@ export default async function RecommendationPage() {
           variant="AHP"
           data={recommendationsRes?.data.ahp.result}
         />
+        {/* <TopsisCard
+          data={recommendationsRes?.data.topsis.result}
+        />  */}
         <TopsisCard
           data={recommendationsRes?.data.topsis.result}
           topsis_ahp={recommendationsRes?.data.topsis_ahp.result}

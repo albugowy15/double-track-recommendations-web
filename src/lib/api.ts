@@ -46,8 +46,6 @@ export async function protectedFetch<T>(
     });
 
     const json = (await res.json()) as APIResponse<T>;
-    /* eslint-disable */
-    // console.log("topsis ahp", json.data?.topsis_ahp) 
     return {
       ok: res.ok,
       status: res.status,
