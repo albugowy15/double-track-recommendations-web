@@ -39,11 +39,11 @@ export interface StudentRecommendationDetail {
     consistency_ratio: number;
     result: RecommendationResultWithRank[];
   };
-  topsis?: {
+  topsis: {
     id: number;
     result: RecommendationResult[];
   };
-  topsis_ahp?: {
+  topsis_ahp: {
     id: number;
     result: RecommendationResult[];
   };
