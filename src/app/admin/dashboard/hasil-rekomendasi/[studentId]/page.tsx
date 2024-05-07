@@ -7,6 +7,7 @@ import { type Metadata } from "next";
 import React from "react";
 import { type StudentRecommendationDetail } from "@/types/data/recommendation";
 import { type Student } from "@/types/data/student";
+import { TopsisCard } from "@/app/siswa/rekomendasi/_components/topsis-card";
 
 export const metadata: Metadata = {
   title: "Detail Rekomendasi Siswa",
@@ -62,14 +63,19 @@ export default async function StudentRecommendationDetailPage({
           </AlertDescription>
         </Alert>
       )}
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="mt-4 flex flex-col items-center gap-4">
         <RecommendationCardV2
           variant="AHP"
           data={recommendationDetailRes?.data.ahp.result}
         />
-        <RecommendationCard
+        {/* <RecommendationCard
           variant="TOPSIS"
-          data={recommendationDetailRes?.data.ahp.result}
+          data={recommendationDetailRes?.data.topsis.result}
+        /> */}
+
+        <TopsisCard
+          data={recommendationDetailRes?.data.topsis.result}
+          topsis_ahp={recommendationDetailRes?.data.topsis_ahp.result}
         />
       </div>
     </main>
