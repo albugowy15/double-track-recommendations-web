@@ -2,13 +2,12 @@ import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { protectedFetch } from "@/lib/api";
 import { type Metadata } from "next";
-import RecommendationCard from "./_components/recommendation-card";
 import { RecommendationCard as RecommendationCardV2 } from "./_components/v2/recommendation-card";
 import { TriangleAlert } from "lucide-react";
 import {
   type TopsisRecommendation,
   type AhpRecommendation,
-  TopsisAHPRecommendation,
+  type TopsisAHPRecommendation,
 } from "@/types/data/recommendation";
 import { TopsisCard } from "./_components/topsis-card";
 
@@ -70,11 +69,11 @@ export default async function RecommendationPage() {
           variant="AHP"
           data={recommendationsRes?.data.ahp.result}
         />
-        {/* <RecommendationCard
-          variant="TOPSIS"
+        <TopsisCard
           data={recommendationsRes?.data.topsis.result}
-        /> */}
-        <TopsisCard data={recommendationsRes?.data.topsis.result} topsis_ahp={recommendationsRes?.data.topsis_ahp.result} />
+          topsis_ahp={recommendationsRes?.data.topsis_ahp.result}
+        />
       </div>
     </main>
   );
+}
