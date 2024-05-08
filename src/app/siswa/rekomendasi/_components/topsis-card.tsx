@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   Card,
   CardContent,
@@ -9,8 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type TopsisWeight } from "@/types/data/common";
-import { RecommendationResult } from "@/types/data/recommendation";
-import { useState } from "react";
+import { type RecommendationResult } from "@/types/data/recommendation";
 import RecommendationCard from "./recommendation-card";
 
 interface TopsisCardProps {
@@ -19,7 +19,7 @@ interface TopsisCardProps {
 }
 
 export const TopsisCard: React.FC<TopsisCardProps> = ({ data, topsis_ahp }) => {
-  const [tab, setTab] = useState<TopsisWeight>("entropy");
+  const [tab, setTab] = React.useState<TopsisWeight>("entropy");
   return (
     <>
       <Tabs defaultValue={tab} className="mx-auto">

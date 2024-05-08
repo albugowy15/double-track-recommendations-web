@@ -1,5 +1,4 @@
 import { columns } from "@/app/admin/dashboard/siswa/column";
-import { DataTable } from "@/app/admin/dashboard/_components/data-table";
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { UserPlus2 } from "lucide-react";
@@ -7,6 +6,8 @@ import { type Metadata } from "next";
 import Link from "next/link";
 import { protectedFetch } from "@/lib/api";
 import { type Student } from "@/types/data/student";
+import { type SchoolResponse } from "@/types/data/school";
+import { DataTable } from "@/components/ui/data-table";
 
 export const metadata: Metadata = {
   title: "Data Siswa",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default async function AdminStudentDashboardPage() {
   const [schoolResponse, studentResponse] = await Promise.all([
-    protectedFetch<{ id: string; name: string }>("/v1/school"),
+    protectedFetch<SchoolResponse>("/v1/school"),
     protectedFetch<Student[]>("/v1/students"),
   ]);
   if (!studentResponse && !schoolResponse) return null;

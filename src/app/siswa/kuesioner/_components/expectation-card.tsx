@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 async function QuestionnareExpectationCard() {
   const expectationStatusRes = await protectedFetch<{
     status: QuestionnareStatus;
-  }>("/v1/expectations/status", { method: "GET" });
+  }>("/v1/expectations/status");
   if (!expectationStatusRes?.data) return null;
   return (
     <Card>

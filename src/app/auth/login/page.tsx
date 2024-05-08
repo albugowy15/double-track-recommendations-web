@@ -1,5 +1,4 @@
 import { type Metadata } from "next";
-
 import { LoginForm } from "@/app/auth/login/_components/login-form";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "@/config/auth";
