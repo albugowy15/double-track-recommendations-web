@@ -1,5 +1,5 @@
-import { DataTable } from "../../_components/data-table";
-import { columns } from "../_column";
+import { DataTable } from "@/components/ui/data-table";
+import { columns } from "../column";
 import { protectedFetch } from "@/lib/api";
 import { type StudentRecommendation } from "@/types/data/recommendation";
 

@@ -34,7 +34,6 @@ async function saveExpectationsAction(data: ExpectationsFormSchema): FnAction {
   });
 
   try {
-    // console.log("expect:", expectationRequestData);
     const res = await protectedFetch("/v1/expectations", {
       method: "POST",
       body: {

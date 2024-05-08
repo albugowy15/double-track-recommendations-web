@@ -1,4 +1,3 @@
-import RecommendationCard from "@/app/siswa/rekomendasi/_components/recommendation-card";
 import { RecommendationCard as RecommendationCardV2 } from "@/app/siswa/rekomendasi/_components/v2/recommendation-card";
 import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -68,11 +67,6 @@ export default async function StudentRecommendationDetailPage({
           variant="AHP"
           data={recommendationDetailRes?.data.ahp.result}
         />
-        {/* <RecommendationCard
-          variant="TOPSIS"
-          data={recommendationDetailRes?.data.topsis.result}
-        /> */}
-
         <TopsisCard
           data={recommendationDetailRes?.data.topsis.result}
           topsis_ahp={recommendationDetailRes?.data.topsis_ahp.result}

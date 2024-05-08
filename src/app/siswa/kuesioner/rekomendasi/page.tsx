@@ -5,7 +5,7 @@ import Typography from "@/components/typography";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { TriangleAlert } from "lucide-react";
 import ResetQuestionnareButton from "./_components/restart-questionnare-button";
-import { type Question } from "@/types/data/question";
+import { type QuestionnareStatus, type Question } from "@/types/data/question";
 
 export const metadata: Metadata = {
   title: "Kuesioner Rekomendasi Siswa",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function RecommendationQuestionnarePage() {
   const questionnareStatusRes = await protectedFetch<{
-    status: "NOTREADY" | "READY" | "COMPLETED";
+    status: QuestionnareStatus;
   }>("/v1/questionnare/status");
   if (!questionnareStatusRes?.data) return null;
 
@@ -57,7 +57,7 @@ export default async function RecommendationQuestionnarePage() {
   const response = await protectedFetch<Question[]>(
     "/v1/questionnare/questions",
   );
-  const questions = response?.data ? response.data : [];
+  const questions = response?.data ?? [];
   return (
     <main className="px-3 pt-5 md:container">
       <Typography variant="h3" className="text-center">
