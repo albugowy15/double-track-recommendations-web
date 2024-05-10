@@ -5,18 +5,26 @@ interface DataProps {
   topsis: RecommendationResult[];
   topsis_ahp: RecommendationResult[];
   ahp: RecommendationResult[];
+  fullname: string;
+  nisn: string;
+  school: string;
+  consistency_avg: number | null | undefined
 }
 
 const SaveToPdf = async ({
   topsis,
   topsis_ahp,
   ahp,
+  fullname,
+  nisn,
+  school,
+  consistency_avg,
 }: DataProps): Promise<Uint8Array> => {
   const pdfDoc = await PDFDocument.create();
   const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
   const page = pdfDoc.addPage();
   const { width, height } = page.getSize();
-  const fontSize = 30;
+  const fontSize = 20;
 
   let yPosition = height - 4 * fontSize;
 
@@ -32,13 +40,66 @@ const SaveToPdf = async ({
   // Move down for the first data entry
   yPosition -= 2 * fontSize;
 
+  page.drawText(`Nama Lengkap : ${fullname}`, {
+    x: 50,
+    y: yPosition,
+    size: 15,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+  yPosition -= 1 * fontSize;
+
+  page.drawText(`NISN : ${nisn}`, {
+    x: 50,
+    y: yPosition,
+    size: 15,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+  yPosition -= 1 * fontSize;
+
+  page.drawText(`Sekolah : ${school}`, {
+    x: 50,
+    y: yPosition,
+    size: 15,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  yPosition -= 1 * fontSize;
+
+  page.drawText(`Konsistensi : ${consistency_avg}`, {
+    x: 50,
+    y: yPosition,
+    size: 15,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+  yPosition -= 2 * fontSize;
+
   // Write data entries for TOPSIS
   topsis.forEach(({ score, alternative }) => {
-    const text = `TOPSIS Score: ${score.toFixed(4)} | Alternatives: ${alternative}`;
+    const text = `TOPSIS dengan pembobotan entropy Score: ${score.toFixed(4)} | Alternatives: ${alternative}`;
     page.drawText(text, {
       x: 50,
       y: yPosition,
-      size: fontSize,
+      size: 12,
+      font: font,
+      color: rgb(0, 0, 0), // Black color
+    });
+    yPosition -= fontSize;
+  });
+
+  // Move down for the topsis_ahp section
+  yPosition -= fontSize * 2;
+
+  // Write data entries for topsis_ahp
+  topsis_ahp.forEach(({ score, alternative }) => {
+    const text = `TOPSIS dengan pembobotan AHP Score: ${score.toFixed(4)} | Alternatives: ${alternative}`;
+    page.drawText(text, {
+      x: 50,
+      y: yPosition,
+      size: 12,
       font: font,
       color: rgb(0, 0, 0), // Black color
     });
@@ -54,7 +115,7 @@ const SaveToPdf = async ({
     page.drawText(text, {
       x: 50,
       y: yPosition,
-      size: fontSize,
+      size: 12,
       font: font,
       color: rgb(0, 0, 0), // Black color
     });
