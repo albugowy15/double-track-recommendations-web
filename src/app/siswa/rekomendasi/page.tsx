@@ -15,6 +15,13 @@ export interface Recommendation {
   ahp: AhpRecommendation;
   topsis: TopsisRecommendation;
   topsis_ahp: TopsisAHPRecommendation;
+  consistency_avg: AhpRecommendation;
+}
+
+export interface StudentData {
+  fullname: string;
+  nisn: string;
+  school: string;
 }
 
 export default async function RecommendationPage() {
