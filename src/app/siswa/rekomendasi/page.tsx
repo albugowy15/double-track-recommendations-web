@@ -83,13 +83,7 @@ export default async function RecommendationPage() {
           topsis_ahp={recommendationsRes?.data.topsis_ahp.result}
         />
       </div>
-      <div>
-        <SavePdfButton 
-          topsis={recommendationsRes?.data.topsis.result}  
-          topsis_ahp={recommendationsRes?.data.topsis_ahp.result}
-          ahp={recommendationsRes?.data.ahp.result}
-          />
-      </div>
+      <SavePdfButton />
     </main>
   );
 }

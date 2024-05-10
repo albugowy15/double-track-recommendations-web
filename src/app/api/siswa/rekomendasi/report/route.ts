@@ -1,0 +1,26 @@
+import SaveToPdf from "@/app/siswa/rekomendasi/_components/save-pdf";
+import { type Recommendation } from "@/app/siswa/rekomendasi/page";
+import { protectedFetch } from "@/lib/api";
+
+export async function GET() {
+  const recommendationsRes = await protectedFetch<Recommendation>(
+    "/v1/recommendations/student",
+  );
+
+  if (!recommendationsRes.data)
+    return Response.json({ error: "Rekomendasi tidak ditermukan" });
+
+  const pdfBytes = await SaveToPdf({
+    topsis: recommendationsRes.data.topsis.result,
+    topsis_ahp: recommendationsRes.data.topsis_ahp.result,
+    ahp: recommendationsRes.data.ahp.result,
+  });
+
+  return new Response(pdfBytes, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Cache-Control": "private",
+    },
+  });
+}
