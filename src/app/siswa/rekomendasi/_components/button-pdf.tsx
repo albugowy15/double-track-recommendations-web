@@ -1,29 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import SaveToPdf from "./save-pdf";
-import { RecommendationResult } from "@/types/data/recommendation";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
-interface DataProps {
-    topsis: RecommendationResult[];
-    topsis_ahp: RecommendationResult[];
-    ahp: RecommendationResult[];
-}
+const SavePdfButton = () => {
+  const router = useRouter();
 
-const SavePdfButton: React.FC<DataProps> = ({ topsis, topsis_ahp, ahp }) => {
-    const [savingPdf, setSavingPdf] = useState<boolean>(false);
-    
-    const handleSavePdf = async () => {
-      setSavingPdf(true)
-      await SaveToPdf({ topsis, topsis_ahp, ahp });
-    //   setSavingPdf(false)
-    }
-  
-    return (
-      <button onClick={handleSavePdf} disabled={savingPdf}>
-        {savingPdf ? 'Saving PDF...' : 'Save as PDF'}
-      </button>
-    );
+  return (
+    <Button onClick={() => router.push("/api/siswa/rekomendasi/report")}>
+      Save as PDF
+    </Button>
+  );
 };
 
 export default SavePdfButton;
