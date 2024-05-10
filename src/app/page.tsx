@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main className="mt-28 flex flex-col items-center justify-center space-y-2 px-3 md:container">
+      {/* <img src={`/images/walikota_crop.png`} alt="Foto Walikota Mobile" width={377} height={505}/> */}
       <Typography variant="h2" className=" text-primary-500 text-center">
         Sistem Rekomendasi Pemilihan Keterampilan Program Double Track
       </Typography>
