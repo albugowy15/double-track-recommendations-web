@@ -46,6 +46,12 @@ const studentRegisterSchema = z.object({
   password: z.string({ required_error: "Password wajib diisi" }).min(6, {
     message: "Password minimal terdiri dari 6 karakter tanpa spasi",
   }),
+  confirmPassword: z
+    .string({ required_error: "Konfirmasi password wajib diisi" })
+    .min(6, {
+      message:
+        "Konfirmasi password minimal terdiri dari 6 karakter tanpa spasi",
+    }),
 });
 
 type StudentRegisterSchema = z.infer<typeof studentRegisterSchema>;
@@ -63,6 +69,13 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
     success: "Berhasil membuat akun siswa",
   });
   function onSubmit(data: StudentRegisterSchema) {
+    const isConfirmPasswordMatch = data.password === data.confirmPassword;
+    if (!isConfirmPasswordMatch) {
+      form.setError("confirmPassword", {
+        message: "Konfirmasi password tidak sama",
+      });
+      return;
+    }
     mutateRegisterStudent.mutate(registerStudentAction(data));
   }
 
@@ -93,6 +106,16 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>NISN</FormLabel>
+              <FormDescription>
+                Lupa NISN?{" "}
+                <a
+                  className="text-blue-600 font-bold"
+                  href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama"
+                  target="_blank"
+                >
+                  Cari NISN
+                </a>
+              </FormDescription>
               <FormControl>
                 <Input {...field} type="text" placeholder="NISN" />
               </FormControl>
@@ -159,6 +182,36 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormDescription>Minimal 6 karakter tanpa spasi</FormDescription>
+              <FormControl>
+                <div>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    {...field}
+                    placeholder="Password"
+                  />
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      className="text-sm py-1 font-medium text-blue-600 cursor-pointer w-fit"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? "Sembunyikan" : "Tampilkan"} password
+                    </button>
+                  </div>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Konfirmasi Password</FormLabel>
+              <FormDescription>Masukkan kembali password Anda</FormDescription>
               <FormControl>
                 <div>
                   <Input
