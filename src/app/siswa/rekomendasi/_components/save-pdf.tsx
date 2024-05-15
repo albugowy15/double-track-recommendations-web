@@ -8,7 +8,7 @@ interface DataProps {
   fullname: string;
   nisn: string;
   school: string;
-  consistency_avg: number | null | undefined
+  consistency_avg: number | null | undefined;
 }
 
 const SaveToPdf = async ({
@@ -46,7 +46,7 @@ const SaveToPdf = async ({
     size: 15,
     font: font,
     color: rgb(0, 0, 0),
-  })
+  });
   yPosition -= 1 * fontSize;
 
   page.drawText(`NISN : ${nisn}`, {
@@ -55,7 +55,7 @@ const SaveToPdf = async ({
     size: 15,
     font: font,
     color: rgb(0, 0, 0),
-  })
+  });
   yPosition -= 1 * fontSize;
 
   page.drawText(`Sekolah : ${school}`, {
@@ -64,7 +64,7 @@ const SaveToPdf = async ({
     size: 15,
     font: font,
     color: rgb(0, 0, 0),
-  })
+  });
 
   yPosition -= 1 * fontSize;
 
@@ -74,7 +74,7 @@ const SaveToPdf = async ({
     size: 15,
     font: font,
     color: rgb(0, 0, 0),
-  })
+  });
   yPosition -= 2 * fontSize;
 
   // Write data entries for TOPSIS

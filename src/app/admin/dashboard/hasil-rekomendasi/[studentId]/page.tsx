@@ -68,7 +68,7 @@ export default async function StudentRecommendationDetailPage({
           variant="AHP"
           data={recommendationDetailRes?.data.ahp.result}
         />
-        <RecommendationCard 
+        <RecommendationCard
           variant="TOPSIS"
           data={recommendationDetailRes.data.topsis_combinative.result}
         />
