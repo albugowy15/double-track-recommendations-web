@@ -5,6 +5,6 @@ interface StatisticsResponse {
 }
 
 type Role = "admin" | "student";
-type TopsisWeight = "entropy" | "ahp";
+type TopsisWeight = "entropy" | "ahp" | "combinatives";
 
 export { type StatisticsResponse, type Role, type TopsisWeight };
