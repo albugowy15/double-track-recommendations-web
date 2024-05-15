@@ -7,6 +7,7 @@ import React from "react";
 import { type StudentRecommendationDetail } from "@/types/data/recommendation";
 import { type Student } from "@/types/data/student";
 import { TopsisCard } from "@/app/siswa/rekomendasi/_components/topsis-card";
+import RecommendationCard from "@/app/siswa/rekomendasi/_components/recommendation-card";
 
 export const metadata: Metadata = {
   title: "Detail Rekomendasi Siswa",
@@ -67,10 +68,15 @@ export default async function StudentRecommendationDetailPage({
           variant="AHP"
           data={recommendationDetailRes?.data.ahp.result}
         />
-        <TopsisCard
+        <RecommendationCard 
+          variant="TOPSIS"
+          data={recommendationDetailRes.data.topsis_combinative.result}
+        />
+        {/* <TopsisCard
           data={recommendationDetailRes?.data.topsis.result}
           topsis_ahp={recommendationDetailRes?.data.topsis_ahp.result}
-        />
+          topsis_combinative={recommendationDetailRes?.data.topsis_combinative.result}
+        /> */}
       </div>
     </main>
   );

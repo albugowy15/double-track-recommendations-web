@@ -24,6 +24,11 @@ export interface TopsisAHPRecommendation {
   id: number;
 }
 
+export interface TOPSISCombinativesRecommendation {
+  result: RecommendationResult[];
+  id: number;
+}
+
 export interface StudentRecommendation {
   consistency_ratio: number;
   fullname: string;
@@ -31,7 +36,7 @@ export interface StudentRecommendation {
   id: number;
   nisn: string;
   ahp_results: RecommendationResult[];
-  topsis_results?: RecommendationResult[];
+  topsis_results: RecommendationResult[];
 }
 
 export interface StudentRecommendationDetail {
@@ -47,4 +52,8 @@ export interface StudentRecommendationDetail {
     id: number;
     result: RecommendationResult[];
   };
+  topsis_combinative: {
+    id: number;
+    result: RecommendationResult[];
+  }
 }
