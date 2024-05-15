@@ -19,7 +19,11 @@ interface TopsisCardProps {
   topsis_combinative: RecommendationResult[];
 }
 
-export const TopsisCard: React.FC<TopsisCardProps> = ({ data, topsis_ahp, topsis_combinative }) => {
+export const TopsisCard: React.FC<TopsisCardProps> = ({
+  data,
+  topsis_ahp,
+  topsis_combinative,
+}) => {
   const [tab, setTab] = React.useState<TopsisWeight>("entropy");
   return (
     <>

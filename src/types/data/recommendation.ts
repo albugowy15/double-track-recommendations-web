@@ -55,5 +55,5 @@ export interface StudentRecommendationDetail {
   topsis_combinative: {
     id: number;
     result: RecommendationResult[];
-  }
+  };
 }

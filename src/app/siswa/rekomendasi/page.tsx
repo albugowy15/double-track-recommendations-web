@@ -55,7 +55,7 @@ export default async function RecommendationPage() {
       </main>
     );
   }
-  
+
   if (!recommendationsRes?.data) return null;
 
   const isConsistent = recommendationsRes.data.ahp.consistency_ratio < 0.1;
@@ -105,7 +105,7 @@ export default async function RecommendationPage() {
           <SavePdfButton />
         </div>
       </div>
-     
+
       <div className="mt-4 flex-col items-center gap-2 lg:flex-row">
         <RecommendationCardV2
           variant="AHP"
@@ -114,14 +114,13 @@ export default async function RecommendationPage() {
         <RecommendationCard
           variant="TOPSIS"
           data={recommendationsRes?.data.topsis_combinative.result}
-        /> 
+        />
         {/* <TopsisCard
           data={recommendationsRes?.data.topsis.result}
           topsis_ahp={recommendationsRes?.data.topsis_ahp.result}
           topsis_combinative={recommendationsRes?.data.topsis_combinative.result}
         /> */}
       </div>
-     
     </main>
   );
 }
