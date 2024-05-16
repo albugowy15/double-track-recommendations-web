@@ -57,3 +57,30 @@ export interface StudentRecommendationDetail {
     result: RecommendationResult[];
   };
 }
+
+export interface Recommendation {
+  ahp: AhpRecommendation;
+  topsis: TopsisRecommendation;
+  topsis_ahp: TopsisAHPRecommendation;
+  topsis_combinative: TOPSISCombinativesRecommendation;
+  consistency_avg: AhpRecommendation;
+}
+
+export interface StudentData {
+  fullname: string;
+  nisn: string;
+  school: string;
+}
+
+export interface Weight {
+  interest: Float32Array;
+  facilities: Float32Array;
+  total_open_jobs: Float32Array;
+  salaries: Float32Array;
+  entrepreneur_opportunities: Float32Array;
+}
+
+export interface CriteriaWeights {
+  entropy: Weight;
+  ahp: Weight;
+}
