@@ -6,7 +6,6 @@ import { type Metadata } from "next";
 import React from "react";
 import { type StudentRecommendationDetail } from "@/types/data/recommendation";
 import { type Student } from "@/types/data/student";
-import { TopsisCard } from "@/app/siswa/rekomendasi/_components/topsis-card";
 import RecommendationCard from "@/app/siswa/rekomendasi/_components/recommendation-card";
 
 export const metadata: Metadata = {
