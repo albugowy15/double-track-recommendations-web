@@ -3,41 +3,14 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { protectedFetch } from "@/lib/api";
 import { RecommendationCard as RecommendationCardV2 } from "./_components/v2/recommendation-card";
 import { TriangleAlert } from "lucide-react";
-import {
-  type TopsisRecommendation,
-  type AhpRecommendation,
-  type TopsisAHPRecommendation,
-  type TOPSISCombinativesRecommendation,
-} from "@/types/data/recommendation";
+import { type Recommendation } from "@/types/data/recommendation";
 import SavePdfButton from "./_components/button-pdf";
 import RecommendationCard from "./_components/recommendation-card";
+import { type Metadata } from "next";
 
-export interface Recommendation {
-  ahp: AhpRecommendation;
-  topsis: TopsisRecommendation;
-  topsis_ahp: TopsisAHPRecommendation;
-  topsis_combinative: TOPSISCombinativesRecommendation;
-  consistency_avg: AhpRecommendation;
-}
-
-export interface StudentData {
-  fullname: string;
-  nisn: string;
-  school: string;
-}
-
-export interface Weight {
-  interest: Float32Array;
-  facilities: Float32Array;
-  total_open_jobs: Float32Array;
-  salaries: Float32Array;
-  entrepreneur_opportunities: Float32Array;
-}
-
-export interface CriteriaWeights {
-  entropy: Weight;
-  ahp: Weight;
-}
+export const metadata: Metadata = {
+  title: "Hasil Rekomendasi",
+};
 
 export default async function RecommendationPage() {
   const recommendationsRes = await protectedFetch<Recommendation>(
