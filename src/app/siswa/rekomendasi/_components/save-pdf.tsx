@@ -1,4 +1,4 @@
-import { RecommendationResult } from "@/types/data/recommendation";
+import { type RecommendationResult } from "@/types/data/recommendation";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
 interface DataProps {
@@ -23,7 +23,7 @@ const SaveToPdf = async ({
   const pdfDoc = await PDFDocument.create();
   const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
   const page = pdfDoc.addPage();
-  const { width, height } = page.getSize();
+  const { height } = page.getSize();
   const fontSize = 20;
 
   let yPosition = height - 4 * fontSize;

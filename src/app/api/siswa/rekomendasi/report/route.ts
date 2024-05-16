@@ -1,9 +1,10 @@
 import SaveToPdf from "@/app/siswa/rekomendasi/_components/save-pdf";
+
+import { protectedFetch } from "@/lib/api";
 import {
   type StudentData,
   type Recommendation,
-} from "@/app/siswa/rekomendasi/page";
-import { protectedFetch } from "@/lib/api";
+} from "@/types/data/recommendation";
 
 export async function GET() {
   const recommendationsRes = await protectedFetch<Recommendation>(
