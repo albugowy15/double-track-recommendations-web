@@ -40,7 +40,7 @@ const studentRegisterSchema = z.object({
   school: z
     .string({ required_error: "Sekolah wajib diisi" })
     .min(1, { message: "Sekolah wajib diisi" }),
-  username: z.string({ required_error: "Username wajib diisi" }).min(5, {
+  username: z.string({ required_error: "Username wajib diisi" }).min(8, {
     message: "Username minimal terdiri dari 5 karakter tanpa spasi",
   }),
   password: z.string({ required_error: "Password wajib diisi" }).min(6, {
