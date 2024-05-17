@@ -41,7 +41,7 @@ const studentRegisterSchema = z.object({
     .string({ required_error: "Sekolah wajib diisi" })
     .min(1, { message: "Sekolah wajib diisi" }),
   username: z.string({ required_error: "Username wajib diisi" }).min(8, {
-    message: "Username minimal terdiri dari 5 karakter tanpa spasi",
+    message: "Username minimal terdiri dari 6 karakter tanpa spasi",
   }),
   password: z.string({ required_error: "Password wajib diisi" }).min(6, {
     message: "Password minimal terdiri dari 6 karakter tanpa spasi",
@@ -166,7 +166,7 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
-              <FormDescription>Minimal 5 karakter tanpa spasi</FormDescription>
+              <FormDescription>Minimal 6 karakter tanpa spasi</FormDescription>
               <FormControl>
                 <Input {...field} type="text" placeholder="Username" />
               </FormControl>
