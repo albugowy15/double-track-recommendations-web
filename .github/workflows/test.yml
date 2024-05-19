@@ -26,7 +26,7 @@ jobs:
         with:
           cache: "pnpm"
       - name: "Set pnpm with corepack"
-        run: corepack enable && corepack prepare pnpm@9.0.6 --activate
+        run: corepack enable
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: TypeScript
@@ -42,7 +42,7 @@ jobs:
         with:
           cache: "pnpm"
       - name: "Set pnpm with corepack"
-        run: corepack enable && corepack prepare pnpm@9.0.6 --activate
+        run: corepack enable
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: ESlint
@@ -58,7 +58,7 @@ jobs:
         with:
           cache: "pnpm"
       - name: "Set pnpm with corepack"
-        run: corepack enable && corepack prepare pnpm@9.0.6 --activate
+        run: corepack enable
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: Prettier

@@ -14,7 +14,7 @@
     "check": "tsc --noEmit --incremental false && next lint && prettier -c ."
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.3.4",
+    "@hookform/resolvers": "^3.4.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -26,7 +26,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
-    "@tanstack/react-table": "^8.17.0",
+    "@tanstack/react-table": "^8.17.3",
     "class-variance-authority": "^0.7.0",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
@@ -44,7 +44,7 @@
     "@next/bundle-analyzer": "^14.2.3",
     "@tailwindcss/forms": "^0.5.7",
     "@types/eslint": "^8.56.10",
-    "@types/node": "^20.12.11",
+    "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
@@ -58,5 +58,5 @@
     "tailwindcss": "3.4.3",
     "typescript": "^5.4.5"
   },
-  "packageManager": "pnpm@9.0.6+sha256.0624e30eff866cdeb363b15061bdb7fd9425b17bc1bb42c22f5f4efdea21f6b3"
+  "packageManager": "pnpm@9.1.1+sha256.9551e803dcb7a1839fdf5416153a844060c7bce013218ce823410532504ac10b"
 }
