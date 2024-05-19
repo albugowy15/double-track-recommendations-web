@@ -29,12 +29,12 @@ import React from "react";
 import { type Role } from "@/types/data/common";
 
 const loginFormSchema = z.object({
-  username: z
-    .string({ required_error: "Username wajib diisi" })
-    .min(1, "Username tidak boleh kosong"),
-  password: z
-    .string({ required_error: "Password wajib diisi" })
-    .min(1, "Password tidak boleh kosong"),
+  username: z.string({ required_error: "Username wajib diisi" }).min(6, {
+    message: "Username minimal terdiri dari 6 karakter tanpa spasi",
+  }),
+  password: z.string({ required_error: "Password wajib diisi" }).min(6, {
+    message: "Password minimal terdiri dari 6 karakter tanpa spasi",
+  }),
 });
 
 type LoginForm = z.infer<typeof loginFormSchema>;
@@ -109,7 +109,7 @@ const LoginInput = ({
               <FormLabel>Username</FormLabel>
               <FormDescription>Masukkan username Anda</FormDescription>
               <FormControl>
-                <Input {...field} placeholder="Username" />
+                <Input {...field} type="text" placeholder="Username" />
               </FormControl>
               <FormMessage />
             </FormItem>

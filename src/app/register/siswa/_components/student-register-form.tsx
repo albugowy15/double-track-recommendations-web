@@ -40,7 +40,7 @@ const studentRegisterSchema = z.object({
   school: z
     .string({ required_error: "Sekolah wajib diisi" })
     .min(1, { message: "Sekolah wajib diisi" }),
-  username: z.string({ required_error: "Username wajib diisi" }).min(8, {
+  username: z.string({ required_error: "Username wajib diisi" }).min(6, {
     message: "Username minimal terdiri dari 6 karakter tanpa spasi",
   }),
   password: z.string({ required_error: "Password wajib diisi" }).min(6, {
@@ -80,8 +80,13 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
   }
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   function handleShowPassword() {
     setShowPassword(!showPassword);
+  }
+
+  function handleShowConfirmPassword() {
+    setShowConfirmPassword(!showConfirmPassword);
   }
 
   return (
@@ -215,7 +220,7 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
               <FormControl>
                 <div>
                   <Input
-                    type={showPassword ? "text" : "password"}
+                    type={showConfirmPassword ? "text" : "password"}
                     {...field}
                     placeholder="Password"
                   />
@@ -223,9 +228,10 @@ function StudentRegisterForm(props: StudentRegisterFormProps) {
                     <button
                       type="button"
                       className="text-sm py-1 font-medium text-blue-600 cursor-pointer w-fit"
-                      onClick={handleShowPassword}
+                      onClick={handleShowConfirmPassword}
                     >
-                      {showPassword ? "Sembunyikan" : "Tampilkan"} password
+                      {showConfirmPassword ? "Sembunyikan" : "Tampilkan"}{" "}
+                      password
                     </button>
                   </div>
                 </div>
