@@ -1,4 +1,4 @@
-name: Test
+name: CI
 
 on:
   push:
@@ -18,15 +18,11 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
           cache: "pnpm"
-      - name: "Set pnpm with corepack"
-        run: corepack enable
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: TypeScript
@@ -34,15 +30,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
           cache: "pnpm"
-      - name: "Set pnpm with corepack"
-        run: corepack enable
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: ESlint
@@ -50,15 +42,11 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
           cache: "pnpm"
-      - name: "Set pnpm with corepack"
-        run: corepack enable
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
       - name: Prettier
