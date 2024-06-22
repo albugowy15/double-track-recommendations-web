@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/albugowy15/double-track-recommendations-web/compare/v1.0.0...v1.1.0) (2024-06-22)
+
+
+### Features
+
+* use pdf report template ([1d1e4f6](https://github.com/albugowy15/double-track-recommendations-web/commit/1d1e4f679467f63a0c06a8f78e46fe6973ebd74e))
+
 ## 1.0.0 (2024-06-19)
 
 
