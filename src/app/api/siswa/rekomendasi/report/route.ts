@@ -4,15 +4,15 @@ import type { Recommendation } from "@/types/data/recommendation";
 import { type StudentProfileResponse } from "@/types/data/student";
 import { type NextRequest } from "next/server";
 
+export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   try {
     const [recommendationRes, studentRes] = await Promise.all([
-      await protectedFetch<Recommendation>("/v1/recommendations/student"),
-      await protectedFetch<StudentProfileResponse>("/v1/students/profile"),
+      protectedFetch<Recommendation>("/v1/recommendations/student"),
+      protectedFetch<StudentProfileResponse>("/v1/students/profile"),
     ]);
     if (!recommendationRes.data)
       return Response.json({ error: "Rekomendasi tidak ditemukan" });
-
     if (!studentRes.data)
       return Response.json({ error: "Data siswa tidak ditemukan" });
 
