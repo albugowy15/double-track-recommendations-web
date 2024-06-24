@@ -18,8 +18,16 @@ export interface Navigation {
 
 export const homeNavigation: Navigation[] = [
   {
+    href: "/",
+    title: "Home",
+  },
+  {
     href: "/panduan",
     title: "Panduan",
+  },
+  {
+    href: "https://www.smadt.id/about",
+    title: "Tentang",
   },
 ];
 
