@@ -1,3 +1,5 @@
+import { type AnswerResult } from "./answer";
+
 export interface RecommendationResult {
   alternative: string;
   description?: string;
@@ -37,6 +39,7 @@ export interface StudentRecommendation {
   nisn: string;
   ahp_results: RecommendationResult[];
   topsis_results: RecommendationResult[];
+  answers: AnswerResult[];
 }
 
 export interface StudentRecommendationDetail {

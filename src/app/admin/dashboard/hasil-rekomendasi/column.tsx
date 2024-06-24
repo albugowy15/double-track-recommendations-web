@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Eye } from "lucide-react";
+import { ArrowUpDown, Eye, MessageCircleIcon } from "lucide-react";
 import Link from "next/link";
 import DeleteRecommendationDialog from "./_components/delete-recommendation-dialog";
 import { type StudentRecommendation } from "@/types/data/recommendation";
@@ -122,12 +122,19 @@ export const columns: ColumnDef<StudentRecommendation>[] = [
       const recommendation = row.original;
       const detailUrl =
         "/admin/dashboard/hasil-rekomendasi/" + recommendation.student_id;
-
+      const detailAnswerurl =
+        "/admin/dashboard/hasil-rekomendasi/jawaban/" +
+        recommendation.student_id;
       return (
         <div className="flex items-center gap-2">
           <Button asChild size="icon">
             <Link href={detailUrl}>
               <Eye className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild size="icon">
+            <Link href={detailAnswerurl}>
+              <MessageCircleIcon className="h-4 w-4" />
             </Link>
           </Button>
           <DeleteRecommendationDialog recommendation={recommendation} />
