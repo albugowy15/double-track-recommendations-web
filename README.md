@@ -3,12 +3,12 @@
     <h1>Double Track Recommendation Web</h1>
   </a>
 
-  <p>A Web Based Recommendation System For Double Track Program Skill Selection Using The Analytic Hierarchy Process (AHP)</p>
+  <p>A Web Based Recommendation System For Double Track Program Skill Selection</p>
 </div>
 
 ## Description
 
-Double Track is a program in East Java Province aimed at reducing unemployment among high school graduates by offering skills training in seven fields: multimedia, culinary arts, fashion design, beauty care, electrical engineering, electrical installation, and light vehicle engineering. However, if students choose a field that doesn't match their aspirations, it can lead to wasted time and frustration. To address this, a web-based recommendation system is being developed. It uses the Analytic Hierarchy Process (AHP) method to help students select a skill field based on factors like job availability, salary, interest, facility support, and entrepreneurial opportunities, aiming to provide informed decision-making support.
+Double Track is a program in East Java Province aimed at reducing unemployment among high school graduates by offering skills training in seven fields: multimedia, culinary arts, fashion design, beauty care, electrical engineering, electrical installation, and light vehicle engineering. However, if students choose a field that doesn't match their aspirations, it can lead to wasted time and frustration. To address this, a web-based recommendation system is being developed. It uses the AHP and TOPSIS method to help students select a skill field based on factors like job availability, salary, interest, facility support, and entrepreneurial opportunities, aiming to provide informed decision-making support.
 
 ## Important Resource
 
