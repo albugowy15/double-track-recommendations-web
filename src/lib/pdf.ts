@@ -1,4 +1,5 @@
 import { type RecommendationResultWithRank } from "@/types/data/recommendation";
+import { type StudentProfileResponse } from "@/types/data/student";
 import { PDFDocument, StandardFonts } from "pdf-lib";
 
 const crInconsistenExplainsText = `
@@ -17,7 +18,7 @@ const crConsistenExplainsText = `
 const createPDFReport = async (
   template: ArrayBuffer,
   data: {
-    studentName: string;
+    student: StudentProfileResponse;
     consistencyRatio: number;
     ahpResults: RecommendationResultWithRank[];
   },
@@ -33,33 +34,55 @@ const createPDFReport = async (
 
   const firstPage = pages[0]!;
   const { width, height } = firstPage.getSize();
-  firstPage.drawText(data.studentName, {
-    x: 108,
-    y: 73,
-    size: 22,
-    font: helveticaBoldFont,
+
+  // write student profile
+  const profilePage = pages[2]!;
+  profilePage.drawText(data.student.fullname, {
+    x: 190,
+    y: height - 216,
+    font: helveticaFont,
+    size: 12,
+  });
+  profilePage.drawText(data.student.nisn, {
+    x: 190,
+    y: height - 216 - 31,
+    font: helveticaFont,
+    size: 12,
+  });
+  profilePage.drawText(data.student.email ?? "", {
+    x: 190,
+    y: height - 216 - 31 * 2,
+    font: helveticaFont,
+    size: 12,
+  });
+  profilePage.drawText(data.student.school, {
+    x: 190,
+    y: height - 216 - 31 * 3,
+    font: helveticaFont,
+    size: 12,
   });
 
-  const thirdPage = pages[2]!;
+  // write ahp result
+  const ahpPage = pages[3]!;
   const roundedCr = data.consistencyRatio.toFixed(2);
-  thirdPage.drawText(`CR = ${roundedCr}`, {
+  ahpPage.drawText(`CR = ${roundedCr}`, {
     x: 80,
-    y: height / 2 + 116,
+    y: height / 2 + 65,
     size: 22,
     font: helveticaBoldFont,
   });
   if (parseFloat(roundedCr) < 0.1) {
-    thirdPage.drawText(crConsistenExplainsText, {
+    ahpPage.drawText(crConsistenExplainsText, {
       x: 190,
-      y: height / 2 + 145,
+      y: height / 2 + 100,
       size: 14,
       font: helveticaItalicFont,
       lineHeight: 16.0,
     });
   } else {
-    thirdPage.drawText(crInconsistenExplainsText, {
+    ahpPage.drawText(crInconsistenExplainsText, {
       x: 190,
-      y: height / 2 + 162,
+      y: height / 2 + 120,
       size: 11.3,
       font: helveticaItalicFont,
       lineHeight: 16.0,
@@ -67,21 +90,21 @@ const createPDFReport = async (
   }
 
   data.ahpResults.forEach((result, idx) => {
-    thirdPage.drawText(result.rank.toString(), {
-      x: 67,
-      y: height / 2 + 9 - idx * 40,
+    ahpPage.drawText(result.rank.toString(), {
+      x: 100,
+      y: height / 2 - 60 - idx * 40,
       size: 12,
       font: helveticaFont,
     });
-    thirdPage.drawText(result.alternative, {
-      x: 178,
-      y: height / 2 + 9 - idx * 40,
+    ahpPage.drawText(result.alternative, {
+      x: 180,
+      y: height / 2 - 60 - idx * 40,
       size: 12,
       font: helveticaFont,
     });
-    thirdPage.drawText(result.score.toFixed(4), {
+    ahpPage.drawText(result.score.toFixed(4), {
       x: width - 199,
-      y: height / 2 + 9 - idx * 40,
+      y: height / 2 - 60 - idx * 40,
       size: 12,
       font: helveticaFont,
     });

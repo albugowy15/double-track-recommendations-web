@@ -1,13 +1,14 @@
 import { protectedFetch } from "@/lib/api";
 import { createPDFReport } from "@/lib/pdf";
-import type { Recommendation, StudentData } from "@/types/data/recommendation";
+import type { Recommendation } from "@/types/data/recommendation";
+import { type StudentProfileResponse } from "@/types/data/student";
 import { type NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const [recommendationRes, studentRes] = await Promise.all([
       await protectedFetch<Recommendation>("/v1/recommendations/student"),
-      await protectedFetch<StudentData>("/v1/students/profile"),
+      await protectedFetch<StudentProfileResponse>("/v1/students/profile"),
     ]);
     if (!recommendationRes.data)
       return Response.json({ error: "Rekomendasi tidak ditemukan" });
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest) {
     const pdfTemplate = await fetch(pdfUrl);
     const pdfBuffer = await pdfTemplate.arrayBuffer();
     const pdfBytes = await createPDFReport(pdfBuffer, {
-      studentName: studentRes.data.fullname,
+      student: studentRes.data,
       consistencyRatio: recommendationRes.data.ahp.consistency_ratio,
       ahpResults: recommendationRes.data.ahp.result,
     });
