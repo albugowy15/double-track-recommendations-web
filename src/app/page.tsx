@@ -20,16 +20,16 @@ export default function HomePage() {
       </Typography>
       <Typography variant="body1" className="text-center">
         Aplikasi pemberian rekomendasi bidang keterampilan untuk peserta program
-        Double Track dengan berdasarkan kriteria jumlah lapangan pekerjaan,
-        gaji, minat, peluang wirausaha, dan dukungan fasilitas.
+        Double Track berdasarkan kriteria jumlah lapangan pekerjaan, gaji,
+        minat, peluang wirausaha, dan dukungan fasilitas.
       </Typography>
       <div className="py-1" />
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6">
         <Button variant="outline" asChild>
-          <Link href="/tentang">
+          <a href="https://www.smadt.id/about" target="_blank">
             <Info className="mr-2 h-4 w-4" />
-            Tentang Aplikasi
-          </Link>
+            Tentang Double Track
+          </a>
         </Button>
         <Button variant="outline" asChild>
           <Link href="/panduan">
