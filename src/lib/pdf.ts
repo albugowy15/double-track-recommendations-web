@@ -22,7 +22,7 @@ const createPDFReport = async (
     consistencyRatio: number;
     ahpResults: RecommendationResultWithRank[];
   },
-): Promise<Uint8Array> => {
+) => {
   const pdfDoc = await PDFDocument.load(template);
   const helveticaBoldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const helveticaItalicFont = await pdfDoc.embedFont(
@@ -110,7 +110,9 @@ const createPDFReport = async (
     });
   });
 
-  return await pdfDoc.save();
+  const reportPdf = await pdfDoc.save();
+
+  return reportPdf;
 };
 
 export { createPDFReport };
