@@ -1,9 +1,8 @@
 import { Loader2, Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
-
-import { homeNavigation } from "@/config/navigation";
+import { homeNavigation, type Navigation } from "@/config/navigation";
 import {
   Sheet,
   SheetClose,
@@ -13,24 +12,47 @@ import {
 import React from "react";
 import UserNav from "@/components/layout/user-nav";
 
+interface NavItemProps {
+  nav: Navigation;
+}
+
+function NavItem(props: NavItemProps) {
+  const isExternalLink = props.nav.href.startsWith("http");
+  if (isExternalLink) {
+    return (
+      <a
+        className="text-sm font-medium transition-colors hover:text-primary"
+        href={props.nav.href}
+        target="_blank"
+      >
+        {props.nav.title}
+      </a>
+    );
+  }
+  return (
+    <Link
+      className="text-sm font-medium transition-colors hover:text-primary"
+      href={props.nav.href}
+    >
+      {props.nav.title}
+    </Link>
+  );
+}
+
 const Navbar = () => {
   return (
     <header className="flex items-center justify-between border-b px-3 py-2 md:container">
-      <nav className="hidden items-center space-x-4 md:flex lg:space-x-6">
-        <Link
-          className="font-bold transition-colors hover:text-primary"
-          href="/"
-        >
-          DT Rekomendasi
+      <nav className="hidden items-center space-x-6 md:flex lg:space-x-6">
+        <Link href="/">
+          <Image
+            alt="logo double track"
+            src="/images/double_track_logo.png"
+            height={70}
+            width={140}
+          />
         </Link>
         {homeNavigation.map((item) => (
-          <Link
-            className="text-sm font-medium transition-colors hover:text-primary"
-            key={item.title}
-            href={item.href}
-          >
-            {item.title}
-          </Link>
+          <NavItem nav={item} key={item.href} />
         ))}
       </nav>
       <Sheet>
@@ -41,8 +63,13 @@ const Navbar = () => {
         </SheetTrigger>
         <SheetContent side="left">
           <div className="flex flex-col items-start gap-3 py-4">
-            <Link href="/" className="font-bold">
-              DT Rekomendasi
+            <Link href="/">
+              <Image
+                alt="logo double track"
+                src="/images/double_track_logo.png"
+                height={70}
+                width={140}
+              />
             </Link>
             {homeNavigation.map((item, index) => (
               <SheetClose key={index} asChild>
