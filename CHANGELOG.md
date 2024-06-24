@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/albugowy15/double-track-recommendations-web/compare/v1.0.0...v1.1.0) (2024-06-24)
+
+
+### Features
+
+* add double track logo on navbar ([fed9870](https://github.com/albugowy15/double-track-recommendations-web/commit/fed98704c5de0a674b64e2b009e617c962a1dc99))
+* update pdf report template ([5f28937](https://github.com/albugowy15/double-track-recommendations-web/commit/5f28937ca20b4deed378b7c307d170084eeecf8e))
+* use pdf report template ([1d1e4f6](https://github.com/albugowy15/double-track-recommendations-web/commit/1d1e4f679467f63a0c06a8f78e46fe6973ebd74e))
+
+
+### Bug Fixes
+
+* DynamicServerError when access pdf report route handler ([968a6b5](https://github.com/albugowy15/double-track-recommendations-web/commit/968a6b508a7a1f7c81d1f5620b0fe488fcbffabc))
+
 ## 1.0.0 (2024-06-19)
 
 
