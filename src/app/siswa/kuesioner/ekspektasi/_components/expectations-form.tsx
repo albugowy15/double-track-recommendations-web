@@ -57,6 +57,15 @@ interface ExpectationsFormProps {
 function ExpectationsForm(props: ExpectationsFormProps) {
   const form = useForm<ExpectationsFormSchema>({
     resolver: zodResolver(expectationsFormSchema),
+    defaultValues: {
+      first: "5",
+      second: "6",
+      third: "4",
+      fourth: "1",
+      fifth: "2",
+      sixth: "3",
+      seventh: "7",
+    },
   });
 
   const mutateExpectation = useToastMutate({
