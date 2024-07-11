@@ -60,12 +60,7 @@ async function QuestionnareRecommendationCard() {
       {questionnareStatusRes.data.status === "NOTREADY" ? null : (
         <CardFooter>
           <Button asChild variant="default" disabled>
-            <Link href="/siswa/kuesioner/rekomendasi">
-              {questionnareStatusRes.data.status === "COMPLETED"
-                ? "Ulang"
-                : "Isi"}{" "}
-              Kuesioner
-            </Link>
+            <Link href="/siswa/kuesioner/rekomendasi">Isi Kuesioner</Link>
           </Button>
         </CardFooter>
       )}

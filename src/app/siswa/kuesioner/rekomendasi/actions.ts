@@ -20,7 +20,7 @@ export async function submitAnswer(
     return { error: "Terjadi Kesalahan" };
   }
   revalidatePath("/siswa/kuesioner");
-  redirect("/siswa/rekomendasi");
+  redirect("/siswa/kuesioner");
 }
 
 export async function restartQuestionnareAction() {
