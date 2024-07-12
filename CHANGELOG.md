@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/albugowy15/double-track-recommendations-web/compare/v1.1.0...v1.2.0) (2024-07-12)
+
+
+### Features
+
+* autofill questionnare ([64adae6](https://github.com/albugowy15/double-track-recommendations-web/commit/64adae65eb3b1eddb90f046fb4f601d8cda10cd4))
+* default expectations answers ([84ee1d2](https://github.com/albugowy15/double-track-recommendations-web/commit/84ee1d2fe141501c3edaca1d9bdf14ea69412988))
+
+
+### Bug Fixes
+
+* redirect to `siswa/kuesioner` page after complete recommendation questionnare ([5641b19](https://github.com/albugowy15/double-track-recommendations-web/commit/5641b19a62025111c073860146d232c11e42b070))
+
 ## [1.1.0](https://github.com/albugowy15/double-track-recommendations-web/compare/v1.0.0...v1.1.0) (2024-06-24)
 
 
